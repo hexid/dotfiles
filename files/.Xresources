@@ -1,0 +1,56 @@
+URxvt.perl-ext-common: default,matcher,-option-popup,-selection-popup,-realine,vtwheel,clipboard
+
+! enable clicking on links
+URxvt*.matcher.button: 1
+URxvt*.url-launcher: /usr/bin/google-chrome-unstable
+
+! enable "real" transparency
+!URxvt*.depth: 32
+!URxvt*.background: rgba:1111/1111/1111/dddd
+
+! enable "fake" transparency
+!URxvt*.transparent: true
+!URxvt*.shading: 120
+
+! Change window dimensions
+!URxvt*.geometry: 100x24
+
+! Disable scroll bar
+URxvt*.scrollBar: false
+
+! Change font
+!URxvt*.font: xft:Terminus:pixelsize=11
+URxvt*.font: xft:DejaVu Sans Mono:size=10
+
+! Clipboard
+URxvt.iso14755: false
+URxvt.keysym.C-C: perl:clipboard:copy
+URxvt.keysym.C-V: perl:clipboard:paste
+
+! Colors
+*background: #161713
+*foreground: #C0C0C0
+! Black
+*color8:  #2E3436
+*color0:  #555753
+! Red
+*color9:  #EF2929
+*color1:  #A40000
+! Green
+*color10: #8AE234
+*color2:  #4E9A06
+! Yellow
+*color11: #FCAF3E
+*color3:  #CE5C00
+! Blue
+*color12: #729FCF
+*color4:  #3465A4
+! Magenta
+*color13: #AD7FA8
+*color5:  #75507B
+! Cyan
+*color14: #6D878D
+*color6:  #42717B
+! White
+*color15: #BABDB9
+*color7:  #EEEEEC
