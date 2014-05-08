@@ -17,6 +17,9 @@ bgcolor=$(hc get frame_border_normal_color)
 selbg=$(hc get window_border_active_color)
 selfg='#101010'
 
+active_color='#ffffff'
+normal_color='#ababab'
+
 ####
 # Try to find textwidth binary.
 # In e.g. Ubuntu, this is named dzen2-textwidth.
@@ -53,17 +56,17 @@ else
 fi
 
 battery_widget() {
-    echo "^fg(#909090)Power: ^fg(#efefef)$(expr $(expr $(cat /sys/class/power_supply/BAT0/charge_now) \* 100) / $(cat /sys/class/power_supply/BAT0/charge_full))%"
+    echo "^fg($normal_color)Power: ^fg($active_color)$(expr $(expr $(cat /sys/class/power_supply/BAT0/charge_now) \* 100) / $(cat /sys/class/power_supply/BAT0/charge_full))%"
 }
 date_widget() {
-    date +$'date\t^fg(#efefef)%-d ^fg(#909090)%b %Y ^fg(#efefef)%H:%M'
+    date +"date\t^fg($active_color)%-d ^fg($normal_color)%b %Y ^fg($active_color)%H:%M"
 }
 network_widget() {
     addr=$(ifconfig | sed -En 's/127.0.0.1//;s/.*inet (addr:)?(([0-9]*\.){3}[0-9]*).*/\2/p')
-    echo -e "network\t^fg(#909090)IP: ^fg(#efefef)$([[ -z ${addr} ]] && echo 'None' || echo ${addr})"
+    echo -e "network\t^fg($normal_color)IP: ^fg($active_color)$([[ -z ${addr} ]] && echo 'None' || echo ${addr})"
 }
 volume_widget() {
-    echo "^fg(#909090)Vol: ^fg(#efefef)$(amixer -D pulse sget Master | grep 'Front Left:' | cut -d ' ' -f7,8 | sed 's/\[//g;s/\]//g;s/off/Muted/;s/ on//')"
+    echo "^fg($normal_color)Vol: ^fg($active_color)$(amixer -D pulse sget Master | grep 'Front Left:' | cut -d ' ' -f7,8 | sed 's/\[//g;s/\]//g;s/off/Mute/;s/ on//')"
 }
 
 hc pad $monitor $panel_height
@@ -78,10 +81,7 @@ windowtitle=""
     ### Event generator ###
     # based on different input data (mpc, date, hlwm hooks, ...) this generates events, formed like this:
     #   <eventname>\t<data> [...]
-    # e.g.
-    #   date    ^fg(#efefef)18:33^fg(#909090), 2013-10-^fg(#efefef)29
 
-    #mpc idleloop player &
     while true ; do
         # "date" output is checked once a second, but an event is only
         # generated if the output changed compared to the previous run.
@@ -101,27 +101,27 @@ windowtitle=""
         # This part prints dzen data based on the _previous_ data
         # handling run, and then waits for the next event to happen.
 
-        battery=$(battery_widget)
+        battery=$(battery_widget) # only update the battery when another event is triggered
 
         bordercolor="#26221C"
         separator="^bg()^fg($selbg)|"
         # draw tags
         for i in "${tags[@]}" ; do
             case ${i:0:1} in
-                '#')
+                '#') # current
                     echo -n "^bg($selbg)^fg($selfg)"
                     ;;
                 '+')
                     echo -n "^bg(#9CA668)^fg(#141414)"
                     ;;
-                ':')
-                    echo -n "^bg()^fg(#ffffff)"
+                ':') # active
+                    echo -n "^bg()^fg($active_color)"
                     ;;
                 '!')
                     echo -n "^bg(#FF0675)^fg(#141414)"
                     ;;
-                *)
-                    echo -n "^bg()^fg(#ababab)"
+                *) # inactive
+                    echo -n "^bg()^fg($normal_color)"
                     ;;
             esac
             if [ ! -z "$dzen2_svn" ] ; then
