@@ -9,8 +9,11 @@ if [ -f /usr/share/git/completion/git-prompt.sh ]; then
     #GIT_PS1_SHOWSTASHSTATE=1
     #GIT_PS1_SHOWUNTRACKEDFILES=1
 fi
-if [ -f ~/.aliases ]; then
-    source ~/.aliases
+if [ -f ~/.bash_aliases ]; then
+    source ~/.bash_aliases
+fi
+if [ -f ~/.bash_functions ]; then
+    source ~/.bash_functions
 fi
 if [ -f ~/.dircolors ]; then
     eval "$(dircolors ~/.dircolors)"
