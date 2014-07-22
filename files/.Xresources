@@ -20,7 +20,7 @@ URxvt*.scrollBar: false
 
 ! Change font
 !URxvt*.font: xft:Terminus:pixelsize=11
-URxvt*.font: xft:DejaVu Sans Mono:size=10
+URxvt*.font: xft:DejaVu Sans Mono:size=9
 
 ! Clipboard
 URxvt.iso14755: false

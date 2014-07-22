@@ -23,10 +23,12 @@ fi
 
 function prompt_gen() {
     let ret=$? # must be first
-    local fill=$(printf '%*s' "$(tput cols)" | tr ' ' '-')
-    export PS1="$fill\r[\[\033[1;34m\]\u@\h\033[0;m\]::\[\033[1;31m\]\$ret\[\033[0;m\]] [\[\033[1;32m\]\${PWD##*/}\[\033[0;m\]\$(__git_ps1 \"::\[\033[1;34m\]%s\[\033[0;m\]\")] \nλ "
+    local fill=$(printf "%$(tput cols)s\n" | sed "s/ /─/g")
+    export PS1="$fill\r[\[\033[1;34m\]\u@\h\033[0;m\]::\[\033[1;31m\]\$ret\[\033[0;m\]]\033[1C[\[\033[1;32m\]\${PWD##*/}\[\033[0;m\]\$(__git_ps1 \"::\[\033[1;34m\]%s\[\033[0;m\]\")]\nλ "
 }
 PROMPT_COMMAND=prompt_gen
+
+PATH="`ruby -e 'puts Gem.user_dir'`/bin:$PATH"
 
 export EDITOR="vim"
 

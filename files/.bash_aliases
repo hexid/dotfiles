@@ -1,13 +1,12 @@
 alias dir='dir --color=auto'
 alias dmesg='dmesg --color=auto'
 alias grep='grep --color=auto'
-alias ll='ls -lA'
 alias ls='ls --color=auto'
-
-alias monitors='arandr'
-alias sound='pavucontrol'
+alias ll='ls -lA'
 
 alias pycalc='python -ic "from math import *"'
+
+alias clip='xsel --clipboard --input <'
 
 alias subl3='subl3 -n'
 
