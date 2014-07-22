@@ -41,19 +41,19 @@ else
     dzen2_svn=""
 fi
 
-if awk -Wv 2>/dev/null | head -1 | grep -q '^mawk'; then
-    # mawk needs "-W interactive" to line-buffer stdout correctly
-    # http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=593504
-    uniq_linebuffered() {
-      awk -W interactive '$0 != l { print ; l=$0 ; fflush(); }' "$@"
-    }
-else
+#if awk -Wv 2>/dev/null | head -1 | grep -q '^mawk'; then
+#    # mawk needs "-W interactive" to line-buffer stdout correctly
+#    # http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=593504
+#    uniq_linebuffered() {
+#      awk -W interactive '$0 != l { print ; l=$0 ; fflush(); }' "$@"
+#    }
+#else
     # other awk versions (e.g. gawk) issue a warning with "-W interactive", so
     # we don't want to use it there.
     uniq_linebuffered() {
       awk '$0 != l { print ; l=$0 ; fflush(); }' "$@"
     }
-fi
+#fi
 
 battery_widget() {
     echo "^fg($normal_color)Power: ^fg($active_color)$(expr $(expr $(cat /sys/class/power_supply/BAT0/charge_now) \* 100) / $(cat /sys/class/power_supply/BAT0/charge_full))%"
