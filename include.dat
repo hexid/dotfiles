@@ -2,5 +2,6 @@
 .bash_functions
 .bashrc
 .config/herbstluftwm/
+.fehbg.png
 .xinitrc
 .Xresources
