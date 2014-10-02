@@ -23,7 +23,7 @@ selfg="${alpha}101010"
 active_color="${alpha}ffffff"
 normal_color="${alpha}ababab"
 border_color="${alpha}26221c"
-sep="%{B-}%{F$selbg}|"
+sep="%{B-}%{F$selbg}| "
 
 uniq_linebuffered() {
     awk '$0 != l { print ; l=$0 ; fflush(); }' "$@"
@@ -31,19 +31,19 @@ uniq_linebuffered() {
 
 battery_widget() {
     if [ -x /sys/class/power_supply/BAT0 ]; then
-        echo "$sep %{F$normal_color}Power: %{F$active_color}$(expr $(expr $(cat /sys/class/power_supply/BAT0/charge_now) \* 100) / $(cat /sys/class/power_supply/BAT0/charge_full))%%"
+        echo " $sep%{F$normal_color}Power: %{F$active_color}$(expr $(expr $(cat /sys/class/power_supply/BAT0/charge_now) \* 100) / $(cat /sys/class/power_supply/BAT0/charge_full))%%"
     fi
 }
 date_widget() {
-    date +"date\t$sep %{F$active_color}%-d %{F$normal_color}%b %Y %{F$active_color}%H:%M"
+    date +"date\t $sep%{F$active_color}%-d %{F$normal_color}%b %Y %{F$active_color}%H:%M"
 }
 network_widget() {
     addr=$(ifconfig | sed -En 's/127.0.0.1//;s/.*inet (addr:)?(([0-9]*\.){3}[0-9]*).*/\2/p')
     adapter=$(cat /sys/class/net/bond0/bonding/active_slave)
-    echo -e "network\t$sep %{F$normal_color}IP: %{F$active_color}$([[ -z ${addr} ]] && echo 'None' || echo ${addr} ${adapter})"
+    echo -e "network\t $sep%{F$normal_color}IP: %{F$active_color}$([[ -z ${addr} ]] && echo 'None' || echo ${addr} ${adapter})"
 }
 volume_widget() {
-    echo "$sep %{F$normal_color}Vol: %{F$active_color}$(amixer -D pulse sget Master | grep 'Front Left:' | cut -d ' ' -f7,8 | sed 's/\[//g;s/\]//g;s/off/Mute/;s/ on//;s/%/%%/')"
+    echo " $sep%{F$normal_color}Vol: %{F$active_color}$(amixer -D pulse sget Master | grep 'Front Left:' | cut -d ' ' -f7,8 | sed 's/\[//g;s/\]//g;s/off/Mute/;s/ on//;s/%/%%/')"
 }
 
 hc pad $monitor $panel_height
@@ -96,8 +96,8 @@ windowtitle=""
             esac
 	    echo -n " ${i:1} "
         done
-        echo -n "$sep %{F-}${windowtitle//^/^^}"
-        echo -n "%{r} $network $volume $battery $date "
+        echo -n "$sep%{F-}${windowtitle//^/^^}"
+        echo -n "%{r}$network$volume$battery$date "
         echo
 
         ### Data handling ###
