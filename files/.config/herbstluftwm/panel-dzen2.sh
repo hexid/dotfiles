@@ -11,7 +11,7 @@ fi
 x=${geometry[0]}
 y=${geometry[1]}
 panel_width=${geometry[2]}
-panel_height=16
+panel_height=15
 font="-*-fixed-medium-*-*-*-12-*-*-*-*-*-*-*"
 bgcolor=$(hc get frame_border_normal_color)
 selbg=$(hc get window_border_active_color)
@@ -30,15 +30,6 @@ elif which dzen2-textwidth &> /dev/null ; then
 else
     echo "This script requires the textwidth tool of the dzen2 project."
     exit 1
-fi
-####
-# true if we are using the svn version of dzen2
-# depending on version/distribution, this seems to have version strings like
-# "dzen-" or "dzen-x.x.x-svn"
-if dzen2 -v 2>&1 | head -n 1 | grep -q '^dzen-\([^,]*-svn\|\),'; then
-    dzen2_svn="true"
-else
-    dzen2_svn=""
 fi
 
 #if awk -Wv 2>/dev/null | head -1 | grep -q '^mawk'; then
@@ -63,7 +54,8 @@ date_widget() {
 }
 network_widget() {
     addr=$(ifconfig | sed -En 's/127.0.0.1//;s/.*inet (addr:)?(([0-9]*\.){3}[0-9]*).*/\2/p')
-    echo -e "network\t^fg($normal_color)IP: ^fg($active_color)$([[ -z ${addr} ]] && echo 'None' || echo ${addr})"
+    adapter=$(cat /sys/class/net/bond0/bonding/active_slave)
+    echo -e "network\t^fg($normal_color)IP: ^fg($active_color)$([[ -z ${addr} ]] && echo 'None' || echo ${addr} ${adapter})"
 }
 volume_widget() {
     echo "^fg($normal_color)Vol: ^fg($active_color)$(amixer -D pulse sget Master | grep 'Front Left:' | cut -d ' ' -f7,8 | sed 's/\[//g;s/\]//g;s/off/Mute/;s/ on//')"
@@ -85,8 +77,8 @@ windowtitle=""
     while true ; do
         # "date" output is checked once a second, but an event is only
         # generated if the output changed compared to the previous run.
-        echo -e "$(date_widget)\n$(network_widget)"
-        sleep 1 || break
+	echo -e "$(date_widget)\n$(network_widget)"
+        sleep 5 || break
     done > >(uniq_linebuffered) &
     childpid=$!
 
@@ -124,16 +116,7 @@ windowtitle=""
                     echo -n "^bg()^fg($normal_color)"
                     ;;
             esac
-            if [ ! -z "$dzen2_svn" ] ; then
-                # clickable tags if using SVN dzen
-                echo -n "^ca(1,\"${herbstclient_command[@]:-herbstclient}\" "
-                echo -n "focus_monitor \"$monitor\" && "
-                echo -n "\"${herbstclient_command[@]:-herbstclient}\" "
-                echo -n "use \"${i:1}\") ${i:1} ^ca()"
-            else
-                # non-clickable tags if using older dzen
-                echo -n " ${i:1} "
-            fi
+            echo -n " ${i:1} "
         done
         echo -n "$separator"
         echo -n "^bg()^fg() ${windowtitle//^/^^}"
@@ -141,7 +124,7 @@ windowtitle=""
         right="$separator $network $separator $volume $separator $battery $separator $date $separator"
         right_text_only=$(echo -n "$right" | sed 's.\^[^(]*([^)]*)..g')
         # get width of right aligned text.. and add some space..
-        width=$($textwidth "$font" "$right_text_only    ")
+        width=$($textwidth "$font" "$right_text_only ")
         echo -n "^pa($(($panel_width - $width)))$right"
         echo
 
@@ -202,6 +185,4 @@ windowtitle=""
     # After the data is gathered and processed, the output of the previous block
     # gets piped to dzen2.
 
-} 2> /dev/null | dzen2 -w $panel_width -x $x -y $y -fn "$font" -h $panel_height \
-    -e 'button3=;button4=exec:herbstclient use_index -1;button5=exec:herbstclient use_index +1' \
-    -ta l -bg "$bgcolor" -fg '#efefef'
+} 2> /dev/null | dzen2 -w $panel_width -h $panel_height -x $x -y $y -fn "$font" -ta l -bg "$bgcolor" -fg '#efefef'

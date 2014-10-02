@@ -37,6 +37,8 @@ hc keybind XF86AudioRaiseVolume spawn ~/.config/herbstluftwm/volume.sh up
 hc keybind XF86AudioMute spawn ~/.config/herbstluftwm/volume.sh mute
 hc keybind $Mod-XF86AudioMute spawn pavucontrol
 hc keybind $Mod-F1 spawn arandr
+hc keybind $Mod-F2 spawn wicd-gtk
+hc keybind XF86TouchpadToggle spawn ~/.config/herbstluftwm/touchpad.sh
 
 # basic movement
 # focusing clients
@@ -121,28 +123,36 @@ hc keybind $Mod-i jumpto urgent
 # theme
 hc attr theme.tiling.reset 1
 hc attr theme.floating.reset 1
-hc set frame_border_active_color '#222222'
-hc set frame_border_normal_color '#101010'
-hc set frame_bg_normal_color '#565656'
-hc set frame_bg_active_color '#345F0C'
-hc set frame_border_width 1
-hc set always_show_frame 1
+hc set frame_border_active_color '#3b9dff'
+hc set frame_border_normal_color '#222222'
+#hc set frame_bg_normal_color '#565656'
+hc set frame_bg_active_color '#3b9dff'
+hc set frame_border_width 0 # around all windows in a frame
+hc set always_show_frame 0 # hide empty frames
 hc set frame_bg_transparent 1
-hc set frame_transparent_width 1
-hc set frame_gap 3
+hc set frame_transparent_width 5 # empty frame border width
+hc set frame_gap 6
 
-hc attr theme.active.color '#9fbc00'
+#hc attr theme.color '#3b9dff'
+hc attr theme.active.color '#3b9dff'
 hc attr theme.normal.color '#454545'
-hc attr theme.urgent.color orange
-hc attr theme.inner_width 1
-hc attr theme.inner_color black
+hc attr theme.active.inner_color '#ffffff'
 hc attr theme.border_width 3
+hc attr theme.inner_width 0
+
+hc attr theme.urgent.color orange
+
 hc attr theme.floating.border_width 4
-hc attr theme.floating.outer_width 1
-hc attr theme.floating.outer_color black
-hc attr theme.active.inner_color '#3E4A00'
-hc attr theme.active.outer_color '#3E4A00'
-hc attr theme.background_color '#141414'
+hc attr theme.floating.outer_width 0
+hc attr theme.floating.outer_color white
+
+#hc attr theme.active.inner_color '#3b9dff'
+#hc attr theme.active.outer_color '#3b9dff'
+
+#hc attr theme.background_color '#222222'
+
+#hc attr theme.normal.inner_color '#3b9dff'
+#hc attr theme.normal.outer_color '#3b9dff'
 
 hc set window_gap 0
 hc set frame_padding 0
@@ -173,7 +183,8 @@ hc detect_monitors
 feh --bg-scale ~/.fehbg.png
 
 # find the panel
-panel=~/.config/herbstluftwm/panel.sh
+panel=~/.config/herbstluftwm/panel-bar.sh
+[ -x "$panel" ] || panel=~/.config/herbstluftwm/panel-dzen2.sh
 [ -x "$panel" ] || panel=/etc/xdg/herbstluftwm/panel.sh
 for monitor in $(herbstclient list_monitors | cut -d: -f1) ; do
     # start it on each monitor
