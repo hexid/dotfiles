@@ -32,13 +32,13 @@ hc keybind $Mod-e spawn pcmanfm
 # extra keys
 hc keybind XF86MonBrightnessDown spawn xbacklight -dec 5
 hc keybind XF86MonBrightnessUp spawn xbacklight -inc 5
-hc keybind XF86AudioLowerVolume spawn ~/.config/herbstluftwm/volume.sh down
-hc keybind XF86AudioRaiseVolume spawn ~/.config/herbstluftwm/volume.sh up
-hc keybind XF86AudioMute spawn ~/.config/herbstluftwm/volume.sh mute
+hc keybind XF86AudioLowerVolume spawn adjust-volume.sh down
+hc keybind XF86AudioRaiseVolume spawn adjust-volume.sh up
+hc keybind XF86AudioMute spawn adjust-volume.sh mute
 hc keybind $Mod-XF86AudioMute spawn pavucontrol
 hc keybind $Mod-F1 spawn arandr
-hc keybind $Mod-F2 spawn wicd-gtk
-hc keybind XF86TouchpadToggle spawn ~/.config/herbstluftwm/touchpad.sh
+hc keybind $Mod-F2 spawn restart-network.sh
+hc keybind XF86TouchpadToggle spawn toggle-touchpad.sh
 
 # basic movement
 # focusing clients

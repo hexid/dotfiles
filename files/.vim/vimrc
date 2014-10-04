@@ -1,0 +1,6 @@
+cnoremap w! w !sudo tee % >/dev/null
+
+colorscheme jellybeans
+
+filetype plugin indent on
+syntax on

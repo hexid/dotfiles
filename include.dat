@@ -1,7 +1,10 @@
 .bash_aliases
 .bash_functions
+.bash_profile
 .bashrc
 .config/herbstluftwm/
 .fehbg.png
+.local/bin/
+.vim/vimrc
 .xinitrc
 .Xresources
