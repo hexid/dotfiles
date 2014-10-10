@@ -95,6 +95,7 @@ windowtitle=""
                     ;;
             esac
 	    echo -n " ${i:1} "
+	    #echo -en "%{A:\"${herbstclient_command[@]:-herbstclient}\" focus_monitor \"$monitor\" && \"${herbstclient_command[@]:-herbstclient}\" use \"${i:1}\":} ${i:1} %{A}"
         done
         echo -n "$sep%{F-}${windowtitle//^/^^}"
         echo -n "%{r}$network$volume$battery$date "
@@ -131,4 +132,4 @@ windowtitle=""
         esac
     done
 
-} 2> /dev/null | bar -g ${panel_width}x${panel_height}+${x}+${y} -B "$bgcolor" -F "${alpha}efefef" -f $font
+} 2> /dev/null | bar -g ${panel_width}x${panel_height}+${x}+${y} -B "$bgcolor" -F "${alpha}efefef" -f $font #| while read line; do eval "$line"; done
