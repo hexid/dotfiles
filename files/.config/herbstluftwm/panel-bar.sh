@@ -132,4 +132,4 @@ windowtitle=""
 		esac
 	done
 
-} 2> /dev/null | bar -g ${panel_width}x${panel_height}+${x}+${y} -B "$bgcolor" -F "${alpha}efefef" -f $font #| while read line; do eval "$line"; done
+} 2> /dev/null | bar-aint-recursive -g ${panel_width}x${panel_height}+${x}+${y} -B "$bgcolor" -F "${alpha}efefef" -f $font #| while read line; do eval "$line"; done
