@@ -1,6 +1,10 @@
 cnoremap w! w !sudo tee % >/dev/null
 
-colorscheme jellybeans
+set background=dark
+colorscheme base16-tomorrow
+
+autocmd FileType * set tabstop=2|set shiftwidth=2|set noexpandtab
+autocmd FileType python set tabstop=4|set shiftwidth=4|set expandtab
 
 filetype plugin indent on
 syntax on
