@@ -2,7 +2,8 @@ alias dir='dir --color=auto'
 alias dmesg='dmesg --color=auto'
 alias grep='grep --color=auto'
 alias ls='ls --color=auto'
-alias ll='ls -lA'
+alias ll='ls -lAh'
+alias rm='echo | xargs -p rm'
 
 alias pycalc='python -ic "from math import *"'
 
