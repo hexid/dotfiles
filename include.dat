@@ -1,9 +1,11 @@
-.bash_aliases
-.bash_functions
-.bash_profile
-.bashrc
+#.bash_aliases
+#.bash_functions
+#.bash_profile
+#.bashrc
+.config/aliases
+.config/fehbg.png
 .config/herbstluftwm/
-.fehbg.png
+.config/zsh/
 .local/bin/
 .vim/vimrc
 .xinitrc

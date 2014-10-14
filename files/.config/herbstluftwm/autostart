@@ -180,7 +180,7 @@ hc set tree_style '╾│ ├└╼─┐'
 # or simply:
 hc detect_monitors
 
-feh --bg-scale ~/.fehbg.png
+feh --bg-scale ~/.config/fehbg.png
 
 # find the panel
 panel=~/.config/herbstluftwm/panel-bar.sh
