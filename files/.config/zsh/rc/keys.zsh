@@ -1,7 +1,9 @@
-bindkey -v
+bindkey -e
 
 autoload zkbd
 source $HOME/.zkbd/$TERM-:0.0
+
+key[Shift+Tab]='\e[Z'
 
 [[ -n ${key[Backspace]} ]] && bindkey "${key[Backspace]}" backward-delete-char
 [[ -n ${key[Insert]} ]] && bindkey "${key[Insert]}" overwrite-mode
@@ -14,3 +16,4 @@ source $HOME/.zkbd/$TERM-:0.0
 [[ -n ${key[Left]} ]] && bindkey "${key[Left]}" backward-char
 [[ -n ${key[Down]} ]] && bindkey "${key[Down]}" down-line-or-search
 [[ -n ${key[Right]} ]] && bindkey "${key[Right]}" forward-char
+[[ -n ${key[Shift+Tab]} ]] && bindkey "${key[Shift+Tab]}" reverse-menu-complete
