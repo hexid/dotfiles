@@ -26,19 +26,20 @@ hc keybind $Mod-Shift-c close
 
 # applications
 hc keybind $Mod-d spawn dmenu_run
+hc keybind $Mod-p spawn passmenu
 hc keybind $Mod-Return spawn urxvt
 hc keybind $Mod-e spawn pcmanfm
 
 # extra keys
 hc keybind XF86MonBrightnessDown spawn xbacklight -dec 5
 hc keybind XF86MonBrightnessUp spawn xbacklight -inc 5
-hc keybind XF86AudioLowerVolume spawn adjust-volume.sh down
-hc keybind XF86AudioRaiseVolume spawn adjust-volume.sh up
-hc keybind XF86AudioMute spawn adjust-volume.sh mute
+hc keybind XF86AudioLowerVolume spawn volume-adjust.sh down
+hc keybind XF86AudioRaiseVolume spawn volume-adjust.sh up
+hc keybind XF86AudioMute spawn volume-adjust.sh mute
 hc keybind $Mod-XF86AudioMute spawn pavucontrol
-hc keybind $Mod-F1 spawn arandr
-hc keybind $Mod-F2 spawn restart-network.sh
-hc keybind XF86TouchpadToggle spawn toggle-touchpad.sh
+hc keybind $Mod-F1 spawn monitor-toggle.sh
+hc keybind $Mod-F2 spawn network-restart.sh
+hc keybind XF86TouchpadToggle spawn touchpad-toggle.sh
 
 # basic movement
 # focusing clients
@@ -105,7 +106,7 @@ hc keybind $Mod-r remove
 hc keybind $Mod-space cycle_layout 1
 hc keybind $Mod-s floating toggle
 hc keybind $Mod-f fullscreen toggle
-hc keybind $Mod-p pseudotile toggle
+#hc keybind $Mod-p pseudotile toggle
 
 # mouse
 hc mouseunbind --all

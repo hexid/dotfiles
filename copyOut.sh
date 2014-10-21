@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 while read line; do
 	if [[ ${line:0:1} == '#' ]]; then
