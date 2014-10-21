@@ -33,3 +33,6 @@ In order to use the zsh configuration as it is structured here, you will need to
 
 ## vim && vim-base16-git
 ### Terminal editor and theme
+
+## numix-themes-archblue && numix-shine-icon-theme-git
+### GTK theme

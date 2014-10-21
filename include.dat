@@ -4,6 +4,7 @@
 .config/fehbg.png
 .config/herbstluftwm/
 .config/zsh/
+.gtkrc-2.0
 .local/bin/
 .vim/vimrc
 .xinitrc
