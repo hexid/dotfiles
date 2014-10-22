@@ -1,4 +1,4 @@
-URxvt.perl-ext-common: default,matcher,-option-popup,-selection-popup,-realine,vtwheel,clipboard
+URxvt.perl-ext-common: default,matcher,-option-popup,-selection-popup,-realine,vtwheel,clipboard,font-size
 
 ! enable clicking on links
 URxvt*.matcher.button: 1
@@ -15,6 +15,10 @@ URxvt*.font: xft:DejaVu Sans Mono:size=9
 URxvt.iso14755: false
 URxvt.keysym.C-C: perl:clipboard:copy
 URxvt.keysym.C-V: perl:clipboard:paste
+
+! Font size altering
+URxvt.keysym.C-S-Up: perl:font-size:increase
+URxvt.keysym.C-S-Down: perl:font-size:decrease
 
 ! Base16 Tomorrow
 ! Scheme: Chris Kempson (http://chriskempson.com)
