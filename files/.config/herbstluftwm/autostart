@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 hc() {
     herbstclient "$@"
@@ -26,8 +26,8 @@ hc keybind $Mod-Shift-c close
 
 # applications
 hc keybind $Mod-d spawn dmenu_run
-hc keybind $Mod-p spawn passmenu
-hc keybind $Mod-Return spawn urxvt
+hc keybind $Mod-Shift-d spawn passmenu
+hc keybind $Mod-Return spawn urxvtc
 hc keybind $Mod-e spawn pcmanfm
 
 # extra keys
@@ -106,7 +106,7 @@ hc keybind $Mod-r remove
 hc keybind $Mod-space cycle_layout 1
 hc keybind $Mod-s floating toggle
 hc keybind $Mod-f fullscreen toggle
-#hc keybind $Mod-p pseudotile toggle
+hc keybind $Mod-p pseudotile toggle
 
 # mouse
 hc mouseunbind --all
@@ -184,8 +184,7 @@ hc detect_monitors
 feh --bg-scale ~/.config/fehbg.png
 
 # find the panel
-panel=~/.config/herbstluftwm/panel-bar.sh
-[ -x "$panel" ] || panel=~/.config/herbstluftwm/panel-dzen2.sh
+panel=~/.config/herbstluftwm/panel.sh
 [ -x "$panel" ] || panel=/etc/xdg/herbstluftwm/panel.sh
 for monitor in $(herbstclient list_monitors | cut -d: -f1) ; do
     # start it on each monitor
