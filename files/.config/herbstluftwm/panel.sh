@@ -4,8 +4,8 @@ hc() { "${herbstclient_command[@]:-herbstclient}" "$@" ;}
 monitor=${1:-0}
 geometry=( $(herbstclient monitor_rect "$monitor") )
 if [ -z "$geometry" ] ;then
-    echo "Invalid monitor $monitor"
-    exit 1
+	echo "Invalid monitor $monitor"
+	exit 1
 fi
 # geometry has the format W H X Y
 x=${geometry[0]}
