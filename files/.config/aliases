@@ -5,7 +5,8 @@ alias ls='ls --color=auto'
 alias ll='ls -lAh'
 alias rm='echo | xargs -p rm'
 
-alias pycalc='python -ic "from math import *"'
+alias pycalc='python3 -ic "from math import *"'
+alias pyserv='python3 -m http.server 7777'
 
 alias clip-copy='xsel --clipboard --input <'
 alias clip-paste='xsel --clipboard --output >'
