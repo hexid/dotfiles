@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
-if [ -f ~/.Xresources ]; then
-  xrdb -merge ~/.Xresources
+if [ -f ${XDG_CONFIG_HOME:$HOME/.config}/.Xresources ]; then
+  xrdb -merge ${XDG_CONFIG_HOME:$HOME/.config}/.Xresources
 fi
 
 if [ -d /etc/X11/xinit/xinitrc.d ]; then

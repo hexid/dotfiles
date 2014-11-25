@@ -1,0 +1,16 @@
+cnoremap w! w !sudo tee % >/dev/null
+
+set background=dark
+colorscheme base16-tomorrow
+
+autocmd FileType * set tabstop=2|set shiftwidth=2|set softtabstop=2|set noexpandtab
+autocmd FileType python set tabstop=4|set shiftwidth=4|set softtabstop=4|set expandtab
+
+filetype plugin indent on
+syntax on
+
+set directory=${XDG_CACHE_HOME:$HOME/.cache}/vim,~/,/tmp
+set backupdir=${XDG_CACHE_HOME:$HOME/.cache}/vim,~/,/tmp
+set viminfo+=n"${XDG_CACHE_HOME:$HOME/.cache}/vim/viminfo"
+set runtimepath=${XDG_CONFIG_HOME:$HOME/.config}/vim,${XDG_CONFIG_HOME:$HOME/.config}/vim/after,$VIM,$VIMRUNTIME
+let $MYVIMRC="${XDG_CONFIG_HOME:$HOME/.config}/vim/vimrc"
