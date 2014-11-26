@@ -4,6 +4,7 @@
 .config/fehbg.png
 .config/gtk-3.0/settings.ini
 .config/herbstluftwm/
+.config/htop/htoprc
 .config/vim/vimrc
 .config/Xresources
 .config/zsh/
