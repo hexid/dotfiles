@@ -1,4 +1,5 @@
 #!/usr/bin/env sh
-# Restart network bond
+# Restart network
 
-sudo netctl restart failover
+sudo systemctl restart systemd-networkd.service
+sudo systemctl restart wpa_supplicant@wlp3s0.service
