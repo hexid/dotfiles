@@ -1,13 +1,15 @@
 cnoremap w! w !sudo tee % >/dev/null
 
 set background=dark
+let base16colorspace=256
 colorscheme base16-tomorrow
 
 autocmd FileType * set tabstop=2 | set shiftwidth=2 | set softtabstop=2 | set noexpandtab
 autocmd FileType python set tabstop=4 | set shiftwidth=4 | set softtabstop=4 | set expandtab
-
 filetype plugin indent on
 syntax on
+
+set cursorline
 
 if empty($XDG_CONFIG_HOME) | let $XDG_CONFIG_HOME="$HOME/.config" | endif
 if empty($XDG_CACHE_HOME) | let $XDG_CACHE_HOME="$HOME/.cache" | endif
