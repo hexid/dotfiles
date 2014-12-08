@@ -5,6 +5,7 @@
 .config/gtk-3.0/settings.ini
 .config/herbstluftwm/
 .config/htop/htoprc
+.config/pacaur/config
 .config/vim/vimrc
 .config/Xresources
 .config/zsh/

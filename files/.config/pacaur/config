@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+builddir="${PKGBUILDDIR:-$tmpdir}"
+clean=false
+cleandevel=false
+sudoloop=true
