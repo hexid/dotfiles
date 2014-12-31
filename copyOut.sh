@@ -7,7 +7,7 @@ while read line; do
 		echo "Ignoring ${line:1}"
 	elif [[ -d ./files/$line ]]; then
 		d=${line%/}
-		echo "Copying directory: $d"
+		echo "Copying dir:  $d"
 		mkdir -p $HOME/$d
 		cp -r "$DIR/files/$d/." "$HOME/$d"
 	else
