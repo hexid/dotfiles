@@ -1,5 +1,5 @@
 alias dir='dir --color=auto'
-alias dmesg='dmesg --color=auto'
+alias dmesg='dmesg -H'
 alias grep='grep --color=auto'
 alias ls='ls --color=auto'
 alias ll='ls -lAh'
@@ -10,8 +10,6 @@ alias pyserv='python3 -m http.server 7777'
 
 alias clip-copy='xsel --clipboard --input <'
 alias clip-paste='xsel --clipboard --output >'
-
-alias subl3='subl3 -n'
 
 function cd {
 	builtin cd "$@" && ls
