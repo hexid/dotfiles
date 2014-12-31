@@ -3,7 +3,7 @@
 hc() { "${herbstclient_command[@]:-herbstclient}" "$@" ;}
 monitor=${1:-0}
 geometry=( $(herbstclient monitor_rect "$monitor") )
-if [ -z "$geometry" ] ;then
+if [ -z "$geometry" ]; then
 	echo "Invalid monitor $monitor"
 	exit 1
 fi
@@ -14,16 +14,18 @@ panel_width=${geometry[2]}
 panel_height=15
 font="-*-fixed-medium-*-*-*-12-*-*-*-*-*-*-*"
 alpha="#FF"
-bgcolor=$(hc get frame_border_normal_color)
-bgcolor=${bgcolor/\#/$alpha}
-selbg=$(hc get window_border_active_color)
-selbg=${selbg/\#/$alpha}
-selfg="${alpha}101010"
+alpha_attr() {
+	attr="$(hc attr $1)"
+	echo "${attr/\#/$alpha}"
+}
 
-active_color="${alpha}ffffff"
-normal_color="${alpha}ababab"
-border_color="${alpha}26221c"
-sep="%{B-}%{F$selbg}| "
+active_color="$(alpha_attr theme.outer_color)"
+backgd_color="$(alpha_attr theme.background_color)"
+normal_color="$(alpha_attr theme.normal.color)"
+select_color="$(alpha_attr theme.active.color)"
+urgent_color="$(alpha_attr theme.urgent.color)"
+
+sep="%{B-}%{F$select_color}| "
 
 uniq_linebuffered() {
 	awk '$0 != l { print ; l=$0 ; fflush(); }' "$@"
@@ -59,19 +61,19 @@ windowtitle=""
 	# based on different input data (mpc, date, hlwm hooks, ...) this generates events, formed like this:
 	#   <eventname>\t<data> [...]
 
-	while true ; do
+	while true; do
 		# "date" and network output is checked once a second, but an event is
 		# only generated if the output changed compared to the previous run.
 		echo -e "$(date_widget)\n$(network_widget)"
 		sleep 5 || break
-	done > >(uniq_linebuffered) &
+	done >>>(uniq_linebuffered) &
 	childpid=$!
 	hc --idle
 	kill $childpid
 } 2> /dev/null | {
 	IFS=$'\t' read -ra tags <<< "$(hc tag_status $monitor)"
 
-	while true ; do
+	while true; do
 		### Output ###
 		battery=$(battery_widget) # update battery on event trigger
 
@@ -79,25 +81,25 @@ windowtitle=""
 		for i in "${tags[@]}" ; do
 			case ${i:0:1} in
 				'#') # current
-					echo -n "%{B$selbg}%{F$selfg}"
+					echo -n "%{B$select_color}%{F-}"
 					;;
-				'+')
-					echo -n "%{B${alpha}9CA668}%{F${alpha}141414}"
+				'+') # other monitor
+					echo -n "%{B$normal_color}%{F-}"
 					;;
-				':') # active
+				':') # active (not empty)
 					echo -n "%{B-}%{F$active_color}"
 					;;
 				'!') # alert
-					echo -n "%{B${alpha}FF0675}%{F${alpha}141414}"
+					echo -n "%{B${urgent_color}}%{F-}"
 					;;
-				*) # inactive
+				*) # inactive (empty)
 					echo -n "%{B-}%{F$normal_color}"
 					;;
 			esac
 			echo -n " ${i:1} "
 			#echo -en "%{A:\"${herbstclient_command[@]:-herbstclient}\" focus_monitor \"$monitor\" && \"${herbstclient_command[@]:-herbstclient}\" use \"${i:1}\":} ${i:1} %{A}"
 		done
-		echo -n "$sep%{F-}${windowtitle//^/^^}"
+		echo -n "$sep%{F${active_color}}${windowtitle//^/^^}"
 		echo -n "%{r}$network$volume$battery$date "
 		echo
 
@@ -132,4 +134,4 @@ windowtitle=""
 		esac
 	done
 
-} 2> /dev/null | bar-aint-recursive -g ${panel_width}x${panel_height}+${x}+${y} -B "$bgcolor" -F "${alpha}efefef" -f $font #| while read line; do eval "$line"; done
+} 2>/dev/null | bar-aint-recursive -g ${panel_width}x${panel_height}+${x}+${y} -B "$backgd_color" -F "$backgd_color" -f $font #| while read line; do eval "$line"; done

@@ -1,12 +1,11 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 hc() {
 	herbstclient "$@"
 }
-
 hc emit_hook reload
 
-xsetroot -solid '#5A8E3A'
+#xsetroot -solid '#5A8E3A'
 
 # set wm name to LG3D to fix Java issues
 hc set wmname LG3D
@@ -22,7 +21,7 @@ Mod=Mod4   # Use the super key as the main modifier
 hc keybind $Mod-q spawn xsecurelock auth_pam_x11 saver_blank
 #hc keybind $Mod-Shift-q quit
 hc keybind $Mod-Shift-r reload
-hc keybind $Mod-Shift-c close
+hc keybind $Mod-Shift-c close_or_remove
 
 # applications
 hc keybind $Mod-d spawn dmenu_run
@@ -84,15 +83,14 @@ hc keybind $Mod-Control-Right   resize right +$resizestep_large
 # tags
 tag_names=( "I" "II" "III" "IV" "V" "VI" "VII" "VIII" "IX" "X" )
 tag_keys=( {1..9} 0 )
-
 hc rename default "${tag_names[0]}" || true
-for i in ${!tag_names[@]} ; do
+for i in ${!tag_names[@]}; do
 	hc add "${tag_names[$i]}"
 	key="${tag_keys[$i]}"
-	if ! [ -z "$key" ] ; then
+	if ! [ -z "$key" ]; then
 		hc keybind "$Mod-$key" use_index "$i"
 		hc keybind "$Mod-Shift-$key" move_index "$i"
-	fi
+  fi
 done
 
 # cycle through tags
@@ -103,7 +101,7 @@ hc keybind $Mod-Shift-comma  move_index -1 --skip-visible
 
 # layouting
 hc keybind $Mod-r remove
-hc keybind $Mod-space cycle_layout 1
+hc keybind $Mod-space cycle_layout 1 vertical horizontal max
 hc keybind $Mod-s floating toggle
 hc keybind $Mod-f fullscreen toggle
 hc keybind $Mod-p pseudotile toggle
@@ -124,36 +122,27 @@ hc keybind $Mod-i jumpto urgent
 # theme
 hc attr theme.tiling.reset 1
 hc attr theme.floating.reset 1
-hc set frame_border_active_color '#3b9dff'
-hc set frame_border_normal_color '#222222'
-#hc set frame_bg_normal_color '#565656'
-hc set frame_bg_active_color '#3b9dff'
-hc set frame_border_width 0 # around all windows in a frame
+
 hc set always_show_frame 0 # hide empty frames
-hc set frame_bg_transparent 1
-hc set frame_transparent_width 5 # empty frame border width
-hc set frame_gap 6
 
-#hc attr theme.color '#3b9dff'
-hc attr theme.active.color '#3b9dff'
-hc attr theme.normal.color '#454545'
-hc attr theme.active.inner_color '#ffffff'
+hc set frame_bg_active_color '#3b9dff'
+hc set frame_bg_transparent 1 # transparent background
+hc set frame_transparent_width 3 # empty frame border width
+
+hc set frame_border_width 0 # around all windows in a frame
+hc set frame_gap 5 # gap between frames
+
+hc attr theme.background_color '#1d1f21' # match terminal background color
 hc attr theme.border_width 3
-hc attr theme.inner_width 0
+hc attr theme.inner_width 0 # no inner border
+hc attr theme.outer_color '#ffffff' # white outer border
+hc attr theme.outer_width 0 # no outer border
 
-hc attr theme.urgent.color orange
-
-hc attr theme.floating.border_width 4
-hc attr theme.floating.outer_width 0
-hc attr theme.floating.outer_color white
-
-#hc attr theme.active.inner_color '#3b9dff'
-#hc attr theme.active.outer_color '#3b9dff'
-
-#hc attr theme.background_color '#222222'
-
-#hc attr theme.normal.inner_color '#3b9dff'
-#hc attr theme.normal.outer_color '#3b9dff'
+hc attr theme.active.color '#3b9dff' # light-blue
+hc attr theme.floating.border_width 5 # display a small border of
+hc attr theme.floating.outer_width 1 # white around floating windows
+hc attr theme.normal.color '#a7a7a7' # grey
+hc attr theme.urgent.color '#ffa500' # orange
 
 hc set window_gap 0
 hc set frame_padding 0
@@ -165,8 +154,7 @@ hc set mouse_recenter_gap 0
 hc unrule -F
 #hc rule class=XTerm tag=3 # move all xterms to tag 3
 hc rule focus=off # normally do not focus new clients
-# give focus to most common terminals
-hc rule class~'(.*[Rr]xvt.*|.*[Tt]erm|Konsole)' focus=on
+hc rule class~'(.*[Rr]xvt.*|.*[Tt]erm|Konsole|Pinentry)' focus=on
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' pseudotile=on
 hc rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK|DESKTOP)' manage=off
@@ -181,10 +169,11 @@ hc set tree_style '╾│ ├└╼─┐'
 # or simply:
 hc detect_monitors
 
-feh --bg-scale ~/.config/fehbg.png
+# load all backgrounds from $XDG_DATA_HOME/feh
+feh --bg-scale "${XDG_DATA_HOME:-$HOME/.local/share}/feh"
 
 # find the panel
-panel=~/.config/herbstluftwm/panel.sh
+panel=$HOME/.config/herbstluftwm/panel.sh
 [ -x "$panel" ] || panel=/etc/xdg/herbstluftwm/panel.sh
 for monitor in $(herbstclient list_monitors | cut -d: -f1) ; do
 	# start it on each monitor

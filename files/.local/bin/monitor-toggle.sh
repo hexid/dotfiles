@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 # Toggle external monitor
 
 IN='LVDS1'
