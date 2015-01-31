@@ -18,7 +18,7 @@ hc keyunbind --all
 #Mod=Mod1    # Use alt as the main modifier
 Mod=Mod4   # Use the super key as the main modifier
 
-hc keybind $Mod-q spawn xsecurelock auth_pam_x11 saver_blank
+hc keybind $Mod-q spawn slock
 #hc keybind $Mod-Shift-q quit
 hc keybind $Mod-Shift-r reload
 hc keybind $Mod-Shift-c close_or_remove
@@ -26,7 +26,7 @@ hc keybind $Mod-Shift-c close_or_remove
 # applications
 hc keybind $Mod-d spawn dmenu_run
 hc keybind $Mod-Shift-d spawn passmenu
-hc keybind $Mod-Return spawn urxvtc
+hc keybind $Mod-Return spawn urxvtc-tmux.sh
 hc keybind $Mod-e spawn pcmanfm
 
 # extra keys
@@ -173,7 +173,7 @@ hc detect_monitors
 feh --bg-scale "${XDG_DATA_HOME:-$HOME/.local/share}/feh"
 
 # find the panel
-panel=$HOME/.config/herbstluftwm/panel.sh
+panel=${XDG_CONFIG_HOME:-$HOME/.config}/herbstluftwm/panel.sh
 [ -x "$panel" ] || panel=/etc/xdg/herbstluftwm/panel.sh
 for monitor in $(herbstclient list_monitors | cut -d: -f1) ; do
 	# start it on each monitor

@@ -13,19 +13,18 @@ y=${geometry[1]}
 panel_width=${geometry[2]}
 panel_height=15
 font="-*-fixed-medium-*-*-*-12-*-*-*-*-*-*-*"
-alpha="#FF"
+
 alpha_attr() {
 	attr="$(hc attr $1)"
-	echo "${attr/\#/$alpha}"
+	echo "${attr/\#/#FF}"
 }
+active_color="$(alpha_attr theme.outer_color)" # active text
+backgd_color="$(alpha_attr theme.background_color)" # default fg/bg
+normal_color="$(alpha_attr theme.normal.color)" # normal text
+select_color="$(alpha_attr theme.active.color)" # selected tag bg
+urgent_color="$(alpha_attr theme.urgent.color)" # urgent tag bg
 
-active_color="$(alpha_attr theme.outer_color)"
-backgd_color="$(alpha_attr theme.background_color)"
-normal_color="$(alpha_attr theme.normal.color)"
-select_color="$(alpha_attr theme.active.color)"
-urgent_color="$(alpha_attr theme.urgent.color)"
-
-sep="%{B-}%{F$select_color}| "
+sep="%{F$select_color}| "
 
 uniq_linebuffered() {
 	awk '$0 != l { print ; l=$0 ; fflush(); }' "$@"
@@ -40,7 +39,7 @@ date_widget() {
 	date +"date\t $sep%{F$active_color}%-d %{F$normal_color}%b %Y %{F$active_color}%H:%M"
 }
 network_widget() {
-	addr=$(ifconfig | sed -En 's/127.0.0.1//;s/.*inet (addr:)?(([0-9]*\.){3}[0-9]*).*/\2/p')
+	addr=$(ip addr | sed -En 's/127.0.0.1//;s/.*inet (addr:)?(([0-9]*\.){3}[0-9]*).*/\2/p')
 	adapter=$(cat /sys/class/net/bond0/bonding/active_slave)
 	echo -e "network\t $sep%{F$normal_color}IP: %{F$active_color}$([[ -z ${addr} ]] && echo 'None' || echo ${addr} ${adapter})"
 }
@@ -66,11 +65,11 @@ windowtitle=""
 		# only generated if the output changed compared to the previous run.
 		echo -e "$(date_widget)\n$(network_widget)"
 		sleep 5 || break
-	done >>>(uniq_linebuffered) &
+	done > >(uniq_linebuffered) &
 	childpid=$!
 	hc --idle
 	kill $childpid
-} 2> /dev/null | {
+} 2>/dev/null | {
 	IFS=$'\t' read -ra tags <<< "$(hc tag_status $monitor)"
 
 	while true; do
@@ -99,7 +98,7 @@ windowtitle=""
 			echo -n " ${i:1} "
 			#echo -en "%{A:\"${herbstclient_command[@]:-herbstclient}\" focus_monitor \"$monitor\" && \"${herbstclient_command[@]:-herbstclient}\" use \"${i:1}\":} ${i:1} %{A}"
 		done
-		echo -n "$sep%{F${active_color}}${windowtitle//^/^^}"
+		echo -n "%{B-}$sep%{F${active_color}}${windowtitle//^/^^}"
 		echo -n "%{r}$network$volume$battery$date "
 		echo
 
