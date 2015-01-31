@@ -8,7 +8,6 @@
 .config/vim/vimrc
 .config/xinitrc
 .config/Xresources
-.config/zsh/
 .gtkrc-2.0
 .local/bin/
 .local/share/feh/
