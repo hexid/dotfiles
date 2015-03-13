@@ -24,7 +24,7 @@ hc keybind $Mod-Shift-r reload
 hc keybind $Mod-Shift-c close_or_remove
 
 # applications
-hc keybind $Mod-d spawn dmenu_run
+hc keybind $Mod-d spawn dmenu_run -sb '#3b9dff'
 hc keybind $Mod-Shift-d spawn passmenu
 hc keybind $Mod-Return spawn urxvtc-tmux.sh
 hc keybind $Mod-e spawn pcmanfm
@@ -169,8 +169,8 @@ hc set tree_style '╾│ ├└╼─┐'
 # or simply:
 hc detect_monitors
 
-# load all backgrounds from $XDG_DATA_HOME/feh
-feh --bg-scale "${XDG_DATA_HOME:-$HOME/.local/share}/feh"
+# load background
+feh --no-fehbg --bg-scale "${XDG_DATA_HOME:-$HOME/.local/share}/feh"
 
 # find the panel
 panel=${XDG_CONFIG_HOME:-$HOME/.config}/herbstluftwm/panel.sh

@@ -1,6 +1,7 @@
 cnoremap w! w !sudo tee % >/dev/null
 
 set background=dark
+set t_Co=16
 let base16colorspace=256
 colorscheme base16-tomorrow
 
@@ -10,6 +11,8 @@ filetype plugin indent on
 syntax on
 
 set cursorline
+hi CursorLine ctermbg=18
+hi MatchParen cterm=none ctermbg=18 ctermfg=1
 
 if empty($XDG_CONFIG_HOME) | let $XDG_CONFIG_HOME="$HOME/.config" | endif
 if empty($XDG_CACHE_HOME) | let $XDG_CACHE_HOME="$HOME/.cache" | endif

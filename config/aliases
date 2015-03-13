@@ -10,6 +10,13 @@ alias pyserv='python3 -m http.server 7777'
 alias clip-copy='xsel --clipboard --input <'
 alias clip-paste='xsel --clipboard --output >'
 
+function wcf {
+	if [ -z "$1" ]; then
+		find . | xargs wc -l
+	else
+		find . -name "*.${1}" | xargs wc -l
+	fi
+}
 function cd {
 	builtin cd "$@" && ls
 }

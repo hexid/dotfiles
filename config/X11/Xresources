@@ -9,14 +9,18 @@ URxvt*.scrollBar: false
 
 URxvt*.transparent: false
 
+URxvt*.urgentOnBell: true
+
 ! Change font
 !URxvt*.font: xft:Terminus:pixelsize=11
 URxvt*.font: xft:DejaVu Sans Mono:size=9
 
 ! Clipboard
 URxvt.iso14755: false
-URxvt.keysym.C-C: perl:clipboard:copy
-URxvt.keysym.C-V: perl:clipboard:paste
+URxvt.keysym.Shift-Control-C: perl:clipboard:copy
+URxvt.keysym.Shift-Control-V: perl:clipboard:paste
+URxvt.clipboard.copycmd: xsel -ib
+URxvt.clipboard.pastecmd: xsel -ob
 
 ! Font size altering
 URxvt.keysym.C-S-Up: perl:font-size:increase

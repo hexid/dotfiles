@@ -1,0 +1,19 @@
+- clean: ['~']
+
+- link:
+    ~/.bash_profile: config/bash_profile
+    ~/.bashrc: config/bashrc
+
+    ~/.config/aliases: config/aliases
+    ~/.config/git: config/git/
+    ~/.config/gtk-2.0: config/gtk-2.0/
+    ~/.config/gtk-3.0: config/gtk-3.0/
+    ~/.config/herbstluftwm: config/herbstluftwm/
+    ~/.config/htop: config/htop/
+    ~/.config/pacaur: config/pacaur/
+    ~/.config/vim: config/vim/
+    ~/.config/X11: config/X11/
+    ~/.config/xdg.sh: config/xdg.sh
+
+    ~/.local/bin: local/bin/
+    ~/.local/share/feh: local/share/feh/

@@ -1,0 +1,12 @@
+#
+# ~/.bash_profile
+#
+
+[[ -f $HOME/.bashrc ]] && . $HOME/.bashrc
+
+#if [[ -z $DISPLAY && $XDG_VTNR -eq 1 ]]; then
+#	systemctl --user import-environment XDG_VTNR
+#	systemctl --user start xorg@${DISPLAY}.socket
+#	exec systemctl --user start herbstlufwm@${DISPLAY}.socket
+#fi
+[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx $XDG_CONFIG_HOME/X11/xinitrc

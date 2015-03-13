@@ -1,0 +1,9 @@
+[user]
+	name = hexid
+	email = nick.currier@gmail.com
+[credential]
+	helper = cache --timeout=3600
+[diff]
+	tool = vimdiff
+[merge]
+	tool = vimdiff
