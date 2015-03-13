@@ -11,9 +11,15 @@
     ~/.config/herbstluftwm: config/herbstluftwm/
     ~/.config/htop: config/htop/
     ~/.config/pacaur: config/pacaur/
-    ~/.config/vim: config/vim/
+    ~/.config/vim/vimrc:
+      create: true
+      path: config/vim/vimrc
     ~/.config/X11: config/X11/
     ~/.config/xdg.sh: config/xdg.sh
 
     ~/.local/bin: local/bin/
     ~/.local/share/feh: local/share/feh/
+
+- shell:
+  - curl -fLo ~/.config/vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  - vim +PlugUpdate +q +q
