@@ -11,6 +11,9 @@
     ~/.config/herbstluftwm: config/herbstluftwm/
     ~/.config/htop: config/htop/
     ~/.config/pacaur: config/pacaur/
+    ~/.config/tmux/tmux.conf:
+      create: true
+      path: config/tmux/tmux.conf
     ~/.config/vim/vimrc:
       create: true
       path: config/vim/vimrc
@@ -22,4 +25,5 @@
 
 - shell:
   - curl -fLo ~/.config/vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  - vim +PlugUpdate +q +q
+  - vim -c 'PlugUpdate1 | qall'
+  - vim -c 'TmuxlineSnapshot! ~/.config/tmux/tmuxline.vim.conf | q'
