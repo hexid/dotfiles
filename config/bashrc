@@ -32,6 +32,15 @@ elif [ -f /etc/DIR_COLORS ]; then
 	eval "$(dircolors /etc/DIR_COLORS)"
 fi
 
+if [[ -z "$TMUX" ]]; then
+	ID="$(tmux ls | grep -vm1 attached | cut -d: -f1)"
+	if [[ -z "$ID" ]]; then
+		tmux new-session
+	else
+		tmux attach-session -t "$ID"
+	fi
+fi
+
 function prompt_gen() {
 	let ret=$? # must be first
 	local fill=$(printf "%$(tput cols)s\n" | sed "s/ /─/g")
