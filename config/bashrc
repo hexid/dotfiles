@@ -32,7 +32,7 @@ elif [ -f /etc/DIR_COLORS ]; then
 	eval "$(dircolors /etc/DIR_COLORS)"
 fi
 
-if [[ -z "$TMUX" ]]; then
+if [[ -z "$TMUX" && "$TERM" != "linux" ]]; then
 	ID="$(tmux ls | grep -vm1 attached | cut -d: -f1)"
 	if [[ -z "$ID" ]]; then
 		tmux new-session
