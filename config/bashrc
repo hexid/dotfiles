@@ -3,10 +3,6 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-export XDG_BIN_HOME="$HOME/.local/bin"
-export XDG_CACHE_HOME="$HOME/.cache"
-export XDG_CONFIG_HOME="$HOME/.config"
-export XDG_DATA_HOME="$HOME/.local/share"
 [ -f $XDG_CONFIG_HOME/xdg.sh ] && . $XDG_CONFIG_HOME/xdg.sh
 
 export PATH="$PATH:$XDG_BIN_HOME"
@@ -18,7 +14,7 @@ shopt -s histappend
 shopt -s autocd
 
 if [ -f /usr/share/git/completion/git-prompt.sh ]; then
-	source /usr/share/git/completion/git-prompt.sh
+	. /usr/share/git/completion/git-prompt.sh
 	#GIT_PS1_SHOWDIRTYSTATE=1
 	#GIT_PS1_SHOWSTASHSTATE=1
 	#GIT_PS1_SHOWUNTRACKEDFILES=1
@@ -32,15 +28,6 @@ elif [ -f /etc/DIR_COLORS ]; then
 	eval "$(dircolors /etc/DIR_COLORS)"
 fi
 
-if [[ -z "$TMUX" && "$TERM" != "linux" ]]; then
-	ID="$(tmux ls | grep -vm1 attached | cut -d: -f1)"
-	if [[ -z "$ID" ]]; then
-		tmux new-session
-	else
-		tmux attach-session -t "$ID"
-	fi
-fi
-
 function prompt_gen() {
 	let ret=$? # must be first
 	local fill=$(printf "%$(tput cols)s\n" | sed "s/ /─/g")
@@ -48,12 +35,21 @@ function prompt_gen() {
 }
 PROMPT_COMMAND="prompt_gen"
 
-if [ "$TERM" = "linux" ]; then
+if [ "$TERM" = "linux" ]; then # fix colors on TTYs
 	_SEDCMD='s/.*\*color\([0-9]\{1,\}\).*#\([0-9a-fA-F]\{6\}\).*/\1 \2/p'
 	for i in $(sed -n "$_SEDCMD" $XDG_CONFIG_HOME/X11/Xresources | \
 				awk '$1 < 16 {printf "\\e]P%X%s", $1, $2}'); do
 		echo -en "$i"
 	done
 	clear
+else # if this isn't a TTY, then start tmux
+	if [[ -z "$TMUX" ]]; then
+		ID="$(tmux ls | grep -vm1 attached | cut -d: -f1)"
+		if [[ -z "$ID" ]]; then
+			tmux new-session
+		else # connect to existing sessions when possible
+			tmux attach-session -t "$ID"
+		fi
+	fi
 fi
 
