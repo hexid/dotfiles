@@ -27,3 +27,5 @@
   - curl -fLo ~/.config/vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   - vim -c 'PlugUpdate1 | qall'
   - vim -c 'TmuxlineSnapshot! ~/.config/tmux/tmuxline.vim.conf | q'
+  - mkdir -p ~/.cache/vim
+  - mkdir -p ~/.local/share/tmux

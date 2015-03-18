@@ -3,7 +3,7 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-[ -f $XDG_CONFIG_HOME/xdg.sh ] && . $XDG_CONFIG_HOME/xdg.sh
+[ -f ~/.config/xdg.sh ] && . ~/.config/xdg.sh
 
 export PATH="$PATH:$XDG_BIN_HOME"
 export EDITOR='/usr/bin/vim'
@@ -46,9 +46,9 @@ else # if this isn't a TTY, then start tmux
 	if [[ -z "$TMUX" ]]; then
 		ID="$(tmux ls | grep -vm1 attached | cut -d: -f1)"
 		if [[ -z "$ID" ]]; then
-			tmux new-session
+			exec tmux -f $XDG_CONFIG_HOME/tmux/tmux.conf new-session
 		else # connect to existing sessions when possible
-			tmux attach-session -t "$ID"
+			exec tmux -f $XDG_CONFIG_HOME/tmux/tmux.conf attach-session -t "$ID"
 		fi
 	fi
 fi
