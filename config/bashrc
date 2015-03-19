@@ -42,14 +42,5 @@ if [ "$TERM" = "linux" ]; then # fix colors on TTYs
 		echo -en "$i"
 	done
 	clear
-else # if this isn't a TTY, then start tmux
-	if [[ -z "$TMUX" ]]; then
-		ID="$(tmux ls | grep -vm1 attached | cut -d: -f1)"
-		if [[ -z "$ID" ]]; then
-			exec tmux -f $XDG_CONFIG_HOME/tmux/tmux.conf new-session
-		else # connect to existing sessions when possible
-			exec tmux -f $XDG_CONFIG_HOME/tmux/tmux.conf attach-session -t "$ID"
-		fi
-	fi
 fi
 
