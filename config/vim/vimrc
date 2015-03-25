@@ -15,6 +15,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'chrisbra/Recover.vim'
 Plug 'chriskempson/base16-vim'
 Plug 'edkolev/tmuxline.vim'
+Plug 'rust-lang/rust.vim'
 call plug#end()
 
 " color scheme
@@ -44,7 +45,7 @@ set list
 set number
 
 autocmd FileType * set tabstop=2 | set shiftwidth=2 | set softtabstop=2 | set noexpandtab
-autocmd FileType python set tabstop=4 | set shiftwidth=4 | set softtabstop=4 | set expandtab
+autocmd FileType python,rust set tabstop=4 | set shiftwidth=4 | set softtabstop=4 | set expandtab
 filetype plugin indent on
 syntax on
 
