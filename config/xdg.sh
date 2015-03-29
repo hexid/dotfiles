@@ -5,7 +5,6 @@ export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 
-export GIT_SSH="$XDG_CONFIG_HOME/git/git_ssh.sh"
 export GNUPGHOME="$XDG_CONFIG_HOME/gnupg"
 export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc"
 export HISTFILE="$XDG_DATA_HOME/history"
@@ -18,7 +17,5 @@ export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"
 
 systemctl --user import-environment GNUPGHOME XAUTHORITY
 
-alias scp="scp -F $XDG_CONFIG_HOME/ssh/config"
-alias ssh="ssh -F $XDG_CONFIG_HOME/ssh/config"
-alias startx="startx $XDG_CONFIG_HOME/X11/xinitrc"
+alias startx="startx $XDG_CONFIG_HOME/X11/xinitrc -- $XDG_CONFIG_HOME/X11/xserverrc"
 alias tmux="tmux -f $XDG_CONFIG_HOME/tmux/tmux.conf"
