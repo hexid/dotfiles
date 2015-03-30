@@ -1,4 +1,4 @@
-URxvt.perl-ext-common: default,matcher,-option-popup,-selection-popup,-realine,vtwheel,clipboard,font-size
+URxvt.perl-ext-common: default,matcher,-option-popup,-selection-popup,-realine,vtwheel,clipboard,font-size,-searchable-scrollback
 
 ! enable clicking on links
 URxvt*.matcher.button: 1
@@ -6,6 +6,9 @@ URxvt*.url-launcher: /usr/bin/google-chrome-unstable
 
 ! Disable scroll bar
 URxvt*.scrollBar: false
+
+! Disable scrollback buffer
+URxvt*.saveLines: 0
 
 URxvt*.transparent: false
 
