@@ -35,7 +35,7 @@ fi
 function prompt_gen() {
 	let ret=$? # must be first
 #	local fill="$(printf "%$(tput cols)s\n" | sed "s/ /─/g")\r"
-	export PS1="[\[\e[1;32m\]\u\e[0;m\]@\e[1;33m\]\h\e[0;m\]::\[\e[1;31m\]\$ret\[\e[0;m\]]─[\[\e[1;34m\]\${PWD##*/}\[\e[0;m\]\$(__git_ps1 \"::\[\e[1;36m\]%s\[\e[0;m\]\")]─λ "
+	export PS1="[\[\e[1;32m\]\u\[\e[0;m\]@\[\e[1;33m\]\h\[\e[0;m\]::\[\e[1;31m\]\$ret\[\e[0;m\]]─[\[\e[1;34m\]\${PWD##*/}\[\e[0;m\]\$(__git_ps1 \"::\[\e[1;36m\]%s\[\e[0;m\]\")]─λ "
 }
 PROMPT_COMMAND="prompt_gen"
 
