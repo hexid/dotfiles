@@ -18,6 +18,7 @@
     ~/.config/vim/vimrc:
       create: true
       path: config/vim/vimrc
+    ~/.config/weechat: config/weechat/
     ~/.config/X11: config/X11/
     ~/.config/xdg.sh: config/xdg.sh
 

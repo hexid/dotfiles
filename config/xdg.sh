@@ -19,3 +19,4 @@ systemctl --user import-environment GNUPGHOME XAUTHORITY
 
 alias startx="startx $XDG_CONFIG_HOME/X11/xinitrc -- $XDG_CONFIG_HOME/X11/xserverrc"
 alias tmux="tmux -f $XDG_CONFIG_HOME/tmux/tmux.conf"
+alias weechat="weechat -d $XDG_CONFIG_HOME/weechat/"
