@@ -32,6 +32,9 @@ hc keybind $Mod-e spawn pcmanfm
 # extra keys
 hc keybind XF86MonBrightnessDown spawn xbacklight -dec 5
 hc keybind XF86MonBrightnessUp spawn xbacklight -inc 5
+hc keybind XF86AudioPlay spawn media-ctl.sh play
+hc keybind XF86AudioPrev spawn media-ctl.sh prev
+hc keybind XF86AudioNext spawn media-ctl.sh next
 hc keybind XF86AudioLowerVolume spawn volume-adjust.sh down
 hc keybind XF86AudioRaiseVolume spawn volume-adjust.sh up
 hc keybind XF86AudioMute spawn volume-adjust.sh mute
