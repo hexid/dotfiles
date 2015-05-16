@@ -82,7 +82,7 @@ windowtitle=""
 				'#') # current
 					echo -n "%{B$select_color}%{F-}"
 					;;
-				'+') # other monitor
+				'+') # current (other monitor selected)
 					echo -n "%{B$normal_color}%{F-}"
 					;;
 				':') # active (not empty)
@@ -90,6 +90,12 @@ windowtitle=""
 					;;
 				'!') # alert
 					echo -n "%{B${urgent_color}}%{F-}"
+					;;
+				'.') # inactive (empty)
+					echo -n "%{B-}%{F$normal_color}"
+					;;
+				'-' | '%') # current on other monitor
+					echo -n "%{B-}%{F${select_color}}"
 					;;
 				*) # inactive (empty)
 					echo -n "%{B-}%{F$normal_color}"
