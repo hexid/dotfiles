@@ -5,7 +5,11 @@ hc() {
 }
 hc emit_hook reload
 
-#xsetroot -solid '#5A8E3A'
+# allow access to Xresources defined colors
+# these are accessed as $_xrdb_color## or $_xrdb_{back,fore}ground
+. $XDG_BIN_HOME/color-xrdb.sh
+fgColor=$_xrdb_color12 # blue
+bgColor=$_xrdb_background # black
 
 # set wm name to LG3D to fix Java issues
 hc set wmname LG3D
@@ -24,14 +28,14 @@ hc keybind $Mod-Shift-r reload
 hc keybind $Mod-Shift-c close_or_remove
 
 # applications
-hc keybind $Mod-d spawn dmenu_run -sb '#3b9dff'
-hc keybind $Mod-Shift-d spawn passmenu
+hc keybind $Mod-d spawn dmenu_run -sb "$fgColor" -sf "$bgColor"
+hc keybind $Mod-Shift-d spawn passmenu -sb "$fgColor" -sf "$bgColor"
 hc keybind $Mod-Return spawn urxvtc-tmux.sh
 hc keybind $Mod-e spawn pcmanfm
 
 # extra keys
-hc keybind XF86MonBrightnessDown spawn xbacklight -dec 5
-hc keybind XF86MonBrightnessUp spawn xbacklight -inc 5
+#hc keybind XF86MonBrightnessDown spawn xbacklight -dec 5 -time 500
+#hc keybind XF86MonBrightnessUp spawn xbacklight -inc 5 -time 500
 hc keybind XF86AudioPlay spawn media-ctl.sh play
 hc keybind XF86AudioPrev spawn media-ctl.sh prev
 hc keybind XF86AudioNext spawn media-ctl.sh next
@@ -129,24 +133,23 @@ hc attr theme.floating.reset 1
 
 hc set always_show_frame 0 # hide empty frames
 
-hc set frame_bg_active_color '#3b9dff'
+hc set frame_bg_active_color $fgColor
 hc set frame_bg_transparent 1 # transparent background
 hc set frame_transparent_width 3 # empty frame border width
 
 hc set frame_border_width 0 # around all windows in a frame
 hc set frame_gap 5 # gap between frames
 
-hc attr theme.background_color '#1d1f21' # match terminal background color
+hc attr theme.background_color $bgColor # match terminal background color
 hc attr theme.border_width 3
 hc attr theme.inner_width 0 # no inner border
-hc attr theme.outer_color '#ffffff' # white outer border
 hc attr theme.outer_width 0 # no outer border
 
-hc attr theme.active.color '#3b9dff' # light-blue
+hc attr theme.active.color $fgColor
 hc attr theme.floating.border_width 5 # display a small border of
 hc attr theme.floating.outer_width 1 # white around floating windows
-hc attr theme.normal.color '#a7a7a7' # grey
-hc attr theme.urgent.color '#ffa500' # orange
+hc attr theme.normal.color $_xrdb_color20 # grey
+hc attr theme.urgent.color $_xrdb_color16 # orange
 
 hc set window_gap 0
 hc set frame_padding 0
