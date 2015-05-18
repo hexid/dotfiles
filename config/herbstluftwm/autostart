@@ -67,7 +67,7 @@ hc keybind $Mod-Shift-h     shift left
 hc keybind $Mod-Shift-j     shift down
 hc keybind $Mod-Shift-k     shift up
 hc keybind $Mod-Shift-l     shift right
-hc keybind $Mod-Shift-/     shift_to_monitor +1
+hc keybind $Mod-Shift-slash shift_to_monitor +1
 
 # splitting frames
 # create an empty frame at the specified direction
