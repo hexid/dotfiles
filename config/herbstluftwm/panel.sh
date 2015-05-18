@@ -2,7 +2,7 @@
 
 hc() { "${herbstclient_command[@]:-herbstclient}" "$@" ;}
 monitor=${1:-0}
-geometry=( $(herbstclient monitor_rect "$monitor") )
+geometry=( $(hc monitor_rect "$monitor") )
 if [ -z "$geometry" ]; then
 	echo "Invalid monitor $monitor"
 	exit 1
@@ -18,7 +18,7 @@ alpha_attr() {
 	attr="$(hc attr $1)"
 	echo "${attr/\#/#FF}"
 }
-active_color="$(alpha_attr theme.outer_color)" # active text
+active_color="#FFFFFFFF" # active text
 backgd_color="$(alpha_attr theme.background_color)" # default fg/bg
 normal_color="$(alpha_attr theme.normal.color)" # normal text
 select_color="$(alpha_attr theme.active.color)" # selected tag bg
