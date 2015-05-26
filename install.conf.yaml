@@ -4,30 +4,32 @@
     ~/.bash_profile: config/bash_profile
     ~/.bashrc: config/bashrc
 
-    ~/.config/aliases: config/aliases
-    ~/.config/git: config/git/
-    ~/.config/gtk-2.0: config/gtk-2.0/
-    ~/.config/gtk-3.0: config/gtk-3.0/
-    ~/.config/herbstluftwm: config/herbstluftwm/
-    ~/.config/htop: config/htop/
-    ~/.config/pacaur: config/pacaur/
-    ~/.config/tmux/tmux.conf:
+    $XDG_BIN_HOME: bin/
+
+    $XDG_CONFIG_HOME/aliases: config/aliases
+    $XDG_CONFIG_HOME/git: config/git/
+    $XDG_CONFIG_HOME/gtk-2.0: config/gtk-2.0/
+    $XDG_CONFIG_HOME/gtk-3.0: config/gtk-3.0/
+    $XDG_CONFIG_HOME/herbstluftwm: config/herbstluftwm/
+    $XDG_CONFIG_HOME/htop: config/htop/
+    $XDG_CONFIG_HOME/pacaur: config/pacaur/
+    $XDG_CONFIG_HOME/tmux/tmux.conf:
       create: true
       path: config/tmux/tmux.conf
-    ~/.config/user-dirs.dirs: config/user-dirs.dirs
-    ~/.config/vim/vimrc:
+    $XDG_CONFIG_HOME/user-dirs.dirs: config/user-dirs.dirs
+    $XDG_CONFIG_HOME/vim/vimrc:
       create: true
       path: config/vim/vimrc
-    ~/.config/weechat: config/weechat/
-    ~/.config/X11: config/X11/
-    ~/.config/xdg.sh: config/xdg.sh
+    $XDG_CONFIG_HOME/weechat: config/weechat/
+    $XDG_CONFIG_HOME/X11: config/X11/
+    $XDG_CONFIG_HOME/xdg.sh: config/xdg.sh
 
-    ~/.local/bin: bin/
-    ~/.local/share/feh: data/feh/
+    $XDG_DATA_HOME/feh: data/feh/
 
 - shell:
-  - curl -fLo ~/.config/vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  - curl -fLo $XDG_CONFIG_HOME/vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   - vim -c 'PlugUpdate1 | qall'
-  - vim -c 'TmuxlineSnapshot! ~/.config/tmux/tmuxline.vim.conf | q'
-  - mkdir -p ~/.cache/vim/swp
-  - mkdir -p ~/.local/share/tmux
+  - vim -c 'TmuxlineSnapshot! $XDG_CONFIG_HOME/tmux/tmuxline.vim.conf | q'
+  - mkdir -p $XDG_CACHE_HOME/vim/swp
+  - mkdir -p $XDG_DATA_HOME/tmux
+  - xrdb -load $XDG_CONFIG_HOME/X11/Xresources
