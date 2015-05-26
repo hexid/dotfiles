@@ -8,7 +8,7 @@ hc emit_hook reload
 # allow access to Xresources defined colors
 # these are accessed as $_xrdb_color## or $_xrdb_{back,fore}ground
 . $XDG_BIN_HOME/color-xrdb.sh
-fgColor=$_xrdb_color12 # blue
+fgColor=$_xrdb_color4 # blue
 bgColor=$_xrdb_background # black
 
 # set wm name to LG3D to fix Java issues
@@ -96,23 +96,25 @@ for i in ${!tag_names[@]}; do
 	hc add "${tag_names[$i]}"
 	key="${tag_keys[$i]}"
 	if ! [ -z "$key" ]; then
-		hc keybind "$Mod-$key" use_index "$i"
-		hc keybind "$Mod-Shift-$key" move_index "$i"
+		hc keybind $Mod-$key       use_index  "$i"
+		hc keybind $Mod-Shift-$key move_index "$i"
   fi
 done
 
 # cycle through tags
-hc keybind $Mod-period use_index +1 --skip-visible
-hc keybind $Mod-comma  use_index -1 --skip-visible
-hc keybind $Mod-Shift-period move_index +1 --skip-visible
-hc keybind $Mod-Shift-comma  move_index -1 --skip-visible
+hc keybind $Mod-quoteleft       use_index  +1 --skip-visible
+hc keybind $Mod-period          use_index  +1 --skip-visible
+hc keybind $Mod-Shift-quoteleft use_index  -1 --skip-visible
+hc keybind $Mod-comma           use_index  -1 --skip-visible
+hc keybind $Mod-Shift-period    move_index +1 --skip-visible
+hc keybind $Mod-Shift-comma     move_index -1 --skip-visible
 
 # layouting
 hc keybind $Mod-r remove
-hc keybind $Mod-space cycle_layout 1 vertical horizontal max
 hc keybind $Mod-s floating toggle
 hc keybind $Mod-f fullscreen toggle
 hc keybind $Mod-p pseudotile toggle
+hc keybind $Mod-space cycle_layout 1 vertical horizontal max
 
 # mouse
 hc mouseunbind --all
@@ -148,8 +150,8 @@ hc attr theme.outer_width 0 # no outer border
 hc attr theme.active.color $fgColor
 hc attr theme.floating.border_width 5 # display a small border of
 hc attr theme.floating.outer_width 1 # white around floating windows
-hc attr theme.normal.color $_xrdb_color20 # grey
-hc attr theme.urgent.color $_xrdb_color16 # orange
+hc attr theme.normal.color ${_xrdb_color20:-$_xrdb_color12} # grey (256 vs reg)
+hc attr theme.urgent.color $_xrdb_color1 # red
 
 hc set window_gap 0
 hc set frame_padding 0
@@ -182,7 +184,7 @@ feh --no-fehbg --bg-scale "${XDG_DATA_HOME:-$HOME/.local/share}/feh"
 # find the panel
 panel=${XDG_CONFIG_HOME:-$HOME/.config}/herbstluftwm/panel.sh
 [ -x "$panel" ] || panel=/etc/xdg/herbstluftwm/panel.sh
-for monitor in $(herbstclient list_monitors | cut -d: -f1) ; do
+for monitor in $(hc list_monitors | cut -d: -f1) ; do
 	# start it on each monitor
 	"$panel" $monitor &
 done
