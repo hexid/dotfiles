@@ -29,4 +29,6 @@ URxvt.clipboard.pastecmd: xsel -ob
 URxvt.keysym.C-S-Up: perl:font-size:increase
 URxvt.keysym.C-S-Down: perl:font-size:decrease
 
-#include "Xresources.d/base16-tomorrow"
+#include "Xresources.d/base16.d/default"
+!#include "Xresources.d/base16"
+#include "Xresources.d/base16-256"
