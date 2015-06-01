@@ -4,6 +4,8 @@ alias ls='ls -F --color=auto'
 alias ll='ls -lAh'
 alias rm='echo | xargs -p rm'
 
+alias sudodiff='SUDO_EDITOR="vimdiff" sudoedit'
+
 alias pycalc='python3 -ic "from math import *"'
 alias pyserv='python3 -m http.server 7777'
 
