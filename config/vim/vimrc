@@ -22,7 +22,7 @@ call plug#end()
 set background=dark
 set t_Co=256
 let base16colorspace=256
-colorscheme base16-tomorrow
+colorscheme base16-default
 let g:airline_theme='base16'
 
 " airline
@@ -50,5 +50,3 @@ filetype plugin indent on
 syntax on
 
 set cursorline
-hi CursorLine ctermbg=18
-hi MatchParen cterm=none ctermbg=18 ctermfg=1
