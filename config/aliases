@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 alias dmesg='dmesg -H'
 alias grep='grep --color=auto'
 alias ls='ls -F --color=auto'
@@ -12,6 +14,10 @@ alias pyserv='python3 -m http.server 7777'
 alias clip-copy='xsel --clipboard --input <'
 alias clip-paste='xsel --clipboard --output >'
 
+function pacaur {
+	command pacaur "$@"
+	$XDG_BIN_HOME/updates.sh
+}
 function wcf {
 	if [ -z "$1" ]; then
 		find . | xargs wc -l

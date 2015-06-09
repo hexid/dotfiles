@@ -1,0 +1,12 @@
+[Unit]
+Conflicts=urxvtd.service
+Description=URXVT Daemon (Socket activation)
+Documentation=man:urxvtd(1) man:urxvt(1)
+
+[Socket]
+ListenStream=%t/urxvtd.sock
+SocketMode=0700
+Accept=yes
+
+[Install]
+WantedBy=default.target

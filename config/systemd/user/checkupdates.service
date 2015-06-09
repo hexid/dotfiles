@@ -1,0 +1,6 @@
+[Unit]
+Description=Check for pacman updates
+
+[Service]
+Type=oneshot
+ExecStart=/home/hexid/.local/bin/updates.sh

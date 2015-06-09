@@ -43,6 +43,11 @@ network_widget() {
 	adapter=$(cat /sys/class/net/bond0/bonding/active_slave)
 	echo -e "network\t $sep%{F$normal_color}IP: %{F$active_color}$([[ -z ${addr} ]] && echo 'None' || echo ${addr} ${adapter})"
 }
+updates_widget() {
+	if [[ "$1" != "0"* ]]; then
+		echo " $sep%{F$normal_color}Upd: %{F$active_color}$1"
+	fi
+}
 volume_widget() {
 	echo " $sep%{F$normal_color}Vol: %{F$active_color}$(amixer -D pulse sget Master | grep 'Front Left:' | cut -d ' ' -f7,8 | sed 's/\[//g;s/\]//g;s/off/Mute/;s/ on//;s/%/%%/')"
 }
@@ -52,6 +57,7 @@ hc pad $monitor $panel_height
 battery=""
 date=""
 network=""
+updates=""
 volume=$(volume_widget)
 windowtitle=""
 
@@ -104,8 +110,9 @@ windowtitle=""
 			echo -n " ${i:1} "
 			#echo -en "%{A:\"${herbstclient_command[@]:-herbstclient}\" focus_monitor \"$monitor\" && \"${herbstclient_command[@]:-herbstclient}\" use \"${i:1}\":} ${i:1} %{A}"
 		done
-		echo -n "%{B-}$sep%{F${active_color}}${windowtitle//^/^^}"
-		echo -n "%{r}$network$volume$battery$date "
+		#echo -n "%{B-}$sep%{F${active_color}}${windowtitle//^/^^}"
+		#echo -n "%{r}$network$volume$battery$date "
+		echo -n "%{B-}$sep%{r}$updates$network$volume$battery$date "
 		echo
 
 		### Data handling ###
@@ -126,6 +133,9 @@ windowtitle=""
 				;;
 			network)
 				network="${cmd[@]:1}"
+				;;
+			updates)
+				updates=$(updates_widget "${cmd[@]:1}")
 				;;
 			volume)
 				volume=$(volume_widget)

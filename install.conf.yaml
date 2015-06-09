@@ -13,6 +13,12 @@
     $XDG_CONFIG_HOME/herbstluftwm: config/herbstluftwm/
     $XDG_CONFIG_HOME/htop: config/htop/
     $XDG_CONFIG_HOME/pacaur: config/pacaur/
+    $XDG_CONFIG_HOME/systemd/user/checkupdates.service:
+      create: true
+      path: config/systemd/user/checkupdates.service
+    $XDG_CONFIG_HOME/systemd/user/checkupdates.timer: config/systemd/user/checkupdates.timer
+    $XDG_CONFIG_HOME/systemd/user/gpg-agent.service: config/systemd/user/gpg-agent.service
+    $XDG_CONFIG_HOME/systemd/user/urxvtd.service: config/systemd/user/urxvtd.service
     $XDG_CONFIG_HOME/tmux/tmux.conf:
       create: true
       path: config/tmux/tmux.conf
