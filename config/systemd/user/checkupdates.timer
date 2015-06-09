@@ -1,5 +1,5 @@
 [Unit]
-Description=Check for updates hourly and on boot
+Description=Check for updates every half hour and on boot
 
 [Timer]
 OnBootSec=5min
