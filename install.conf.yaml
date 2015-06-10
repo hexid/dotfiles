@@ -13,9 +13,7 @@
     $XDG_CONFIG_HOME/herbstluftwm: config/herbstluftwm/
     $XDG_CONFIG_HOME/htop: config/htop/
     $XDG_CONFIG_HOME/pacaur: config/pacaur/
-    $XDG_CONFIG_HOME/systemd/user:
-      create: true
-      path: config/systemd/user/
+    $XDG_CONFIG_HOME/systemd: config/systemd/
     $XDG_CONFIG_HOME/tmux/tmux.conf:
       create: true
       path: config/tmux/tmux.conf
