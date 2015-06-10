@@ -16,7 +16,7 @@ alias clip-paste='xsel --clipboard --output >'
 
 function pacaur {
 	command pacaur "$@"
-	$XDG_BIN_HOME/updates.sh
+	(nohup $XDG_BIN_HOME/updates.sh >/dev/null 2>&1 &)
 }
 function wcf {
 	if [ -z "$1" ]; then

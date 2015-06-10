@@ -3,4 +3,8 @@
 let repo=$(checkupdates | wc -l)
 let aur=$(pacaur -k | wc -l)
 
-herbstclient emit_hook updates $((repo + aur))
+if [ $aur -ne 0 ]; then
+	auru=" (+$aur)"
+fi
+
+herbstclient emit_hook updates "$repo$auru"

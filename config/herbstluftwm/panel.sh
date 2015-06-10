@@ -44,7 +44,7 @@ network_widget() {
 	echo -e "network\t $sep%{F$normal_color}IP: %{F$active_color}$([[ -z ${addr} ]] && echo 'None' || echo ${addr} ${adapter})"
 }
 updates_widget() {
-	if [[ "$1" != "0"* ]]; then
+	if [[ "$1" != "0" ]]; then
 		echo " $sep%{F$normal_color}Upd: %{F$active_color}$1"
 	fi
 }
