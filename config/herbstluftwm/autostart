@@ -179,7 +179,7 @@ hc set tree_style '╾│ ├└╼─┐'
 hc detect_monitors
 
 # load background
-feh --no-fehbg --bg-scale "${XDG_DATA_HOME:-$HOME/.local/share}/feh"
+feh --no-fehbg --randomize --bg-scale "${XDG_DATA_HOME:-$HOME/.local/share}/feh"
 
 # find the panel
 panel=${XDG_CONFIG_HOME:-$HOME/.config}/herbstluftwm/panel.sh
