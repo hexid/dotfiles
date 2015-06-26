@@ -48,3 +48,12 @@ if [ "$TERM" = "linux" ]; then # fix colors on TTYs
 	clear
 fi
 
+if [[ -z "$TMUX" ]] ;then
+	TMUX_ID="$(tmux list-sessions | grep -vm1 attached | cut -d: -f1)"
+	if [[ -z "$TMUX_ID" ]]; then
+		exec tmux new-session
+	else
+		exec tmux attach-session -t "$ID"
+	fi
+fi
+
