@@ -23,9 +23,11 @@ if [ -f /usr/share/git/completion/git-prompt.sh ]; then
 else
 	__git_ps1() { echo; }
 fi
+
 if [ -f $XDG_CONFIG_HOME/aliases ]; then
 	. $XDG_CONFIG_HOME/aliases
 fi
+
 if [ -f $XDG_CONFIG_HOME/dircolors ]; then
 	eval "$(dircolors $XDG_CONFIG_HOME/dircolors)"
 elif [ -f /etc/DIR_COLORS ]; then
@@ -46,14 +48,12 @@ if [ "$TERM" = "linux" ]; then # fix colors on TTYs
 		echo -en "$i"
 	done
 	clear
-fi
-
-if [[ -z "$TMUX" ]] ;then
+elif [[ -z "$TMUX" ]]; then # don't open tmux on TTYs
 	TMUX_ID="$(tmux list-sessions | grep -vm1 attached | cut -d: -f1)"
 	if [[ -z "$TMUX_ID" ]]; then
-		exec tmux new-session
+		exec tmux -f $XDG_CONFIG_HOME/tmux/tmux.conf new-session
 	else
-		exec tmux attach-session -t "$ID"
+		exec tmux -f $XDG_CONFIG_HOME/tmux/tmux.conf attach-session -t $TMUX_ID
 	fi
 fi
 

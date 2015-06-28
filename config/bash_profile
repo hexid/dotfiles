@@ -9,4 +9,6 @@
 #	systemctl --user start xorg@${DISPLAY}.socket
 #	exec systemctl --user start herbstlufwm@${DISPLAY}.socket
 #fi
-[[ -z $DISPLAY && $XDG_VTNR -eq 1 ]] && exec startx $XDG_CONFIG_HOME/X11/xinitrc -- $XDG_CONFIG_HOME/X11/xserverrc
+
+# check $TMUX to ensure X only gets started once
+[[ -z $DISPLAY && -z $TMUX && $XDG_VTNR -eq 1 ]] && exec startx $XDG_CONFIG_HOME/X11/xinitrc -- $XDG_CONFIG_HOME/X11/xserverrc
