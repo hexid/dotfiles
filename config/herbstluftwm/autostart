@@ -88,17 +88,19 @@ hc keybind $Mod-Control-Down    resize down +$resizestep_large
 hc keybind $Mod-Control-Up      resize up +$resizestep_large
 hc keybind $Mod-Control-Right   resize right +$resizestep_large
 
-# tags
-tag_names=( "I" "II" "III" "IV" "V" "VI" "VII" "VIII" "IX" "X" )
-tag_keys=( {1..9} 0 )
-hc rename default "${tag_names[0]}" || true
-for i in ${!tag_names[@]}; do
-	hc add "${tag_names[$i]}"
-	key="${tag_keys[$i]}"
+tags="I:1 II:2 III:3 IV:4 V:5 VI:6 VII:7 VIII:8 IX:9 X:0 XI:minus XII:equal"
+hc rename default "I" || true
+key_index=0
+for tag in $tags; do
+	IFS=':' read -r name key <<EOF
+$tag
+EOF
+	hc add "$name"
 	if ! [ -z "$key" ]; then
-		hc keybind $Mod-$key       use_index  "$i"
-		hc keybind $Mod-Shift-$key move_index "$i"
-  fi
+		hc keybind $Mod-$key       use_index  "$key_index"
+		hc keybind $Mod-Shift-$key move_index "$key_index"
+	fi
+	$((key_index=key_index+1))
 done
 
 # cycle through tags
