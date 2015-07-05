@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 # Emulates a keyboard
 # Requires `xdotool`
@@ -11,15 +11,15 @@ if [ $# -lt 1 ]; then
 	exit 1
 fi
 
-function cmd_herbstluftwm() {
+cmd_herbstluftwm() {
 	return;
 }
 
-function sendkey() {
+sendkey() {
 	DISPLAY=:0 xdotool key $@
 	sleep 1
 }
-function sendtext() {
+sendtext() {
 	DISPLAY=:0 xdotool type $@
 	sleep 1
 }

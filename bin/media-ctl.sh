@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 CTL="$(cd "$(dirname "$0")/media-ctl.d/" && pwd)"
 

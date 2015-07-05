@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 while read line; do
 	name="_xrdb_$(echo "$line" | cut -d' ' -f1)"

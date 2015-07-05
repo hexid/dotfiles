@@ -1,7 +1,7 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
-let repo=$(checkupdates | wc -l)
-let aur=$(pacaur -k | wc -l)
+repo=$(checkupdates | wc -l)
+aur=$(pacaur -k | wc -l)
 
 if [ $aur -ne 0 ]; then
 	auru=" (+$aur)"

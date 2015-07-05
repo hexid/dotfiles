@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 # Restart network
 
 sudo systemctl restart systemd-networkd.service
