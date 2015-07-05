@@ -7,12 +7,15 @@ alias ll='ls -lAh'
 alias rm='echo | xargs -p rm'
 
 alias sudodiff='SUDO_EDITOR="vimdiff" sudoedit'
+alias pacdiff='SUDO_EDITOR="vimdiff" DIFFPROG="sudoedit" pacdiff'
 
 alias pycalc='python3 -ic "from math import *"'
 alias pyserv='python3 -m http.server 7777'
 
 alias clip-copy='xsel --clipboard --input <'
 alias clip-paste='xsel --clipboard --output >'
+
+alias scrot='scrot -e "mv \$f ~/documents/screenshots/"'
 
 bashisms() {
 	checkbashisms -f -p $(grep -IrlE '^#! ?(/usr)?/bin/(env )?sh' "$@")
