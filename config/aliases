@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 alias dmesg='dmesg -H'
 alias grep='grep --color=auto'
@@ -14,17 +14,20 @@ alias pyserv='python3 -m http.server 7777'
 alias clip-copy='xsel --clipboard --input <'
 alias clip-paste='xsel --clipboard --output >'
 
-function pacaur {
+bashisms() {
+	checkbashisms -f -p $(grep -IrlE '^#! ?(/usr)?/bin/(env )?sh' "$@")
+}
+cd() {
+	command cd "$@" && ls
+}
+pacaur() {
 	command pacaur "$@"
 	(nohup $XDG_BIN_HOME/updates.sh >/dev/null 2>&1 &)
 }
-function wcf {
+wcf() {
 	if [ -z "$1" ]; then
 		find . | xargs wc -l
 	else
 		find . -name "*.${1}" | xargs wc -l
 	fi
-}
-function cd {
-	builtin cd "$@" && ls
 }
