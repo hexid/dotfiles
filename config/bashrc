@@ -13,7 +13,12 @@ export VISUAL='/usr/bin/vim'
 
 HISTCONTROL=ignoreboth:erasedups
 shopt -s histappend
+
 shopt -s autocd
+shopt -s checkwinsize
+
+tput smkx # turn on keypad (fixes st delete key problems)
+stty -ixon # disable Ctrl-S and Ctrl-Q (xoff/xon)
 
 if [ -f /usr/share/git/completion/git-prompt.sh ]; then
 	. /usr/share/git/completion/git-prompt.sh

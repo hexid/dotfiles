@@ -1,5 +1,8 @@
 - clean: ['~']
 
+- shell:
+  - mkdir -p $XDG_CACHE_HOME $XDG_CONFIG_HOME $XDG_DATA_HOME
+
 - link:
     ~/.bash_profile: config/bash_profile
     ~/.bashrc: config/bashrc
@@ -12,6 +15,7 @@
     $XDG_CONFIG_HOME/gtk-3.0: config/gtk-3.0/
     $XDG_CONFIG_HOME/herbstluftwm: config/herbstluftwm/
     $XDG_CONFIG_HOME/htop: config/htop/
+    $XDG_CONFIG_HOME/inputrc: config/inputrc
     $XDG_CONFIG_HOME/pacaur: config/pacaur/
     $XDG_CONFIG_HOME/systemd: config/systemd/
     $XDG_CONFIG_HOME/tmux/tmux.conf:

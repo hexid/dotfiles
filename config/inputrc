@@ -1,0 +1,28 @@
+# do not bell on tab-completion
+set bell-style none
+
+set meta-flag on
+set input-meta on
+set convert-meta off
+set output-meta on
+
+# turn off keypad to fix st delete key
+set enable-keypad off
+
+set horizontal-scroll-mode off
+
+set show-mode-in-prompt on
+set editing-mode vi
+
+$if mode=vi
+
+# common between both vi keymaps
+C-L: clear-screen
+"\e[5~": history-search-backward
+"\e[6~": history-search-forward
+
+set keymap vi-command
+
+set keymap vi-insert
+
+$endif

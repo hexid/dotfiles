@@ -30,7 +30,7 @@ hc keybind $Mod-Shift-c close_or_remove
 # applications
 hc keybind $Mod-d spawn dmenu_run -sb "$fgColor" -sf "$bgColor"
 hc keybind $Mod-Shift-d spawn passmenu -sb "$fgColor" -sf "$bgColor"
-hc keybind $Mod-Return spawn urxvtc
+hc keybind $Mod-Return spawn st
 hc keybind $Mod-e spawn pcmanfm
 
 # extra keys
