@@ -9,20 +9,32 @@ while getopts :f FLAG; do
 	esac
 done
 
-if grep -qs '/boot' /etc/fstab; then
-	sudo mount /boot
-	if ! grep -qs '/boot' /proc/mounts; then
-		echo "Boot volume not mounted. Exiting"
-		exit
+# check if /boot is on a separate partition and that it is not mounted
+if findmnt --fstab -uno SOURCE /boot >/dev/null 2>&1 && ! mountpoint -q /boot; then
+	sudo mount /boot # attempt to mount it
+	if ! mountpoint -q /boot; then # exit if it is still not mounted
+		echo "Boot volume not mounted. Exiting"; exit
 	fi
 fi
 
-for k in linux linux-lts; do
-	curr="$(pacman -Q $k | cut -d' ' -f2)"
-	boot="$(file /boot/vmlinuz-$k | grep -oP 'version (\d+\.?)+-\d' | cut -d' ' -f2)"
-	echo "$curr  $boot"
+for k in linux linux-lts linux-ck:sandybridge; do
+	IFS=: read kernel pkg_ext <<EOF
+$k
+EOF
+
+	if [ -z "$pkg_ext" ]; then
+		pkg="$kernel"
+	else
+		pkg="$kernel-$pkg_ext"
+	fi
+
+	curr="$(pacman -Q $pkg | cut -d' ' -f2)"
+	boot="$(file /boot/vmlinuz-$kernel | grep -oP 'version (\d+\.?)+-\d' | cut -d' ' -f2)"
+	echo "$kernel: $curr  $boot"
 	if [ "$curr" != "$boot" ] || [ $FORCE -eq 1 ]; then
-		echo "Rebuilding $k"
-		sudo mkinitcpio -p "$k"
+		echo "Reinstalling $pkg"
+		sudo pacman -S $pkg
 	fi
 done
+
+sync
