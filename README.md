@@ -1,38 +1,48 @@
 dotfiles
 ========
 
-Configuration files and utility for managing them
+Configuration files (managed with [dotbot](https://github.com/anishathalye/dotbot))
 
+## [Extra Configuration](CONFIG.md)
 
-# Packages
+## [Packages](http://repo.hexid.me/)
 
-## herbstluftwm
-### Window manager
+### Common
 
-## zsh
-### Shell
+* bash
+* git
+* htop
+* openssh
+* tmux
 
-In order to use the zsh configuration as it is structured here, you will need to add the following to `/etc/zsh/zshenv`
+* pacaur (aur)
 
-    ZDOTDIR=$HOME/.config/zsh
+### Server
 
-## dmenu
-### Application launcher
+* vim-python3
 
-## bar-aint-recursive || dzen2
-### Information bar
+### Desktop
 
-## pass && passmenu
-### Password manager and dmenu loader
+* chromium
+* dmenu
+* feh
+* gvim-python3
+* ttf-dejavu
+* xorg-xinit
 
-## urxvt
-### Terminal emulator
+* herbstluftwm-git (aur)
+* lemonbar-git (aur)
+* numix-themes-archblue (aur)
+* powerline-fonts-git (aur)
 
-## feh
-### For background image
+* slock-custom-git (hexid)
+* st-custom-git (hexid)
 
-## vim && vim-base16-git
-### Terminal editor and theme
+### Limited
 
-## numix-themes-archblue && numix-shine-icon-theme-git
-### GTK theme
+* lvm2
+* nginx
+* pass
+* weechat
+
+* steam-native (aur)
