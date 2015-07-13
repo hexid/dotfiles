@@ -1,34 +1,8 @@
-URxvt.perl-ext-common: default,matcher,-option-popup,-selection-popup,-realine,vtwheel,clipboard,font-size,-searchable-scrollback
+! Load application specific configurations
+#include "Xresources.d/st"
+!#include "Xresources.d/urxvt"
 
-! enable clicking on links
-URxvt*.matcher.button: 1
-URxvt*.url-launcher: /usr/bin/google-chrome-unstable
-
-! Disable scroll bar
-URxvt*.scrollBar: false
-
-! Disable scrollback buffer
-URxvt*.saveLines: 0
-
-URxvt*.transparent: false
-
-URxvt*.urgentOnBell: true
-
-! Change font
-!URxvt*.font: xft:DejaVu Sans Mono:size=9
-URxvt*.font: xft:DejaVu Sans Mono for Powerline:size=9
-
-! Clipboard
-URxvt.iso14755: false
-URxvt.keysym.Shift-Control-C: perl:clipboard:copy
-URxvt.keysym.Shift-Control-V: perl:clipboard:paste
-URxvt.clipboard.copycmd: xsel -ib
-URxvt.clipboard.pastecmd: xsel -ob
-
-! Font size altering
-URxvt.keysym.C-S-Up: perl:font-size:increase
-URxvt.keysym.C-S-Down: perl:font-size:decrease
-
+! Load colors
 #include "Xresources.d/base16.d/default"
 !#include "Xresources.d/base16"
 #include "Xresources.d/base16-256"
