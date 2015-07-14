@@ -10,6 +10,7 @@
     $XDG_BIN_HOME: bin/
 
     $XDG_CONFIG_HOME/aliases: config/aliases
+    $XDG_CONFIG_HOME/chromium-flags.conf: config/chromium-flags.conf
     $XDG_CONFIG_HOME/git: config/git/
     $XDG_CONFIG_HOME/gtk-2.0: config/gtk-2.0/
     $XDG_CONFIG_HOME/gtk-3.0: config/gtk-3.0/
