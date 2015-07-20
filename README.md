@@ -14,7 +14,6 @@ Configuration files (managed with [dotbot](https://github.com/anishathalye/dotbo
 * htop
 * openssh
 * tmux
-
 * pacaur (aur)
 
 ### Server
@@ -29,12 +28,10 @@ Configuration files (managed with [dotbot](https://github.com/anishathalye/dotbo
 * gvim-python3
 * ttf-dejavu
 * xorg-xinit
-
 * herbstluftwm-git (aur)
 * lemonbar-git (aur)
 * numix-themes-archblue (aur)
 * powerline-fonts-git (aur)
-
 * slock-custom-git (hexid)
 * st-custom-git (hexid)
 
@@ -44,5 +41,4 @@ Configuration files (managed with [dotbot](https://github.com/anishathalye/dotbo
 * nginx
 * pass
 * weechat
-
 * steam-native (aur)
