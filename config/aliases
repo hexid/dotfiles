@@ -6,6 +6,8 @@ alias ls='ls -F --color=auto'
 alias ll='ls -lAh'
 alias rm='echo | xargs -p rm'
 
+alias lsblk='lsblk -o NAME,SIZE,TYPE,RM,RO,UUID,MOUNTPOINT'
+
 alias sudodiff='SUDO_EDITOR="vimdiff" sudoedit'
 alias pacdiff='SUDO_EDITOR="vimdiff" DIFFPROG="sudoedit" pacdiff'
 
