@@ -11,4 +11,6 @@ if [ -f "$XDG_CONFIG_HOME/X11/Xresources" ]; then
 	xrdb -merge "$XDG_CONFIG_HOME/X11/Xresources"
 fi
 
+dmenu_path >/dev/null 2>&1
+
 exec herbstluftwm
