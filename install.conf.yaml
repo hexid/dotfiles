@@ -38,4 +38,4 @@
   - vim -c 'TmuxlineSnapshot! $XDG_CONFIG_HOME/tmux/tmuxline.vim.conf | q'
   - mkdir -p $XDG_CACHE_HOME/vim/swp
   - mkdir -p $XDG_DATA_HOME/tmux
-  - "type xrdb >/dev/null && xrdb -load $XDG_CONFIG_HOME/X11/Xresources"
+  - "[[ ! $(command -v xrdb >/dev/null 2>&1) ]] || xrdb -load $XDG_CONFIG_HOME/X11/Xresources"
