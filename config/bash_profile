@@ -10,5 +10,11 @@
 #	exec systemctl --user start herbstlufwm@${DISPLAY}.socket
 #fi
 
-# check $TMUX to ensure X only gets started once
-[[ -z $DISPLAY && -z $TMUX && $XDG_VTNR -eq 1 ]] && exec startx $XDG_CONFIG_HOME/X11/xinitrc -- $XDG_CONFIG_HOME/X11/xserverrc
+# if any of these conditions are not met, we will just drop into a terminal
+# * current virtual terminal is tty1
+# * DISPLAY env var is not set
+# * TMUX env var is not set
+# * startx command exists
+if [[ $XDG_VTNR -eq 1 && -z $DISPLAY && -z $TMUX && $(command -v startx >/dev/null 2>&1) ]]; then
+	exec startx $XDG_CONFIG_HOME/X11/xinitrc -- $XDG_CONFIG_HOME/X11/xserverrc
+fi
