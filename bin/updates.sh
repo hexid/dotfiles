@@ -7,4 +7,5 @@ if [ $aur -ne 0 ]; then
 	auru=" (+$aur)"
 fi
 
-herbstclient emit_hook updates "$repo$auru"
+printf "%s%s" "$repo" "$auru" > "${XDG_RUNTIME_DIR:-/tmp}/checkup-status"
+herbstclient emit_hook updates
