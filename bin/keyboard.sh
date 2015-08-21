@@ -6,8 +6,7 @@
 # args:
 
 if [ $# -lt 1 ]; then
-	echo "Invalid arguments"
-	echo "args: $(basename $0) command [commandArgs]"
+	printf "Invalid arguments\nargs: %s command [commandArgs]\n" "$(basename $0)"
 	exit 1
 fi
 

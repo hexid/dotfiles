@@ -3,9 +3,7 @@
 FORCE=0
 while getopts :f FLAG; do
 	case $FLAG in
-		f)
-			FORCE=1
-			;;
+		f) FORCE=1 ;;
 	esac
 done
 
@@ -13,7 +11,7 @@ done
 if findmnt --fstab -uno SOURCE /boot >/dev/null 2>&1 && ! mountpoint -q /boot; then
 	sudo mount /boot # attempt to mount it
 	if ! mountpoint -q /boot; then # exit if it is still not mounted
-		echo "Boot volume not mounted. Exiting"; exit
+		printf "Boot volume not mounted. Exiting\n"; exit
 	fi
 fi
 
@@ -30,9 +28,9 @@ EOF
 
 	curr="$(pacman -Q $pkg | cut -d' ' -f2)"
 	boot="$(file /boot/vmlinuz-$kernel | grep -oP 'version (\d+\.?)+-\d' | cut -d' ' -f2)"
-	echo "$kernel: $curr  $boot"
+	printf "%s: %s  %s\n" "$kernel" "$curr" "$boot"
 	if [ "$curr" != "$boot" ] || [ $FORCE -eq 1 ]; then
-		echo "Reinstalling $pkg"
+		printf "Reinstalling %s\n" "$pkg"
 		sudo pacman -S $pkg
 	fi
 done
