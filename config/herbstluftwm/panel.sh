@@ -1,64 +1,75 @@
 #!/usr/bin/env bash
 
-hc() { "${herbstclient_command[@]:-herbstclient}" "$@" ;}
+hc="${herbstclient_command[@]:-herbstclient}"
 monitor=${1:-0}
-geometry=( $(hc monitor_rect "$monitor") )
+geometry="$($hc monitor_rect $monitor)"
 if [ -z "$geometry" ]; then
-	echo "Invalid monitor $monitor"
+	printf "Invalid monitor %s" "$monitor"
 	exit 1
-fi
-# geometry has the format W H X Y
-x=${geometry[0]}
-y=${geometry[1]}
-panel_width=${geometry[2]}
-panel_height=15
-font="-*-fixed-medium-*-*-*-12-*-*-*-*-*-*-*"
+fi # geometry has the format X Y W H
+read -r off_x off_y win_w win_h <<< "$geometry"
+pan_h=15
+pan_w=$win_w
+
+textfont="-*-fixed-medium-*-*-*-12-*-*-*-*-*-*-*"
+iconfont="FontAwesome:size=8"
 
 alpha_attr() {
-	attr="$(hc attr $1)"
-	echo "${attr/\#/#FF}"
+	attr="$($hc attr $1)"
+	printf "%s" "${attr/\#/#FF}"
 }
-active_color="#FFFFFFFF" # active text
+active_color="$(alpha_attr theme.color)" # active text
 backgd_color="$(alpha_attr theme.background_color)" # default fg/bg
 normal_color="$(alpha_attr theme.normal.color)" # normal text
 select_color="$(alpha_attr theme.active.color)" # selected tag bg
 urgent_color="$(alpha_attr theme.urgent.color)" # urgent tag bg
 
-sep="%{F$select_color}| "
+sep="%{F$select_color}|"
 
 uniq_linebuffered() {
 	awk '$0 != l { print ; l=$0 ; fflush(); }' "$@"
 }
+print_color_dual() { # background foreground
+	printf "%%{B%s}%%{F%s}" "$1" "$2"
+}
 
 battery_widget() {
-	if [ -x /sys/class/power_supply/BAT0 ]; then
-		echo " $sep%{F$normal_color}Power: %{F$active_color}$(expr $(expr $(cat /sys/class/power_supply/BAT0/charge_now) \* 100) / $(cat /sys/class/power_supply/BAT0/charge_full))%%"
+	battery="/sys/class/power_supply/BAT0"
+	if [ -r $battery ]; then
+		pwr="$(($(cat $battery/charge_now) * 100 / $(cat $battery/charge_full)))"
+		printf "%s %%{F%s}%b %%{F%s}%s " "$sep" "$normal_color" "\uf24$((4 - ($pwr - 1) / 20))" "$active_color" "$pwr%"
 	fi
 }
 date_widget() {
-	date +"date\t $sep%{F$active_color}%-d %{F$normal_color}%b %Y %{F$active_color}%H:%M"
+	date +"date\t$sep %{F$active_color}%-d %{F$normal_color}%b %Y %{F$active_color}%H:%M "
 }
 network_widget() {
 	addr=$(ip addr | sed -En 's/127.0.0.1//;s/.*inet (addr:)?(([0-9]*\.){3}[0-9]*).*/\2/p')
 	adapter=$(cat /sys/class/net/bond0/bonding/active_slave)
-	echo -e "network\t $sep%{F$normal_color}IP: %{F$active_color}$([[ -z ${addr} ]] && echo 'None' || echo ${addr} ${adapter})"
+	printf "network\t%s %%{F%s}%b %%{F%s}%s " "$sep" "$normal_color" '\uf1eb' "$active_color" \
+		"$([[ -z ${addr} ]] && printf 'None' || printf '%s %s' $addr $adapter)"
 }
 updates_widget() {
-	if [[ "$1" != "0" ]]; then
-		echo " $sep%{F$normal_color}Upd: %{F$active_color}$1"
+	file="${XDG_RUNTIME_DIR:-/tmp}/checkup-status"
+	if [ -r $file ]; then
+		upd="$(cat $file)"
+		if [[ "$upd" != "0" ]]; then
+			printf "%s %s%b %s%s " "$sep" "%{F$normal_color}" '\uf062' "%{F$active_color}" "$upd"
+		fi
 	fi
 }
 volume_widget() {
-	echo " $sep%{F$normal_color}Vol: %{F$active_color}$(amixer -D pulse sget Master | grep 'Front Left:' | cut -d ' ' -f7,8 | sed 's/\[//g;s/\]//g;s/off/Mute/;s/ on//;s/%/%%/')"
+	printf "%s%s %%{F%s}%b %s" "$sep" "%{A:\"volume-adjust.sh\" mute:}" "$normal_color" "$(amixer -D pulse sget Master | grep 'Front Left:' | \
+		awk -v c="$active_color" '{print($6,"%{F"c"}",$5)}' | sed 's/\[//g;s/\]//g;s/off /\\uf026/;s/on /\\uf028/')" "%{A}"
 }
 
-hc pad $monitor $panel_height
+$hc pad $monitor $pan_h
 
 battery=""
 date=""
 network=""
-updates=""
-volume=$(volume_widget)
+updates="$(updates_widget)"
+volume="$(volume_widget)"
 windowtitle=""
 
 {
@@ -69,51 +80,44 @@ windowtitle=""
 	while true; do
 		# "date" and network output is checked once a second, but an event is
 		# only generated if the output changed compared to the previous run.
-		echo -e "$(date_widget)\n$(network_widget)"
+		printf "%b\n%b\n" "$(network_widget)" "$(date_widget)"
 		sleep 5 || break
 	done > >(uniq_linebuffered) &
 	childpid=$!
-	hc --idle
+	"$hc" --idle
 	kill $childpid
 } 2>/dev/null | {
-	IFS=$'\t' read -ra tags <<< "$(hc tag_status $monitor)"
+	IFS=$'\t' read -ra tags <<< "$($hc tag_status $monitor)"
 
+	### Output ###
 	while true; do
-		### Output ###
-		battery=$(battery_widget) # update battery on event trigger
+		battery="$(battery_widget)" # update battery on event trigger
 
 		# draw tags
-		for i in "${tags[@]}" ; do
+		for i in "${tags[@]}"; do
 			case ${i:0:1} in
 				'#') # current
-					echo -n "%{B$select_color}%{F-}"
-					;;
+					print_color_dual "$select_color" '-' ;;
 				'+') # current (other monitor selected)
-					echo -n "%{B$normal_color}%{F-}"
-					;;
+					print_color_dual "$normal_color" '-' ;;
 				':') # active (not empty)
-					echo -n "%{B-}%{F$active_color}"
-					;;
+					print_color_dual '-' "$active_color" ;;
 				'!') # alert
-					echo -n "%{B${urgent_color}}%{F-}"
-					;;
+					print_color_dual "$urgent_color" '-' ;;
 				'.') # inactive (empty)
-					echo -n "%{B-}%{F$normal_color}"
-					;;
+					print_color_dual '-' "$normal_color" ;;
 				'-' | '%') # current on other monitor
-					echo -n "%{B-}%{F${select_color}}"
-					;;
-				*) # inactive (empty)
-					echo -n "%{B-}%{F$normal_color}"
-					;;
+					print_color_dual '-' "$select_color" ;;
+				*) # everything else - inactive (empty)
+					print_color_dual '-' "$normal_color" ;;
 			esac
-			echo -n " ${i:1} "
-			#echo -en "%{A:\"${herbstclient_command[@]:-herbstclient}\" focus_monitor \"$monitor\" && \"${herbstclient_command[@]:-herbstclient}\" use \"${i:1}\":} ${i:1} %{A}"
+			#printf " %s " "${i:1}"
+			printf "%s %s %s" "%{A:\"$hc\" focus_monitor \"$monitor\" && \"$hc\" use \"${i:1}\":}" "${i:1}" "%{A}"
 		done
-		#echo -n "%{B-}$sep%{F${active_color}}${windowtitle//^/^^}"
-		#echo -n "%{r}$network$volume$battery$date "
-		echo -n "%{B-}$sep%{r}$updates$network$volume$battery$date "
-		echo
+
+		# draw everything after the tags
+		printf "%s %s %s\n" "%{B-}$sep" "%{F$active_color}${windowtitle//^/^^}" \
+			"%{r}$updates$network$volume$battery$date"
 
 		### Data handling ###
 		# This part handles the events generated in the event loop, and sets
@@ -121,32 +125,17 @@ windowtitle=""
 		# into the array cmd, then action is taken depending on the event name.
 		# "Special events" (quit_panel/togglehidepanel/reload) are handled here.
 
-		# wait for next event
-		IFS=$'\t' read -ra cmd || break
-		# find out event origin
-		case "${cmd[0]}" in
-			tag*)
-				IFS=$'\t' read -ra tags <<< "$(hc tag_status $monitor)"
-				;;
-			date)
-				date="${cmd[@]:1}"
-				;;
-			network)
-				network="${cmd[@]:1}"
-				;;
-			updates)
-				updates=$(updates_widget "${cmd[@]:1}")
-				;;
-			volume)
-				volume=$(volume_widget)
-				;;
-			quit_panel | reload)
-				exit
-				;;
-			focus_changed | window_title_changed)
-				windowtitle="${cmd[@]:2}"
-				;;
+		IFS=$'\t' read -ra cmd || break # wait for next command
+		case "${cmd[0]}" in # find out event origin
+			tag*) IFS=$'\t' read -ra tags <<< "$($hc tag_status $monitor)" ;;
+			date) date="${cmd[@]:1}" ;;
+			network) network="${cmd[@]:1}" ;;
+			updates) updates=$(updates_widget) ;;
+			volume) volume=$(volume_widget) ;;
+			quit_panel | reload) exit ;;
+			focus_changed | window_title_changed) windowtitle="${cmd[@]:2}" ;;
 		esac
 	done
 
-} 2>/dev/null | lemonbar -g ${panel_width}x${panel_height}+${x}+${y} -B "$backgd_color" -F "$backgd_color" -f $font #| while read line; do eval "$line"; done
+} 2>/dev/null | lemonbar -g ${pan_w}x${pan_h}+${off_x}+${off_y} -B "$backgd_color" -F "$backgd_color" -f $textfont -f $iconfont \
+	| while read line; do eval "$line"; done

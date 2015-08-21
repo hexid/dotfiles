@@ -1,13 +1,11 @@
 #!/usr/bin/env bash
 
-hc() {
-	herbstclient "$@"
-}
+hc() { herbstclient "$@" ;}
 hc emit_hook reload
 
 # allow access to Xresources defined colors
 # these are accessed as $_xrdb_color## or $_xrdb_{back,fore}ground
-. $XDG_BIN_HOME/color-xrdb.sh
+. ${XDG_BIN_HOME:-$HOME/.local/bin}/color-xrdb.sh
 fgColor=$_xrdb_color4 # blue
 bgColor=$_xrdb_background # black
 
@@ -100,7 +98,7 @@ EOF
 		hc keybind $Mod-$key       use_index  "$key_index"
 		hc keybind $Mod-Shift-$key move_index "$key_index"
 	fi
-	$((key_index=key_index+1))
+	((key_index=key_index+1))
 done
 
 # cycle through tags
@@ -115,7 +113,7 @@ hc keybind $Mod-Shift-comma     move_index -1 --skip-visible
 
 # layouting
 hc keybind $Mod-r remove
-hc keybind $Mod-s floating toggle
+hc keybind $Mod-s floating   toggle
 hc keybind $Mod-f fullscreen toggle
 hc keybind $Mod-p pseudotile toggle
 hc keybind $Mod-space cycle_layout 1 vertical horizontal max
@@ -148,6 +146,7 @@ hc set frame_border_width 0 # around all windows in a frame
 hc set frame_gap 5 # gap between frames
 
 hc attr theme.background_color $bgColor # match terminal background color
+hc attr theme.color $_xrdb_color15 # white
 hc attr theme.border_width 3
 hc attr theme.inner_width 0 # no inner border
 hc attr theme.outer_width 0 # no outer border
@@ -188,7 +187,7 @@ feh --no-fehbg --randomize --recursive --bg-scale "${XDG_DATA_HOME:-$HOME/.local
 # find the panel
 panel=${XDG_CONFIG_HOME:-$HOME/.config}/herbstluftwm/panel.sh
 [ -x "$panel" ] || panel=/etc/xdg/herbstluftwm/panel.sh
-for monitor in $(hc list_monitors | cut -d: -f1) ; do
+for monitor in $(hc list_monitors | cut -d: -f1); do
 	# start it on each monitor
 	"$panel" $monitor &
 done
