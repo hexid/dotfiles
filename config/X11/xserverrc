@@ -3,5 +3,5 @@
 if [ -z "$XDG_VTNR" ]; then
 	exec /usr/bin/X -nolisten tcp -auth ${XAUTHORITY:-$XDG_RUNTIME_DIR/Xauthority} "$@"
 else
-	exec /usr/bin/X -nolisten tcp -auth ${XAUTHORITY:-$XDG_RUNTIME_DIR/Xauthority} "$@" vt$XDG_VTNR
+	exec /usr/bin/X -nolisten tcp -auth ${XAUTHORITY:-$XDG_RUNTIME_DIR/Xauthority} vt$XDG_VTNR "$@"
 fi
