@@ -1,6 +1,14 @@
 configuration
 =============
 
+# GPG
+
+### ~/.config/gnupg/gpg.conf
+
+```
+keyserver-options auto-key-retrieve
+```
+
 # Kernel
 
 ### /etc/mkinitcpio.conf
@@ -13,6 +21,13 @@ MODULES="i915 xhci-hcd"
 # encrypt: support for encrypted filesystems
 # lvm2: support for LVM
 HOOKS="base udev autodetect modconf block encrypt lvm2 filesystems keyboard fsck"
+```
+
+# Keymap
+
+```
+$ localectl set-keymap --no-convert dvorak
+$ localectl set-x11-keymap --no-convert us,us pc104 dvorak, grp:rctrl_rshift_toggle
 ```
 
 # Pacman
