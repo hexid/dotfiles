@@ -1,6 +1,6 @@
 /config/gtk-2.0/gtkfilechooser.ini
 /config/gtk-3.0/bookmarks
-/config/systemd/user/**
+/config/systemd/user/*/**
 /config/weechat/logs
 /config/weechat/script/plugins.xml.gz
 /config/weechat/sec.conf

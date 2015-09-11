@@ -26,6 +26,9 @@ Configuration files (managed with [dotbot](https://github.com/anishathalye/dotbo
 * dmenu
 * feh
 * gvim-python3
+* mpc
+* mpd
+* ncmpcpp
 * ttf-dejavu
 * xorg-xinit
 * herbstluftwm-git (aur)

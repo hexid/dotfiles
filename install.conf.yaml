@@ -17,6 +17,12 @@
     $XDG_CONFIG_HOME/herbstluftwm: config/herbstluftwm/
     $XDG_CONFIG_HOME/htop: config/htop/
     $XDG_CONFIG_HOME/inputrc: config/inputrc
+    $XDG_CONFIG_HOME/mpd/mpd.conf:
+      create: true
+      path: config/mpd/mpd.conf
+    $XDG_CONFIG_HOME/ncmpcpp/config:
+      create: true
+      path: config/ncmpcpp/config
     $XDG_CONFIG_HOME/pacaur: config/pacaur/
     $XDG_CONFIG_HOME/systemd: config/systemd/
     $XDG_CONFIG_HOME/tmux/tmux.conf:
