@@ -1,3 +1,7 @@
 st.font: DejaVu Sans Mono for Powerline:size=11
 
+st.borderpx: 0
 st.tabspaces: 4
+
+st.mouse4: "\033[A"
+st.mouse5: "\033[B"
