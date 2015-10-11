@@ -32,9 +32,10 @@ Configuration files (managed with [dotbot](https://github.com/anishathalye/dotbo
 * ttf-dejavu
 * xorg-xinit
 * herbstluftwm-git (aur)
-* lemonbar-git (aur)
-* numix-themes-archblue (aur)
+* lemonbar-xft-git (aur)
+* numix-themes-archblue-git (aur)
 * powerline-fonts-git (aur)
+* ttf-font-awesome (aur)
 * slock-custom-git (hexid)
 * st-custom-git (hexid)
 
