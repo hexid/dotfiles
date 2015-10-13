@@ -9,6 +9,9 @@ hc emit_hook reload
 fgColor=$_xrdb_color4 # blue
 bgColor=$_xrdb_background # black
 
+tags="I:1 II:2 III:3 IV:4 V:5 VI:6 VII:7 VIII:8 IX:9 X:0 XI:bracketleft XII:bracketright"
+hc rename default "I" || true
+
 # set wm name to LG3D to fix Java issues
 hc set wmname LG3D
 
@@ -23,12 +26,13 @@ Mod=Mod4   # Use the super key as the main modifier
 hc keybind $Mod-q spawn slock
 #hc keybind $Mod-Shift-q quit
 hc keybind $Mod-Shift-r reload
-hc keybind $Mod-Shift-c close_or_remove
+hc keybind $Mod-Shift-q close_or_remove
 
 # applications
-hc keybind $Mod-d spawn dmenu_run -sb "$fgColor" -sf "$bgColor"
-hc keybind $Mod-Shift-d spawn passmenu -sb "$fgColor" -sf "$bgColor"
-hc keybind $Mod-Return spawn st
+hc keybind $Mod-o spawn dmenu_run -sb "$fgColor" -sf "$bgColor"
+hc keybind $Mod-Shift-o spawn passmenu -sb "$fgColor" -sf "$bgColor"
+
+hc keybind $Mod-Return spawn ${TERMINAL:-st}
 hc keybind $Mod-e spawn pcmanfm
 
 # extra keys
@@ -41,7 +45,7 @@ hc keybind XF86AudioLowerVolume spawn volume-adjust.sh down
 hc keybind XF86AudioRaiseVolume spawn volume-adjust.sh up
 hc keybind XF86AudioMute spawn volume-adjust.sh mute
 hc keybind $Mod-XF86AudioMute spawn pavucontrol
-hc keybind $Mod-F1 spawn monitor-toggle.sh
+hc keybind $Mod-F1 spawn monitor-toggle.sh # XF86Display
 hc keybind $Mod-F2 spawn network-restart.sh
 hc keybind XF86TouchpadToggle spawn touchpad-toggle.sh
 
@@ -65,11 +69,10 @@ hc keybind $Mod-Shift-h     shift left
 hc keybind $Mod-Shift-j     shift down
 hc keybind $Mod-Shift-k     shift up
 hc keybind $Mod-Shift-l     shift right
-hc keybind $Mod-Shift-slash shift_to_monitor +1
 
 # splitting frames
 # create an empty frame at the specified direction
-hc keybind $Mod-b       split   vertical 0.5
+hc keybind $Mod-z       split   vertical 0.5
 hc keybind $Mod-v       split   horizontal 0.5
 # let the current frame explode into subframes
 hc keybind $Mod-Control-space split explode
@@ -86,8 +89,6 @@ hc keybind $Mod-Control-Down    resize down +$resizestep_large
 hc keybind $Mod-Control-Up      resize up +$resizestep_large
 hc keybind $Mod-Control-Right   resize right +$resizestep_large
 
-tags="I:1 II:2 III:3 IV:4 V:5 VI:6 VII:7 VIII:8 IX:9 X:0 XI:minus XII:equal"
-hc rename default "I" || true
 key_index=0
 for tag in $tags; do
 	IFS=':' read -r name key <<EOF
@@ -102,31 +103,32 @@ EOF
 done
 
 # cycle through tags
-hc keybind $Mod-Escape          use_previous
-hc keybind $Mod-BackSpace       use_previous
-hc keybind $Mod-quoteleft       use_index  +1 --skip-visible
-hc keybind $Mod-period          use_index  +1 --skip-visible
-hc keybind $Mod-Shift-quoteleft use_index  -1 --skip-visible
-hc keybind $Mod-comma           use_index  -1 --skip-visible
-hc keybind $Mod-Shift-period    move_index +1 --skip-visible
-hc keybind $Mod-Shift-comma     move_index -1 --skip-visible
+hc keybind $Mod-Escape           use_previous
+hc keybind $Mod-BackSpace        use_previous
+hc keybind $Mod-quoteleft        use_index  +1 --skip-visible
+hc keybind $Mod-period           use_index  +1 --skip-visible
+hc keybind $Mod-Shift-quoteleft  use_index  -1 --skip-visible
+hc keybind $Mod-comma            use_index  -1 --skip-visible
+hc keybind $Mod-Shift-period     move_index +1 --skip-visible
+hc keybind $Mod-Shift-comma      move_index -1 --skip-visible
+hc keybind $Mod-Shift-apostrophe shift_to_monitor +1
 
 # layouting
 hc keybind $Mod-r remove
-hc keybind $Mod-s floating   toggle
+#hc keybind $Mod-s floating   toggle
 hc keybind $Mod-f fullscreen toggle
 hc keybind $Mod-p pseudotile toggle
-hc keybind $Mod-space cycle_layout 1 vertical horizontal max
+hc keybind $Mod-space cycle_layout 1
 
 # mouse
 hc mouseunbind --all
-hc mousebind $Mod-Button1 move
-hc mousebind $Mod-Button2 zoom
-hc mousebind $Mod-Button3 resize
+#hc mousebind $Mod-Button1 move
+#hc mousebind $Mod-Button2 zoom
+#hc mousebind $Mod-Button3 resize
 
 # focus
 hc keybind $Mod-Shift-Escape cycle_monitor
-hc keybind $Mod-slash        cycle_monitor
+hc keybind $Mod-apostrophe   cycle_monitor
 hc keybind $Mod-Tab          cycle_all +1
 hc keybind $Mod-Shift-Tab    cycle_all -1
 hc keybind $Mod-c            cycle
@@ -166,7 +168,7 @@ hc set mouse_recenter_gap 0
 # rules
 hc unrule -F
 hc rule focus=off # normally do not focus new clients
-hc rule class~'(.*[Rr]xvt.*|.*[Tt]erm|Konsole|Pinentry)' focus=on
+hc rule class~'(Pinentry)' focus=on
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' pseudotile=on
 hc rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK|DESKTOP)' manage=off
