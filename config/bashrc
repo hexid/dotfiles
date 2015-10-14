@@ -13,6 +13,8 @@ export VISUAL='/usr/bin/vim'
 export TERMINAL='st'
 
 HISTCONTROL=ignoreboth:erasedups
+HISTFILESIZE=5000
+HISTSIZE=5000
 shopt -s histappend
 
 shopt -s autocd
