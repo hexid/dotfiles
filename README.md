@@ -29,6 +29,7 @@ Configuration files (managed with [dotbot](https://github.com/anishathalye/dotbo
 * mpc
 * mpd
 * ncmpcpp
+* sxhkd
 * ttf-dejavu
 * xorg-xinit
 * herbstluftwm-git (aur)

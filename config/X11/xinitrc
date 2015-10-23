@@ -10,7 +10,9 @@ fi
 if [ -f "$XDG_CONFIG_HOME/X11/Xresources" ]; then
 	xrdb -merge "$XDG_CONFIG_HOME/X11/Xresources"
 fi
+. $XDG_BIN_HOME/color-xrdb.sh
 
 dmenu_path >/dev/null 2>&1 &
 
+sxhkd -m 1 "$XDG_CONFIG_HOME/herbstluftwm/sxhkd" &
 exec herbstluftwm >"$XDG_DATA_HOME/xorg/hlwm.log" 2>&1

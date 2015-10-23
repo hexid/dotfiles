@@ -3,21 +3,12 @@
 hc() { herbstclient "$@" ;}
 hc emit_hook reload
 
-# allow access to Xresources defined colors
-# these are accessed as $_xrdb_color## or $_xrdb_{back,fore}ground
-. ${XDG_BIN_HOME:-$HOME/.local/bin}/color-xrdb.sh
-fgColor=$_xrdb_color4 # blue
-bgColor=$_xrdb_background # black
-
 # cleanup old sessions
 hc keyunbind   --all
 hc mouseunbind --all
 hc unrule      --all
 
-# keybindings
-#Mod=Mod1    # Use alt as the main modifier
-Mod=Mod4   # Use the super key as the main modifier
-
+# tags
 tags="I:1 II:2 III:3 IV:4 V:5 VI:6 VII:7 VIII:8 IX:9 X:0 XI:bracketleft XII:bracketright"
 hc rename default "I" || true
 key_index=0
@@ -27,125 +18,33 @@ $tag
 EOF
 	hc add "$name"
 	if ! [ -z "$key" ]; then
-		hc keybind $Mod-$key       use_index  "$key_index"
-		hc keybind $Mod-Shift-$key move_index "$key_index"
+		hc keybind Mod4-$key       use_index  "$key_index"
+		hc keybind Mod4-Shift-$key move_index "$key_index"
 	fi
 	((key_index=key_index+1))
 done
-
-#hc keybind $Mod-Shift-q quit
-hc keybind $Mod-Shift-r reload
-
-# applications
-hc keybind $Mod-o spawn dmenu_run -sb "$fgColor" -sf "$bgColor"
-hc keybind $Mod-Shift-o spawn passmenu -sb "$fgColor" -sf "$bgColor"
-hc keybind $Mod-Escape spawn slock
-hc keybind $Mod-Return spawn ${TERMINAL:-st}
-hc keybind $Mod-e spawn pcmanfm
-
-# extra keys
-hc keybind XF86AudioPlay spawn media-ctl.sh play
-hc keybind XF86AudioPrev spawn media-ctl.sh prev
-hc keybind XF86AudioNext spawn media-ctl.sh next
-hc keybind XF86AudioLowerVolume spawn volume-adjust.sh down
-hc keybind XF86AudioRaiseVolume spawn volume-adjust.sh up
-hc keybind XF86AudioMute spawn volume-adjust.sh mute
-hc keybind $Mod-XF86AudioMute spawn pavucontrol
-hc keybind $Mod-F1 spawn monitor-toggle.sh # XF86Display
-hc keybind XF86TouchpadToggle spawn touchpad-toggle.sh
-
-# basic movement
-# focusing clients
-hc keybind $Mod-Left  focus left
-hc keybind $Mod-Down  focus down
-hc keybind $Mod-Up    focus up
-hc keybind $Mod-Right focus right
-hc keybind $Mod-h     focus left
-hc keybind $Mod-j     focus down
-hc keybind $Mod-k     focus up
-hc keybind $Mod-l     focus right
-
-# moving clients
-hc keybind $Mod-Shift-h     shift left
-hc keybind $Mod-Shift-j     shift down
-hc keybind $Mod-Shift-k     shift up
-hc keybind $Mod-Shift-l     shift right
-hc keybind $Mod-Shift-Left  shift left
-hc keybind $Mod-Shift-Down  shift down
-hc keybind $Mod-Shift-Up    shift up
-hc keybind $Mod-Shift-Right shift right
-
-# create an empty frame at the specified direction
-hc keybind $Mod-z split vertical   0.5
-hc keybind $Mod-v split horizontal 0.5
-# let the current frame explode into subframes
-hc keybind $Mod-Ctrl-space split explode
-
-# resizing frames
-resizestep_large=0.05
-resizestep_small=0.01
-hc keybind $Mod-Ctrl-h     resize left  +$resizestep_small
-hc keybind $Mod-Ctrl-j     resize down  +$resizestep_small
-hc keybind $Mod-Ctrl-k     resize up    +$resizestep_small
-hc keybind $Mod-Ctrl-l     resize right +$resizestep_small
-hc keybind $Mod-Ctrl-Left  resize left  +$resizestep_large
-hc keybind $Mod-Ctrl-Down  resize down  +$resizestep_large
-hc keybind $Mod-Ctrl-Up    resize up    +$resizestep_large
-hc keybind $Mod-Ctrl-Right resize right +$resizestep_large
-
-hc keybind $Mod-BackSpace        use_previous
-hc keybind $Mod-quoteleft        use_index  +1 --skip-visible
-hc keybind $Mod-Shift-quoteleft  use_index  -1 --skip-visible
-hc keybind $Mod-period           use_index  +1 --skip-visible
-hc keybind $Mod-comma            use_index  -1 --skip-visible
-hc keybind $Mod-Shift-period     move_index +1 --skip-visible
-hc keybind $Mod-Shift-comma      move_index -1 --skip-visible
-hc keybind $Mod-Shift-apostrophe      shift_to_monitor +1
-hc keybind $Mod-Shift-Ctrl-apostrophe shift_to_monitor -1
-
-# focus
-hc keybind $Mod-apostrophe      cycle_monitor +1
-hc keybind $Mod-Ctrl-apostrophe cycle_monitor -1
-hc keybind $Mod-Tab             cycle_all +1
-hc keybind $Mod-Shift-Tab       cycle_all -1
-hc keybind $Mod-c               cycle
-hc keybind $Mod-i               jumpto urgent
-
-# layouting
-hc keybind $Mod-f       fullscreen   toggle
-#hc keybind $Mod-p       pseudotile   toggle
-hc keybind $Mod-Shift-q close_or_remove
-hc keybind $Mod-r       remove
-#hc keybind $Mod-s       floating     toggle
-hc keybind $Mod-space   cycle_layout +1
-
-# mouse
-#hc mousebind $Mod-Button1 move
-#hc mousebind $Mod-Button2 zoom
-#hc mousebind $Mod-Button3 resize
 
 # theme
 hc attr theme.tiling.reset 1
 hc attr theme.floating.reset 1
 
-hc set always_show_frame 0 # hide empty frames
-
-hc set frame_bg_active_color $fgColor
-hc set frame_bg_transparent 1 # transparent background
-hc set frame_transparent_width 3 # empty frame border width
-
-hc set frame_border_width 0 # around all windows in a frame
-hc set frame_gap 5 # gap between frames
-
-hc attr theme.background_color $bgColor # match terminal background color
+hc attr theme.background_color $_xrdb_background # match terminal background color
 hc attr theme.color $_xrdb_color15 # white
 hc attr theme.border_width 3
 hc attr theme.inner_width 0 # no inner border
 hc attr theme.outer_width 0 # no outer border
 
-hc attr theme.active.color $fgColor
+hc attr theme.active.color $_xrdb_color4 # blue
 hc attr theme.normal.color ${_xrdb_color20:-$_xrdb_color12} # grey (256 vs reg)
 hc attr theme.urgent.color $_xrdb_color1 # red
+
+hc set always_show_frame 0 # hide empty frames
+
+hc set frame_bg_transparent 1 # transparent background
+hc set frame_transparent_width 3 # empty frame border width
+
+hc set frame_border_width 0 # around all windows in a frame
+hc set frame_gap 5 # gap between frames
 
 hc set window_gap 0
 hc set frame_padding 0

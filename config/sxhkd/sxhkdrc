@@ -1,0 +1,33 @@
+super + Return
+	st
+
+super + e
+	pcmanfm
+
+super + {_,shift + }o
+	{dmenu_run,passmenu} -sb "$_xrdb_color4" -sf "$_xrdb_background"
+
+super + Escape
+	slock
+
+XF86TouchpadToggle
+	touchpad-toggle.sh
+
+XF86Audio{Play,Prev,Next}
+	media-ctl.sh {play,prev,next}
+
+XF86Audio{LowerVolume,RaiseVolume,Mute}
+	volume-adjust.sh {down,up,mute}
+
+super + XF86AudioMute
+	pavucontrol
+
+super + F1
+	monitor-toggle.sh
+
+#super + F2
+#	network-restart.sh
+
+# make sxhkd reload its configuration files:
+super + shift + Escape
+	pkill -USR1 -x sxhkd

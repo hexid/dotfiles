@@ -108,7 +108,7 @@ windowtitle=""
 					print_color_dual '-' "$normal_color" ;;
 				'-' | '%') # current on other monitor
 					print_color_dual '-' "$select_color" ;;
-				*) # everything else - inactive (empty)
+				*) # everything else
 					print_color_dual '-' "$normal_color" ;;
 			esac
 			#printf " %s " "${i:1}"

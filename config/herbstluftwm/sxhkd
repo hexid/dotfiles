@@ -1,0 +1,47 @@
+super + shift + r
+	herbstclient reload
+
+super + shift + q
+	herbstclient close_or_remove
+
+super + r
+	herbstclient remove
+
+super + {_,shift + }{Left,Down,Up,Right}
+	herbstclient {focus,shift} {left,down,up,right}
+
+super + {_,shift + }{h,j,k,l}
+	herbstclient {focus,shift} {left,down,up,right}
+
+super + {z,v}
+	herbstclient split {vertical,horizontal} 0.5
+
+super + ctrl + {Left,Down,Up,Right}
+	herbstclient resize {left,down,up,right} +0.05
+
+super + ctrl + {h,j,k,l}
+	herbstclient resize {left,down,up,right} +0.01
+
+super + BackSpace
+	herbstclient use_previous
+
+super + {_,shift + }{comma,period}
+	herbstclient {use_index,move_index} {-,+}1 --skip-visible
+
+super + {_,shift + }{_,ctrl + }apostrophe
+	herbstclient {cycle_monitor,shift_to_monitor} {+,-}1
+
+super + {_,ctrl + }Tab
+	herbstclient cycle_all {+,-}1
+
+super + {f,p}
+	herbstclient {fullscreen,pseudotile} toggle
+
+super + space
+	herbstclient cycle_layout 1
+
+super + ctrl + space
+	herbstclient split explode
+
+super + i
+	herbstclient jumpto urgent
