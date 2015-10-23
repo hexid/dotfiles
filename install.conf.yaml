@@ -24,6 +24,7 @@
       create: true
       path: config/ncmpcpp/config
     $XDG_CONFIG_HOME/pacaur: config/pacaur/
+    $XDG_CONFIG_HOME/sxhkd: config/sxhkd/
     $XDG_CONFIG_HOME/systemd: config/systemd/
     $XDG_CONFIG_HOME/tmux/tmux.conf:
       create: true
