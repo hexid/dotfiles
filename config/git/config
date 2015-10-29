@@ -5,7 +5,11 @@
 	helper = cache --timeout=3600
 [diff]
 	tool = vimdiff
+[difftool "vimdiff"]
+	path = nvim
 [merge]
 	tool = vimdiff
+[mergetool "vimdiff"]
+	path = nvim
 [push]
 	default = simple

@@ -14,7 +14,6 @@ export MPD_HOST="$XDG_CONFIG_HOME/mpd/socket"
 export PASSWORD_STORE_DIR="$XDG_DATA_HOME/password-store/"
 export RXVT_SOCKET="$XDG_RUNTIME_DIR/urxvtd.sock"
 export TMUX_TMPDIR="$XDG_RUNTIME_DIR"
-export VIMINIT='if empty($XDG_CONFIG_HOME) | let $XDG_CONFIG_HOME="$HOME/.config" | endif | let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc" | source $MYVIMRC'
 export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"
 
 systemctl --user import-environment GNUPGHOME XAUTHORITY

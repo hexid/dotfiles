@@ -23,6 +23,9 @@
     $XDG_CONFIG_HOME/ncmpcpp/config:
       create: true
       path: config/ncmpcpp/config
+    $XDG_CONFIG_HOME/nvim/init.vim:
+      create: true
+      path: config/nvim/init.vim
     $XDG_CONFIG_HOME/pacaur: config/pacaur/
     $XDG_CONFIG_HOME/sxhkd: config/sxhkd/
     $XDG_CONFIG_HOME/systemd: config/systemd/
@@ -30,9 +33,6 @@
       create: true
       path: config/tmux/tmux.conf
     $XDG_CONFIG_HOME/user-dirs.dirs: config/user-dirs.dirs
-    $XDG_CONFIG_HOME/vim/vimrc:
-      create: true
-      path: config/vim/vimrc
     $XDG_CONFIG_HOME/weechat: config/weechat/
     $XDG_CONFIG_HOME/X11: config/X11/
     $XDG_CONFIG_HOME/xdg.sh: config/xdg.sh
@@ -43,6 +43,6 @@
   - curl -fLo $XDG_CONFIG_HOME/vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   - vim -c 'PlugUpdate1 | qall'
   - vim -c 'TmuxlineSnapshot! $XDG_CONFIG_HOME/tmux/tmuxline.vim.conf | q'
-  - mkdir -p $XDG_CACHE_HOME/vim/swp
+  - mkdir -p $XDG_CACHE_HOME/nvim/swp
   - mkdir -p $XDG_DATA_HOME/tmux
   - "[[ ! $(command -v xrdb >/dev/null 2>&1) ]] || xrdb -load $XDG_CONFIG_HOME/X11/Xresources"

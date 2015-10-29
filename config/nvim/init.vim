@@ -1,13 +1,10 @@
 if empty($XDG_CONFIG_HOME) | let $XDG_CONFIG_HOME="$HOME/.config" | endif
 if empty($XDG_CACHE_HOME) | let $XDG_CACHE_HOME="$HOME/.cache" | endif
-set directory=$XDG_CACHE_HOME/vim/swp,~/,/tmp
-set backupdir=$XDG_CACHE_HOME/vim,~/,/tmp
-set viminfo+=n$XDG_CACHE_HOME/vim/viminfo
-set runtimepath=$XDG_CONFIG_HOME/vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$XDG_CONFIG_HOME/vim/after
-" let $MYVIMRC=$XDG_CONFIG_HOME/vim/vimrc
+set directory=$XDG_CACHE_HOME/nvim/swp,~/tmp,/tmp
+set backupdir=$XDG_CACHE_HOME/nvim,~/tmp,/tmp
 
 " Plugins (junegunn/vim-plug)
-call plug#begin('$XDG_CONFIG_HOME/vim/plugged')
+call plug#begin('$XDG_CONFIG_HOME/nvim/plugged')
 Plug 'bling/vim-airline'
 Plug 'airblade/vim-gitgutter'
 Plug 'chrisbra/Recover.vim'
