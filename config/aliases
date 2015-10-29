@@ -8,8 +8,10 @@ alias rm='echo | xargs -p rm'
 
 alias lsblk='lsblk -o NAME,SIZE,TYPE,RM,RO,UUID,MOUNTPOINT'
 
-alias sudodiff='SUDO_EDITOR="vimdiff" sudoedit'
-alias pacdiff='SUDO_EDITOR="vimdiff" DIFFPROG="sudoedit" pacdiff'
+alias sudodiff='SUDO_EDITOR="nvim -d" sudoedit'
+alias pacdiff='SUDO_EDITOR="nvim -d" DIFFPROG="sudoedit" pacdiff'
+alias vim='nvim'
+alias vimdiff='nvim -d'
 
 alias pycalc='python3 -ic "from math import *"'
 alias pyserv='python3 -m http.server 7777'
