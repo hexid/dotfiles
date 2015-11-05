@@ -56,6 +56,8 @@ if [ "$TERM" = "linux" ]; then # fix colors on TTYs
 		echo -en "$i"
 	done
 	clear
+elif [[ "$(systemd-detect-virt)" = "systemd-nspawn" ]]; then
+	export TERM='screen-256color'
 elif [[ -z "$TMUX" ]] && command -v tmux >/dev/null 2>&1; then # don't open tmux on TTYs
 	TMUX_ID="$(tmux list-sessions | grep -vm1 attached | cut -d: -f1)"
 	if [[ -z "$TMUX_ID" ]]; then
