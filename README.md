@@ -12,20 +12,18 @@ Configuration files (managed with [dotbot](https://github.com/anishathalye/dotbo
 * bash
 * git
 * htop
+* neovim
 * openssh
 * tmux
 * pacaur (aur)
 
 ### Server
 
-* vim-python3
-
 ### Desktop
 
 * chromium
 * dmenu
 * feh
-* gvim-python3
 * mpc
 * mpd
 * ncmpcpp
