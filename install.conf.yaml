@@ -40,9 +40,9 @@
     $XDG_DATA_HOME/feh: data/feh/
 
 - shell:
-  - curl -fLo $XDG_CONFIG_HOME/vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  - vim -c 'PlugUpdate1 | qall'
-  - vim -c 'TmuxlineSnapshot! $XDG_CONFIG_HOME/tmux/tmuxline.vim.conf | q'
+  - curl -fLo $XDG_CONFIG_HOME/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  - nvim -c 'PlugUpdate | qall'
+  - nvim -c 'TmuxlineSnapshot! $XDG_CONFIG_HOME/tmux/tmuxline.vim.conf | q'
   - mkdir -p $XDG_CACHE_HOME/nvim/swp
   - mkdir -p $XDG_DATA_HOME/tmux
   - "[[ ! $(command -v xrdb >/dev/null 2>&1) ]] || xrdb -load $XDG_CONFIG_HOME/X11/Xresources"
