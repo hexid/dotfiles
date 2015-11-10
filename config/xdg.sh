@@ -12,7 +12,6 @@ export HISTFILE="$XDG_DATA_HOME/history"
 export INPUTRC="$XDG_CONFIG_HOME/inputrc"
 export MPD_HOST="$XDG_CONFIG_HOME/mpd/socket"
 export PASSWORD_STORE_DIR="$XDG_DATA_HOME/password-store/"
-export RXVT_SOCKET="$XDG_RUNTIME_DIR/urxvtd.sock"
 export TMUX_TMPDIR="$XDG_RUNTIME_DIR"
 export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"
 
