@@ -13,16 +13,13 @@ pan_w=$win_w
 
 textfont="-*-fixed-medium-*-*-*-12-*-*-*-*-*-*-*"
 iconfont="FontAwesome:size=8"
+bat="BAT0"
 
-alpha_attr() {
-	attr="$($hc attr $1)"
-	printf "%s" "${attr/\#/#FF}"
-}
-active_color="$(alpha_attr theme.color)" # active text
-backgd_color="$(alpha_attr theme.background_color)" # default fg/bg
-normal_color="$(alpha_attr theme.normal.color)" # normal text
-select_color="$(alpha_attr theme.active.color)" # selected tag bg
-urgent_color="$(alpha_attr theme.urgent.color)" # urgent tag bg
+active_color="$($hc attr theme.color)" # active text
+backgd_color="$($hc attr theme.background_color)" # default fg/bg
+normal_color="$($hc attr theme.normal.color)" # normal text
+select_color="$($hc attr theme.active.color)" # selected tag bg
+urgent_color="$($hc attr theme.urgent.color)" # urgent tag bg
 
 sep="%{F$select_color}|"
 
@@ -34,9 +31,9 @@ print_color_dual() { # background foreground
 }
 
 battery_widget() {
-	battery="/sys/class/power_supply/BAT0"
-	if [ -r $battery ]; then
-		pwr="$(($(cat $battery/charge_now) * 100 / $(cat $battery/charge_full)))"
+	dir="/sys/class/power_supply/$bat"
+	if [ -r $dir ]; then
+		pwr="$(($(cat $dir/charge_now) * 100 / $(cat $dir/charge_full)))"
 		printf "%s %%{F%s}%b %%{F%s}%s " "$sep" "$normal_color" "\uf24$((4 - ($pwr - 1) / 20))" "$active_color" "$pwr%"
 	fi
 }
@@ -47,7 +44,7 @@ network_widget() {
 	addr=$(ip addr | sed -En 's/127.0.0.1//;s/.*inet (addr:)?(([0-9]*\.){3}[0-9]*).*/\2/p')
 	adapter=$(cat /sys/class/net/bond0/bonding/active_slave)
 	printf "network\t%s %%{F%s}%b %%{F%s}%s " "$sep" "$normal_color" '\uf1eb' "$active_color" \
-		"$([[ -z ${addr} ]] && printf 'None' || printf '%s %s' $addr $adapter)"
+		"$([[ -z ${addr} ]] && printf 'None' || printf '%s%s' $addr ${adapter:+" $adapter"})"
 }
 updates_widget() {
 	file="${XDG_RUNTIME_DIR:-/tmp}/checkup-status"
@@ -111,8 +108,8 @@ windowtitle=""
 				*) # everything else
 					print_color_dual '-' "$normal_color" ;;
 			esac
-			#printf " %s " "${i:1}"
-			printf "%s %s %s" "%{A:\"$hc\" focus_monitor \"$monitor\" && \"$hc\" use \"${i:1}\":}" "${i:1}" "%{A}"
+			printf " %s " "${i:1}"
+			#printf "%s %s %s" "%{A:\"$hc\" focus_monitor \"$monitor\" && \"$hc\" use \"${i:1}\":}" "${i:1}" "%{A}"
 		done
 
 		# draw everything after the tags
