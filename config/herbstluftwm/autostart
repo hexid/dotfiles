@@ -70,7 +70,7 @@ hc unlock # unlock, just to be sure
 hc detect_monitors # automatic detection
 
 # load random background
-feh --no-fehbg --randomize --recursive --bg-scale "${XDG_DATA_HOME:-$HOME/.local/share}/feh"
+feh --no-fehbg --randomize --recursive --bg-scale "${XDG_DATA_HOME:-$HOME/.local/share}/backgrounds"
 
 # find the panel
 panel=${XDG_CONFIG_HOME:-$HOME/.config}/herbstluftwm/panel.sh
