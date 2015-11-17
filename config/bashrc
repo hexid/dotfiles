@@ -7,7 +7,6 @@
 
 [ -f ~/.config/xdg.sh ] && . ~/.config/xdg.sh
 
-export PATH="$PATH:$XDG_BIN_HOME"
 export EDITOR='/usr/bin/nvim'
 export VISUAL='/usr/bin/nvim'
 export TERMINAL='st'
@@ -47,7 +46,7 @@ prompt_gen() {
 #	local fill="$(printf "%$(tput cols)s\n" | sed "s/ /─/g")\r"
 	export PS1="[\[\e[1;32m\]\u\[\e[0;m\]@\[\e[1;33m\]\h\[\e[0;m\]::\[\e[1;31m\]\$ret\[\e[0;m\]]─[\[\e[1;34m\]\${PWD##*/}\[\e[0;m\]\$(__git_ps1 \"::\[\e[1;36m\]%s\[\e[0;m\]\")]─λ "
 }
-PROMPT_COMMAND="prompt_gen"
+PROMPT_COMMAND='prompt_gen'
 
 if [ "$TERM" = "linux" ]; then # fix colors on TTYs
 	_SEDCMD='s/.*\*color\([0-9]\{1,\}\).*#\([0-9a-fA-F]\{6\}\).*/\1 \2/p'
@@ -56,7 +55,7 @@ if [ "$TERM" = "linux" ]; then # fix colors on TTYs
 		echo -en "$i"
 	done
 	clear
-elif [[ "$(systemd-detect-virt)" = "systemd-nspawn" ]]; then
+elif [[ "$(systemd-detect-virt)" = 'systemd-nspawn' ]]; then
 	export TERM='screen-256color'
 elif [[ -z "$TMUX" ]] && command -v tmux >/dev/null 2>&1; then # don't open tmux on TTYs
 	TMUX_ID="$(tmux list-sessions | grep -vm1 attached | cut -d: -f1)"
