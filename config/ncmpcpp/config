@@ -20,7 +20,7 @@ ncmpcpp_directory = "~/.config/ncmpcpp"
 ## (eg. ncmpc) also use that location.
 ##
 #
-#lyrics_directory = "~/.lyrics"
+lyrics_directory = "~/.local/share/lyrics"
 #
 ##### connection settings #####
 #
