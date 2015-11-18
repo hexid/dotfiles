@@ -13,3 +13,7 @@
 	path = nvim
 [push]
 	default = simple
+[alias]
+	ammend = commit --amend
+	diffc = diff --cached
+	st = status
