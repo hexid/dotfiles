@@ -8,6 +8,7 @@ export XDG_DATA_HOME="$HOME/.local/share"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
 export GIMP2_DIRECTORY="$XDG_CONFIG_HOME/gimp-2.0"
 export GNUPGHOME="$XDG_CONFIG_HOME/gnupg"
+export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
 export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc"
 export HGRCPATH="$XDG_CONFIG_HOME/hg/hgrc"
 export HISTFILE="$XDG_DATA_HOME/history"
@@ -28,4 +29,6 @@ fi
 if command -v tmux >/dev/null 2>&1; then
 	alias tmux="tmux -f $XDG_CONFIG_HOME/tmux/tmux.conf"
 fi
+
+alias ncmpcpp="ncmpcpp -c $XDG_CONFIG_HOME/ncmpcpp/config"
 alias weechat="weechat -d $XDG_CONFIG_HOME/weechat/"
