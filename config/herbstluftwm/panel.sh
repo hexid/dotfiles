@@ -41,10 +41,10 @@ date_widget() {
 	date +"date\t$sep %{F$active_color}%-d %{F$normal_color}%b %Y %{F$active_color}%H:%M "
 }
 network_widget() {
-	addr=$(ip addr | sed -En 's/127.0.0.1//;s/.*inet (addr:)?(([0-9]*\.){3}[0-9]*).*/\2/p')
-	adapter=$(cat /sys/class/net/bond0/bonding/active_slave)
-	printf "network\t%s %%{F%s}%b %%{F%s}%s " "$sep" "$normal_color" '\uf1eb' "$active_color" \
-		"$([[ -z ${addr} ]] && printf 'None' || printf '%s%s' $addr ${adapter:+" $adapter"})"
+	addr="$(ip addr | sed -En 's/127.0.0.1//;s/.*inet (addr:)?(([0-9]*\.){3}[0-9]*).*/\2 /p' | tr -d '\n')"
+	adapter="$(cat /sys/class/net/bond0/bonding/active_slave)"
+	printf "network\t%s %%{F%s}%b %%{F%s}%b " "$sep" "$normal_color" '\uf1eb' "$active_color" \
+		"$([[ -z "$addr" ]] && printf 'None' || printf '%s%s' "$addr" "$adapter")"
 }
 updates_widget() {
 	file="${XDG_RUNTIME_DIR:-/tmp}/checkup-status"
