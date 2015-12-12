@@ -29,7 +29,9 @@ cd() {
 }
 pacaur() {
 	command pacaur "$@"
-	(nohup $XDG_BIN_HOME/updates.sh >/dev/null 2>&1 &)
+	if systemctl --user is-enabled checkupdates.timer >/dev/null; then
+		systemctl --user start --no-block checkupdates.service
+	fi
 }
 wcf() {
 	if [ -z "$1" ]; then
