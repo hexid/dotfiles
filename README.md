@@ -19,6 +19,8 @@ Configuration files (managed with [dotbot](https://github.com/anishathalye/dotbo
 
 ### Server
 
+* letsencrypt
+
 ### Desktop
 
 * chromium
@@ -32,7 +34,7 @@ Configuration files (managed with [dotbot](https://github.com/anishathalye/dotbo
 * xorg-xinit
 * herbstluftwm-git (aur)
 * lemonbar-xft-git (aur)
-* numix-themes-archblue-git (aur)
+* numix-themes-git (aur)
 * powerline-fonts-git (aur)
 * ttf-font-awesome (aur)
 * slock-custom-git (hexid)
