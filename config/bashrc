@@ -11,6 +11,8 @@ export EDITOR='/usr/bin/nvim'
 export VISUAL='/usr/bin/nvim'
 export TERMINAL='st'
 
+export XKB_LAYOUTS='dvorak us'
+
 HISTCONTROL=ignoreboth:erasedups
 HISTFILESIZE=5000
 HISTSIZE=5000

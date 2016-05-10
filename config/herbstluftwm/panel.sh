@@ -27,7 +27,7 @@ uniq_linebuffered() {
 	awk '$0 != l { print ; l=$0 ; fflush(); }' "$@"
 }
 print_color_dual() { # background foreground
-	printf "%%{B%s}%%{F%s}" "$1" "$2"
+	printf "%%{B%s F%s}" "$1" "$2"
 }
 
 battery_widget() {
@@ -40,18 +40,23 @@ battery_widget() {
 date_widget() {
 	date +"date\t$sep %{F$active_color}%-d %{F$normal_color}%b %Y %{F$active_color}%H:%M "
 }
+keyboard_widget() {
+	printf "%s%s %%{F%s}%b %%{F%s}%s %s" "$sep" "%{A:\"keyboard-layout.sh\":}" "$normal_color" "\uf11c" "$active_color" "$1" "%{A}"
+}
 network_widget() {
 	addr="$(ip addr | sed -En 's/127.0.0.1//;s/.*inet (addr:)?(([0-9]*\.){3}[0-9]*).*/\2 /p' | tr -d '\n')"
 	adapter="$(cat /sys/class/net/bond0/bonding/active_slave)"
+	ssid="$(iwgetid $adapter -r)"
 	printf "network\t%s %%{F%s}%b %%{F%s}%b" "$sep" "$normal_color" '\uf1eb' "$active_color" \
-		"$([[ -z "$addr" ]] && printf 'None' || printf '%s%s' "$addr" "${adapter:+"$adapter "}")"
+		"$([[ -z "$addr" ]] && printf 'None ' || printf '%s%%{F%s}%s%%{F%s}%s' \
+			"$addr" "$normal_color" "${adapter:+"$adapter "}" "$active_color" "${ssid:+"$ssid "}")"
 }
 updates_widget() {
 	file="${XDG_RUNTIME_DIR:-/tmp}/checkup-status"
 	if [ -r $file ]; then
 		upd="$(cat $file)"
 		if [[ "$upd" != "0" ]]; then
-			printf "%s %s%b %s%s " "$sep" "%{F$normal_color}" '\uf062' "%{F$active_color}" "$upd"
+			printf "%s %%{F%s}%b %%{F%s}%s " "$sep" "$normal_color" '\uf062' "$active_color" "$upd"
 		fi
 	fi
 }
@@ -64,6 +69,7 @@ $hc pad $monitor $pan_h
 
 battery=""
 date=""
+keyboard=""
 network=""
 updates="$(updates_widget)"
 volume="$(volume_widget)"
@@ -73,6 +79,7 @@ windowtitle=""
 	### Event generator ###
 	# based on different input data (mpc, date, hlwm hooks, ...) this generates events, formed like this:
 	#   <eventname>\t<data> [...]
+	keyboard-layout.sh -q
 
 	while true; do
 		# "date" and network output is checked once a second, but an event is
@@ -93,28 +100,21 @@ windowtitle=""
 		# draw tags
 		for i in "${tags[@]}"; do
 			case ${i:0:1} in
-				'#') # current
-					print_color_dual "$select_color" '-' ;;
-				'+') # current (other monitor selected)
-					print_color_dual "$normal_color" '-' ;;
-				':') # active (not empty)
-					print_color_dual '-' "$active_color" ;;
-				'!') # alert
-					print_color_dual "$urgent_color" '-' ;;
-				'.') # inactive (empty)
-					print_color_dual '-' "$normal_color" ;;
-				'-' | '%') # current on other monitor
-					print_color_dual '-' "$select_color" ;;
-				*) # everything else
-					print_color_dual '-' "$normal_color" ;;
+				'#') print_color_dual "$select_color" '-' ;; # selected + focused
+				'+') print_color_dual "$normal_color" '-' ;; # selected + not focused
+				':') print_color_dual '-' "$active_color" ;; # non-empty tag
+				'!') print_color_dual "$urgent_color" '-' ;; # urgent window
+				'.') print_color_dual '-' "$normal_color" ;; # empty tag
+				'-' | '%') print_color_dual '-' "$select_color" ;; # other monitor
+				*) print_color_dual '-' "$normal_color" ;;
 			esac
-			printf " %s " "${i:1}"
-			#printf "%s %s %s" "%{A:\"$hc\" focus_monitor \"$monitor\" && \"$hc\" use \"${i:1}\":}" "${i:1}" "%{A}"
+			#printf " %s " "${i:1}"
+			printf "%s %s %s" "%{A:\"$hc\" chain . focus_monitor \"$monitor\" . use \"${i:1}\": A3:\"$hc\" chain . lock . move \"${i:1}\" . focus_monitor \"$monitor\" . use \"${i:1}\" . unlock:}" "${i:1}" '%{A A}'
 		done
 
 		# draw everything after the tags
 		printf "%s %s %s\n" "%{B-}$sep" "%{F$active_color}${windowtitle//^/^^}" \
-			"%{r}$updates$network$volume$battery$date"
+			"%{r}$err $updates$keyboard$network$volume$battery$date"
 
 		### Data handling ###
 		# This part handles the events generated in the event loop, and sets
@@ -126,11 +126,15 @@ windowtitle=""
 		case "${cmd[0]}" in # find out event origin
 			tag*) IFS=$'\t' read -ra tags <<< "$($hc tag_status $monitor)" ;;
 			date) date="${cmd[@]:1}" ;;
+			keyboard) keyboard=$(keyboard_widget "${cmd[@]:1}") ;;
 			network) network="${cmd[@]:1}" ;;
 			updates) updates=$(updates_widget) ;;
 			volume) volume=$(volume_widget) ;;
 			quit_panel | reload) exit ;;
 			focus_changed | window_title_changed) windowtitle="${cmd[@]:2}" ;;
+			fullscreen) ;;
+			urgent) ;;
+			*) err="${cmd[@]}" ;;
 		esac
 	done
 
