@@ -5,7 +5,8 @@ set backupdir=$XDG_CACHE_HOME/nvim,~/tmp,/tmp
 
 " Plugins (junegunn/vim-plug)
 call plug#begin('$XDG_CONFIG_HOME/nvim/plugged')
-Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'airblade/vim-gitgutter'
 Plug 'chrisbra/Recover.vim'
 Plug 'chriskempson/base16-vim'
@@ -42,7 +43,7 @@ vmap <C-c> "+yi
 vmap <C-x> "+c
 set pastetoggle=<F2>
 
-set listchars=tab:▸\ ,space:·,trail:⚫,extends:▸,precedes:◂,nbsp:+
+set listchars=tab:▸\ ,space:·,trail:+,extends:▸,precedes:◂,nbsp:+
 set list
 set number " enable line numbers
 
