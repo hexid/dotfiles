@@ -35,7 +35,6 @@ Configuration files (managed with [dotbot](https://github.com/anishathalye/dotbo
 * herbstluftwm-git (aur)
 * lemonbar-xft-git (aur)
 * numix-themes-git (aur)
-* powerline-fonts-git (aur)
 * ttf-font-awesome (aur)
 * slock-custom-git (hexid)
 * st-custom-git (hexid)
