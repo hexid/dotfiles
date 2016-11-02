@@ -25,6 +25,7 @@ Configuration files (managed with [dotbot](https://github.com/anishathalye/dotbo
 
 * chromium
 * dmenu
+* dunst
 * feh
 * mpc
 * mpd
