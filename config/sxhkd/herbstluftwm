@@ -10,20 +10,16 @@ super + r
 super + {_,shift + }{Left,Down,Up,Right}
 	herbstclient {focus,shift} {left,down,up,right}
 
-super + {_,shift + }{h,j,k,l}
-	herbstclient {focus,shift} {left,down,up,right}
-
 super + {z,v}
 	herbstclient split {vertical,horizontal} 0.5
 
-super + ctrl + {Left,Down,Up,Right}
-	herbstclient resize {left,down,up,right} +0.05
-
-super + ctrl + {h,j,k,l}
-	herbstclient resize {left,down,up,right} +0.01
+super + ctrl + {Left,Down,Up,Right}{_, + shift}
+	herbstclient resize {left,down,up,right} +0.0{5,1}
 
 super + BackSpace
 	herbstclient use_previous
+super + shift + BackSpace
+	herbstclient substitute ID clients.focus.winid chain . lock . use_previous . bring ID . use_previous . unlock
 
 super + {_,shift + }{comma,period}
 	herbstclient {use_index,move_index} {-,+}1 --skip-visible
@@ -34,8 +30,8 @@ super + {_,shift + }{_,ctrl + }apostrophe
 super + {_,ctrl + }Tab
 	herbstclient cycle_all {+,-}1
 
-super + {f,p}
-	herbstclient {fullscreen,pseudotile} toggle
+super + {f,p,g}
+	herbstclient {fullscreen,pseudotile,floating} toggle
 
 super + space
 	herbstclient cycle_layout 1
