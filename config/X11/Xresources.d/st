@@ -1,4 +1,4 @@
-st.font: DejaVu Sans Mono for Powerline:size=11
+st.font: DejaVu Sans Mono:pixelsize=11
 
 st.borderpx: 0
 st.tabspaces: 4
