@@ -45,6 +45,7 @@
   - curl -fLo $XDG_CONFIG_HOME/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   - nvim -c 'PlugUpdate | qall'
   - nvim -c 'TmuxlineSnapshot! $XDG_CONFIG_HOME/tmux/tmuxline.vim.conf | q'
+  - sed -i "$XDG_CONFIG_HOME/tmux/tmuxline.vim.conf" -e 's/set -g status-utf8/set -gq status-utf8/'
   - mkdir -p $XDG_CACHE_HOME/nvim/swp
   - mkdir -p $XDG_DATA_HOME/tmux
   - "[[ ! $(command -v xrdb >/dev/null 2>&1) ]] || xrdb -load $XDG_CONFIG_HOME/X11/Xresources"
