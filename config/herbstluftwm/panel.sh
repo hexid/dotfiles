@@ -51,6 +51,11 @@ network_widget() {
 		"$([[ -z "$addr" ]] && printf 'None ' || printf '%s%%{F%s}%s%%{F%s}%s' \
 			"$addr" "$normal_color" "${adapter:+"$adapter "}" "$active_color" "${ssid:+"$ssid "}")"
 }
+reboot_widget() {
+	if [ -e /tmp/need-reboot ]; then
+		printf "%s %%{F%s}%s " "$sep" "$active_color" "Reboot"
+	fi
+}
 updates_widget() {
 	file="${XDG_RUNTIME_DIR:-/tmp}/checkup-status"
 	if [ -r $file ]; then
@@ -71,6 +76,7 @@ battery=""
 date=""
 keyboard=""
 network=""
+reboot="$(reboot_widget)"
 updates="$(updates_widget)"
 volume="$(volume_widget)"
 windowtitle=""
@@ -114,7 +120,7 @@ windowtitle=""
 
 		# draw everything after the tags
 		printf "%s %s %s\n" "%{B-}$sep" "%{F$active_color}${windowtitle//^/^^}" \
-			"%{r}$err $updates$keyboard$network$volume$battery$date"
+			"%{r}$err $reboot$updates$keyboard$network$volume$battery$date"
 
 		### Data handling ###
 		# This part handles the events generated in the event loop, and sets
@@ -128,6 +134,7 @@ windowtitle=""
 			date) date="${cmd[@]:1}" ;;
 			keyboard) keyboard=$(keyboard_widget "${cmd[@]:1}") ;;
 			network) network="${cmd[@]:1}" ;;
+			reboot) reboot=$(reboot_widget) ;;
 			updates) updates=$(updates_widget) ;;
 			volume) volume=$(volume_widget) ;;
 			quit_panel | reload) exit ;;
@@ -138,5 +145,5 @@ windowtitle=""
 		esac
 	done
 
-} 2>/dev/null | lemonbar -g ${pan_w}x${pan_h}+${off_x}+${off_y} -B "$backgd_color" -F "$backgd_color" -f $textfont -f $iconfont \
+} 2>/dev/null | lemonbar -g ${pan_w}x${pan_h}+${off_x}+${off_y} -B "$backgd_color" -F "$backgd_color" -f $textfont -f $iconfont -a 40 \
 	| while read line; do eval "$line"; done

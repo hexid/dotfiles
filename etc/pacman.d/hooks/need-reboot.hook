@@ -1,0 +1,8 @@
+[Trigger]
+Operation = Upgrade
+Type = Package
+Target = linux
+
+[Action]
+When = PostTransaction
+Exec = /usr/local/bin/need-reboot.sh
