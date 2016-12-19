@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 otherTag="$(herbstclient attr "tags.$1.name")"
-echo "$otherTag"
 otherDump="$(herbstclient dump "$otherTag")"
 currTag="$(herbstclient attr tags.focus.name)"
 
