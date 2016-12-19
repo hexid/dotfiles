@@ -19,6 +19,7 @@ export MPD_HOST="$XDG_CONFIG_HOME/mpd/socket"
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/config"
 export PASSWORD_STORE_DIR="$XDG_DATA_HOME/password-store/"
 export TMUX_TMPDIR="$XDG_RUNTIME_DIR"
+export WEECHAT_HOME="$XDG_CONFIG_HOME/weechat"
 export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"
 
 export PATH="$PATH:$XDG_BIN_HOME"
@@ -33,4 +34,3 @@ if command -v tmux >/dev/null 2>&1; then
 fi
 
 alias ncmpcpp="ncmpcpp -c $XDG_CONFIG_HOME/ncmpcpp/config"
-alias weechat="weechat -d $XDG_CONFIG_HOME/weechat/"
