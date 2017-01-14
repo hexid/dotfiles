@@ -60,6 +60,7 @@ hc set auto_detect_monitors 1
 # rules
 hc rule focus=on
 hc rule class~'(Pinentry)' focus=on
+hc rule class~'(Steam)' focus=off
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' pseudotile=on
 hc rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK|DESKTOP)' manage=off
