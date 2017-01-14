@@ -13,6 +13,12 @@ export TERMINAL='st'
 
 export XKB_LAYOUTS='dvorak us'
 
+export GOPATH="$HOME"/workspace/go
+export JAVA_HOME=/usr/lib/jvm/default
+export WINEDLLOVERRIDES='winemenubuilder.exe=d'
+
+export PATH="$PATH":"${GOPATH//://bin:}"/bin
+
 HISTCONTROL=ignoreboth:erasedups
 HISTFILESIZE=5000
 HISTSIZE=5000
