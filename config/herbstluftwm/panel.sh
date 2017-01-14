@@ -38,7 +38,7 @@ battery_widget() {
 	fi
 }
 date_widget() {
-	date +"date\t$sep %{F$active_color}%-d %{F$normal_color}%b %Y %{F$active_color}%H:%M "
+	date +"date\t$sep %{F$normal_color}%a %{F$active_color}%-d %{F$normal_color}%b %Y %{F$active_color}%H:%M "
 }
 keyboard_widget() {
 	printf "%s%s %%{F%s}%b %%{F%s}%s %s" "$sep" "%{A:\"keyboard-layout.sh\":}" "$normal_color" "\uf11c" "$active_color" "$1" "%{A}"
