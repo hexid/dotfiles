@@ -48,11 +48,15 @@ Server = http://repo.hexid.me/archlinux/$arch
 
 # Pulseaudio
 
-### /etc/pulse/default.pa
+### ~/.config/pulse/default.pa
+#### Copy file from /etc/pulse/default.pa
 
 ```
 # Switch to new sink/source when connected
 load-module module-switch-on-connect
+
+# New (and restored) streams will use the default sink
+load-module module-stream-restore restore_device=false
 ```
 
 # SSH

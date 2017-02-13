@@ -1,18 +1,19 @@
 #!/usr/bin/env bash
 
 hc="${herbstclient_command[@]:-herbstclient}"
-monitor=${1:-0}
-geometry="$($hc monitor_rect $monitor)"
+monitor="${1:-0}"
+geometry="$($hc monitor_rect "$monitor")"
 if [ -z "$geometry" ]; then
 	printf "Invalid monitor %s" "$monitor"
 	exit 1
 fi # geometry has the format X Y W H
 read -r off_x off_y win_w win_h <<< "$geometry"
-pan_h=15
-pan_w=$win_w
+pan_h=16
+pan_w="$win_w"
+pan_off=1
 
-textfont="-*-fixed-medium-*-*-*-12-*-*-*-*-*-*-*"
-iconfont="FontAwesome:size=8"
+textfont="DejaVu Sans Mono:pixelsize=10"
+iconfont="FontAwesome:pixelsize=11"
 bat="BAT0"
 
 active_color="$($hc attr theme.color)" # active text
@@ -21,7 +22,7 @@ normal_color="$($hc attr theme.normal.color)" # normal text
 select_color="$($hc attr theme.active.color)" # selected tag bg
 urgent_color="$($hc attr theme.urgent.color)" # urgent tag bg
 
-sep="%{F$select_color}|"
+sep="%{F${select_color}}|"
 
 uniq_linebuffered() {
 	awk '$0 != l { print ; l=$0 ; fflush(); }' "$@"
@@ -66,8 +67,9 @@ updates_widget() {
 	fi
 }
 volume_widget() {
-	printf "%s%s %%{F%s}%b %s" "$sep" "%{A:\"volume-adjust.sh\" mute:}" "$normal_color" "$(amixer -D pulse sget Master | grep 'Front Left:' | \
-		awk -v c="$active_color" '{print($6,"%{F"c"}",$5)}' | sed 's/\[//g;s/\]//g;s/off /\\uf026/;s/on /\\uf028/')" "%{A}"
+	printf "%s%s %%{F%s}%b %s" "$sep" "%{A:\"volume-adjust.sh\" mute: A3:\"volume-adjust.sh\" rotate:}" "$normal_color" \
+		"$(amixer -D pulse sget Master | grep 'Front Left:' | awk -v c="$active_color" '{print($6,"%{F"c"}",$5)}' | \
+			sed 's/\[//g;s/\]//g;s/off /\\uf026/;s/on /\\uf028/')" "%{A A}"
 }
 
 $hc pad $monitor $pan_h
@@ -95,7 +97,7 @@ windowtitle=""
 	done > >(uniq_linebuffered) &
 	childpid=$!
 	"$hc" --idle
-	kill $childpid
+	kill "$childpid"
 } 2>/dev/null | {
 	IFS=$'\t' read -ra tags <<< "$($hc tag_status $monitor)"
 
@@ -130,7 +132,7 @@ windowtitle=""
 
 		IFS=$'\t' read -ra cmd || break # wait for next command
 		case "${cmd[0]}" in # find out event origin
-			tag*) IFS=$'\t' read -ra tags <<< "$($hc tag_status $monitor)" ;;
+			tag*) IFS=$'\t' read -ra tags <<< "$($hc tag_status "$monitor")" ;;
 			date) date="${cmd[@]:1}" ;;
 			keyboard) keyboard=$(keyboard_widget "${cmd[@]:1}") ;;
 			network) network="${cmd[@]:1}" ;;
@@ -145,5 +147,6 @@ windowtitle=""
 		esac
 	done
 
-} 2>/dev/null | lemonbar -g ${pan_w}x${pan_h}+${off_x}+${off_y} -B "$backgd_color" -F "$backgd_color" -f $textfont -f $iconfont -a 40 \
-	| while read line; do eval "$line"; done
+} 2>/dev/null | lemonbar -g "${pan_w}x${pan_h}+${off_x}+${off_y}" -o "${pan_off}" \
+	-B "${backgd_color}" -F "${backgd_color}" -f "${textfont}" -f "${iconfont}" -a 40 \
+	| while read line; do eval "${line}"; done
