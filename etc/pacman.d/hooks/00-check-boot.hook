@@ -7,6 +7,7 @@ Target = boot/*
 Target = usr/lib/initcpio/*
 
 [Action]
+Description = Checking for /boot
 Depends = util-linux
 When = PreTransaction
 Exec = /bin/sh -c '[[ ! $(findmnt -s /boot) ]] || (findmnt /boot &>/dev/null || (printf "error: /boot not mounted\n"; exit 1))'
