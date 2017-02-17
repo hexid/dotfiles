@@ -20,7 +20,7 @@ EOF
 	if ! [ -z "$key" ]; then
 		hc keybind Mod4-$key            use_index  "$key_index"
 		hc keybind Mod4-Shift-$key      move_index "$key_index"
-		hc keybind Mod4-Ctrl-Shift-$key spawn hlwm-swaptag.sh "$key_index"
+		hc keybind Mod4-Ctrl-Shift-$key spawn hlwm-swaptag.sh "$name"
 	fi
 	((key_index=key_index+1))
 done

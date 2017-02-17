@@ -42,7 +42,7 @@ date_widget() {
 	date +"date\t$sep %{F$normal_color}%a %{F$active_color}%-d %{F$normal_color}%b %Y %{F$active_color}%H:%M "
 }
 keyboard_widget() {
-	printf "%s%s %%{F%s}%b %%{F%s}%s %s" "$sep" "%{A:\"keyboard-layout.sh\":}" "$normal_color" "\uf11c" "$active_color" "$1" "%{A}"
+	printf "%s%s %%{F%s}%b %%{F%s}%s %s" "$sep" "%{A:keyboard:}" "$normal_color" "\uf11c" "$active_color" "$1" "%{A}"
 }
 network_widget() {
 	addr="$(ip addr | sed -En 's/127.0.0.1//;s/.*inet (addr:)?(([0-9]*\.){3}[0-9]*).*/\2 /p' | tr -d '\n')"
@@ -67,9 +67,11 @@ updates_widget() {
 	fi
 }
 volume_widget() {
-	printf "%s%s %%{F%s}%b %s" "$sep" "%{A:\"volume-adjust.sh\" mute: A3:\"volume-adjust.sh\" rotate:}" "$normal_color" \
+	printf "%s%b %%{F%s}%b %s" "$sep" "%{A:volume\tmute: A3:volume\trotate: A4:volume\tup: A5:volume\tdown:}" "$normal_color" \
 		"$(amixer -D pulse sget Master | grep 'Front Left:' | awk -v c="$active_color" '{print($6,"%{F"c"}",$5)}' | \
-			sed 's/\[//g;s/\]//g;s/off /\\uf026/;s/on /\\uf028/')" "%{A A}"
+			sed 's/\[//g;s/\]//g;s/off /\\uf026/;s/on /\\uf028/')" "%{A A A A}"
+
+	# pactl list sinks | sed -n -e '/Sink #0/,/Sink #/ p' | grep 'device\.description'
 }
 
 $hc pad $monitor $pan_h
@@ -81,7 +83,7 @@ network=""
 reboot="$(reboot_widget)"
 updates="$(updates_widget)"
 volume="$(volume_widget)"
-windowtitle=""
+status=""
 
 {
 	### Event generator ###
@@ -116,13 +118,12 @@ windowtitle=""
 				'-' | '%') print_color_dual '-' "$select_color" ;; # other monitor
 				*) print_color_dual '-' "$normal_color" ;;
 			esac
-			#printf " %s " "${i:1}"
-			printf "%s %s %s" "%{A:\"$hc\" chain . focus_monitor \"$monitor\" . use \"${i:1}\": A3:\"$hc\" chain . lock . move \"${i:1}\" . focus_monitor \"$monitor\" . use \"${i:1}\" . unlock:}" "${i:1}" '%{A A}'
+			printf "%b %s %s" "%{A:tag_focus\t"${i:1}": A2:tag_swap\t"${i:1}": A3:tag_move\t"${i:1}":}" "${i:1}" '%{A A A}'
 		done
 
 		# draw everything after the tags
-		printf "%s %s %s\n" "%{B-}$sep" "%{F$active_color}${windowtitle//^/^^}" \
-			"%{r}$err $reboot$updates$keyboard$network$volume$battery$date"
+		printf "%s %s %s\n" "%{B-}$sep" "%{F$active_color}${status/^/^^}" \
+			"%{r}$reboot$updates$keyboard$network$volume$battery$date"
 
 		### Data handling ###
 		# This part handles the events generated in the event loop, and sets
@@ -140,13 +141,24 @@ windowtitle=""
 			updates) updates=$(updates_widget) ;;
 			volume) volume=$(volume_widget) ;;
 			quit_panel | reload) exit ;;
-			focus_changed | window_title_changed) windowtitle="${cmd[@]:2}" ;;
+			focus_changed | window_title_changed) status="${cmd[@]:2}" ;;
 			fullscreen) ;;
 			urgent) ;;
-			*) err="${cmd[@]}" ;;
+			*) status="err: ${cmd[@]}" ;;
 		esac
 	done
 
 } 2>/dev/null | lemonbar -g "${pan_w}x${pan_h}+${off_x}+${off_y}" -o "${pan_off}" \
-	-B "${backgd_color}" -F "${backgd_color}" -f "${textfont}" -f "${iconfont}" -a 40 \
-	| while read line; do eval "${line}"; done
+	-B "${backgd_color}" -F "${backgd_color}" -f "${textfont}" -f "${iconfont}" -a 50 | \
+while read line; do
+	IFS=$'\t' read -ra cmd <<< "${line}"
+	case "${cmd[0]}" in
+		keyboard) keyboard-layout.sh ;;
+		status) status="${cmd[@]:1}" ;;
+		tag_focus) "$hc" chain . focus_monitor "$monitor" . use "${cmd[@]:1}" ;;
+		tag_move) "$hc" chain . lock . move "${cmd[@]:1}" . focus_monitor "$monitor" . use "${cmd[@]:1}" . unlock ;;
+		tag_swap) hlwm-swaptag.sh "${cmd[@]:1}" ;;
+		volume) volume-adjust.sh "${cmd[@]:1}" ;;
+		*) status="err: ${cmd[@]}" ;;
+	esac
+done
