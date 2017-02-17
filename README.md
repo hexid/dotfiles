@@ -19,23 +19,25 @@ Configuration files (managed with [dotbot](https://github.com/anishathalye/dotbo
 
 ### Server
 
-* letsencrypt
+* certbot
 
 ### Desktop
 
+* arc-icon-theme
+* arc-solid-gtk-theme
 * chromium
 * dmenu
 * dunst
 * feh
 * mpc
 * mpd
+* mpv
 * ncmpcpp
 * sxhkd
 * ttf-dejavu
 * xorg-xinit
 * herbstluftwm-git (aur)
 * lemonbar-xft-git (aur)
-* numix-themes-git (aur)
 * ttf-font-awesome (aur)
 * slock-custom-git (hexid)
 * st-custom-git (hexid)
@@ -46,4 +48,4 @@ Configuration files (managed with [dotbot](https://github.com/anishathalye/dotbo
 * nginx
 * pass
 * weechat
-* steam-native (aur)
+* steam-native-runtime
