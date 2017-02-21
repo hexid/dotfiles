@@ -16,8 +16,8 @@ super + {z,v}
 super + ctrl + {Left,Down,Up,Right}{_, + shift}
 	herbstclient resize {left,down,up,right} +0.0{5,1}
 
-super + BackSpace
-	herbstclient use_previous
+super + {_,ctrl + shift + }BackSpace
+	{herbstclient,hlwm-swaptag.sh} use_previous
 super + shift + BackSpace
 	herbstclient substitute ID clients.focus.winid chain . lock . use_previous . bring ID . use_previous . unlock
 

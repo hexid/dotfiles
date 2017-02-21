@@ -157,7 +157,7 @@ while read line; do
 		status) status="${cmd[@]:1}" ;;
 		tag_focus) "$hc" chain . focus_monitor "$monitor" . use "${cmd[@]:1}" ;;
 		tag_move) "$hc" chain . lock . move "${cmd[@]:1}" . focus_monitor "$monitor" . use "${cmd[@]:1}" . unlock ;;
-		tag_swap) hlwm-swaptag.sh "${cmd[@]:1}" ;;
+		tag_swap) hlwm-swaptag.sh use "${cmd[@]:1}" ;;
 		volume) volume-adjust.sh "${cmd[@]:1}" ;;
 		*) status="err: ${cmd[@]}" ;;
 	esac
