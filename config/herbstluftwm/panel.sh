@@ -138,6 +138,7 @@ status=""
 			keyboard) keyboard=$(keyboard_widget "${cmd[@]:1}") ;;
 			network) network="${cmd[@]:1}" ;;
 			reboot) reboot=$(reboot_widget) ;;
+			status) status="${cmd[@]:1}" ;;
 			updates) updates=$(updates_widget) ;;
 			volume) volume=$(volume_widget) ;;
 			quit_panel | reload) exit ;;
