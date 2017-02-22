@@ -7,6 +7,7 @@ export XDG_DATA_HOME="$HOME/.local/share"
 
 export ATOM_HOME="$XDG_DATA_HOME/atom"
 export CARGO_HOME="$XDG_DATA_HOME/cargo"
+export CCACHE_DIR="$XDG_CACHE_HOME/ccache"
 export GIMP2_DIRECTORY="$XDG_CONFIG_HOME/gimp-2.0"
 export GNUPGHOME="$XDG_CONFIG_HOME/gnupg"
 export GRADLE_USER_HOME="$XDG_DATA_HOME/gradle"
