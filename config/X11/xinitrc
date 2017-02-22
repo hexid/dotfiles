@@ -14,5 +14,5 @@ fi
 
 dmenu_path >/dev/null 2>&1 &
 
-sxhkd -m 1 "$XDG_CONFIG_HOME/sxhkd/herbstluftwm" &
+sxhkd -m 1 "$XDG_CONFIG_HOME/sxhkd/herbstluftwm" >"$XDG_DATA_HOME/xorg/sxhkd.log" 2>&1 &
 exec herbstluftwm >"$XDG_DATA_HOME/xorg/hlwm.log" 2>&1
