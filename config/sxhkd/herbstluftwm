@@ -23,6 +23,8 @@ super + shift + BackSpace
 
 super + {_,shift + }{comma,period}
 	herbstclient {use_index,move_index} {-,+}1 --skip-visible
+super + ctrl + shift + {comma,period}
+	hlwm-swaptag.sh use_index {-,+}1 --skip-visible
 
 super + {_,shift + }{_,ctrl + }apostrophe
 	herbstclient {cycle_monitor,shift_to_monitor} {+,-}1
