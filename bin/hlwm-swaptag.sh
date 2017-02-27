@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 currTag="$(herbstclient attr tags.focus.name)"
 currDump="$(herbstclient dump)"

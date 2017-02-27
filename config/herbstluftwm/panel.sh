@@ -12,7 +12,7 @@ pan_h=16
 pan_w="$win_w"
 pan_off=1
 
-textfont="DejaVu Sans Mono:pixelsize=10"
+textfont="${_xrdb_font/%pixelsize=*/pixelsize=10}"
 iconfont="FontAwesome:pixelsize=11"
 bat="BAT0"
 
@@ -33,8 +33,8 @@ print_color_dual() { # background foreground
 
 battery_widget() {
 	dir="/sys/class/power_supply/$bat"
-	if [ -r $dir ]; then
-		pwr="$(($(cat $dir/charge_now) * 100 / $(cat $dir/charge_full)))"
+	if [ -r "$dir" ]; then
+		pwr="$(($(cat "$dir"/charge_now) * 100 / $(cat "$dir"/charge_full)))"
 		printf "%s %%{F%s}%b %%{F%s}%s " "$sep" "$normal_color" "\uf24$((4 - ($pwr - 1) / 20))" "$active_color" "$pwr%"
 	fi
 }
@@ -70,11 +70,9 @@ volume_widget() {
 	printf "%s%b %%{F%s}%b %s" "$sep" "%{A:volume\tmute: A3:volume\trotate: A4:volume\tup: A5:volume\tdown:}" "$normal_color" \
 		"$(amixer -D pulse sget Master | grep 'Front Left:' | awk -v c="$active_color" '{print($6,"%{F"c"}",$5)}' | \
 			sed 's/\[//g;s/\]//g;s/off /\\uf026/;s/on /\\uf028/')" "%{A A A A}"
-
-	# pactl list sinks | sed -n -e '/Sink #0/,/Sink #/ p' | grep 'device\.description'
 }
 
-$hc pad $monitor $pan_h
+"$hc" pad "$monitor" "$pan_h"
 
 battery=""
 date=""
