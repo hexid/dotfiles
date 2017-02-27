@@ -10,7 +10,7 @@ fi
 if [ -f "$XDG_CONFIG_HOME/X11/Xresources" ]; then
 	xrdb -merge "$XDG_CONFIG_HOME/X11/Xresources"
 fi
-. $XDG_BIN_HOME/color-xrdb.sh
+. $XDG_BIN_HOME/env-xrdb.sh
 
 dmenu_path >/dev/null 2>&1 &
 
