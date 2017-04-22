@@ -4,8 +4,10 @@ super + Return
 super + e
 	pcmanfm
 
-super + {_,shift + }o
-	{dmenu_run,passmenu} -sb "$_xrdb_color4" -sf "$_xrdb_background"
+super + o
+	dmenu_run -sb "$_xrdb_color4" -sf "$_xrdb_background" -fn "$_xrdb_font"
+super + shift + {_, ctrl + }{o,t}
+	wardedmenu { ,-w work }{ ,-T 'TOTP: ' }-- -sb "$_xrdb_color4" -sf "$_xrdb_background" -fn "$_xrdb_font"
 
 super + Escape
 	slock
