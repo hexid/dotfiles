@@ -1,3 +1,6 @@
+/config/atom-editor/*
+!/config/atom-editor/config.*
+!/config/atom-editor/init.*
 /config/gtk-2.0/gtkfilechooser.ini
 /config/gtk-3.0/bookmarks
 /config/systemd/user/*/**

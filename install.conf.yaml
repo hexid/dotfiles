@@ -9,6 +9,7 @@
 
     $XDG_BIN_HOME: bin/
 
+    $XDG_CONFIG_HOME/atom-editor: config/atom-editor
     $XDG_CONFIG_HOME/aliases: config/aliases
     $XDG_CONFIG_HOME/chromium-flags.conf: config/chromium-flags.conf
     $XDG_CONFIG_HOME/dunst: config/dunst/

@@ -1,0 +1,38 @@
+"*":
+  backup:
+    packages: [
+      "busy-signal"
+      "go-debug"
+      "hyperclick"
+      "intentions"
+      "linter"
+      "linter-ui-default"
+      "go-plus"
+      "go-signature-statusbar"
+    ]
+    themes: []
+  core:
+    disabledPackages: [
+      "exception-reporting"
+      "metrics"
+    ]
+    telemetryConsent: "limited"
+    themes: [
+      "atom-dark-ui"
+      "atom-dark-syntax"
+    ]
+  editor:
+    fontSize: 10
+    showInvisibles: true
+    tabType: "hard"
+  "go-plus":
+    currentPanelHeight: "5.517909002904163vh"
+    currentPanelWidth: "17.205882352941178vw"
+    format:
+      tool: "gofmt"
+    panelOrientation: "vertical"
+    test: {}
+  linter: {}
+  "linter-ui-default": {}
+  welcome:
+    showOnStartup: false
