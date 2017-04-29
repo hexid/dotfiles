@@ -9,7 +9,7 @@ hc mouseunbind --all
 hc unrule      --all
 
 # settings that need to be set before tags are created
-hc set default_frame_layout 3 # default to grid layout
+hc attr settings.default_frame_layout 3 # default to grid layout
 
 # tags
 tags="I:1 II:2 III:3 IV:4 V:5 VI:6 VII:7 VIII:8 IX:9 X:0 XI:bracketleft XII:bracketright"
