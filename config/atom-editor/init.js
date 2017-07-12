@@ -1,19 +1,25 @@
+getPackageList = (type) => {
+	return atom.packages.getActivePackages()
+		.filter(p => !p.bundledPackage)
+		.filter(p => p.__proto__.constructor.name == type)
+		.map(p => p.name)
+}
+
 savePackageList = () => {
-	getList = (type) => {
-		return atom.packages.getActivePackages()
-			.filter(p => !p.bundledPackage)
-			.filter(p => p.__proto__.constructor.name == type)
-			.map(p => p.name)
-	}
-	atom.config.set('backup.packages', getList('Package'))
-	atom.config.set('backup.themes', getList('ThemePackage'))
+	atom.config.set('backup.packages', getPackageList('Package'))
+	atom.config.set('backup.themes', getPackageList('ThemePackage'))
 }
 
 restorePackageList = () => {
 	ref = require('atom')
 
+	installedPackages = getPackageList('Package')
+	installedThemes = getPackageList('ThemePackage')
+
 	packages = atom.config.get('backup.packages')
+		.filter(p => !installedPackages.includes(p))
 	themes = atom.config.get('backup.themes')
+		.filter(t => !installedThemes.includes(t))
 
 	installPackage = (pack, callback) => {
 		name = pack.name
