@@ -6,8 +6,8 @@ getPackageList = (type) => {
 }
 
 savePackageList = () => {
-	atom.config.set('backup.packages', getPackageList('Package'))
-	atom.config.set('backup.themes', getPackageList('ThemePackage'))
+	atom.config.set('backup.packages', getPackageList('Package').sort())
+	atom.config.set('backup.themes', getPackageList('ThemePackage').sort())
 }
 
 restorePackageList = () => {

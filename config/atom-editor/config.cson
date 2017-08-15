@@ -2,15 +2,19 @@
   backup:
     packages: [
       "atom-jade"
+      "atom-mermaid"
+      "atom-ternjs"
       "busy-signal"
       "git-diff-details"
       "go-debug"
       "go-plus"
       "go-signature-statusbar"
       "godef"
+      "hyperclick"
       "intentions"
       "language-docker"
       "language-graphql"
+      "language-mermaid"
       "linter"
       "linter-docker"
       "linter-eslint"
@@ -23,8 +27,6 @@
       "Sublime-Style-Column-Selection"
       "text-manipulation"
       "tree-view-git-status"
-      "language-mermaid"
-      "atom-mermaid"
     ]
     themes: []
   core:
