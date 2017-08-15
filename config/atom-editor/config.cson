@@ -1,38 +1,44 @@
 "*":
   backup:
     packages: [
+      "atom-jade"
       "busy-signal"
+      "git-diff-details"
       "go-debug"
-      "hyperclick"
-      "intentions"
-      "linter"
-      "linter-ui-default"
       "go-plus"
       "go-signature-statusbar"
+      "godef"
+      "intentions"
+      "language-docker"
+      "language-graphql"
+      "linter"
+      "linter-docker"
+      "linter-eslint"
+      "linter-golinter"
+      "linter-swagger"
+      "linter-ui-default"
+      "markdown-preview-plus"
+      "merge-conflicts"
+      "split-diff"
+      "Sublime-Style-Column-Selection"
+      "text-manipulation"
+      "tree-view-git-status"
+      "language-mermaid"
+      "atom-mermaid"
     ]
     themes: []
   core:
     disabledPackages: [
-      "exception-reporting"
-      "metrics"
+      "github"
     ]
-    telemetryConsent: "limited"
-    themes: [
-      "atom-dark-ui"
-      "atom-dark-syntax"
-    ]
+    telemetryConsent: "no"
   editor:
     fontSize: 10
     showInvisibles: true
-    tabType: "hard"
-  "go-plus":
-    currentPanelHeight: "5.517909002904163vh"
-    currentPanelWidth: "17.205882352941178vw"
-    format:
-      tool: "gofmt"
-    panelOrientation: "vertical"
-    test: {}
-  linter: {}
-  "linter-ui-default": {}
+  "exception-reporting":
+    userId: "63a98ac1-90e8-4cf9-a187-868d9d4ec7c5"
+  "linter-ui-default":
+    panelHeight: 69
+    showPanel: true
   welcome:
     showOnStartup: false

@@ -1,5 +1,5 @@
 getPackageList = (type) => {
-	return atom.packages.getActivePackages()
+	return atom.packages.getLoadedPackages()
 		.filter(p => !p.bundledPackage)
 		.filter(p => p.__proto__.constructor.name == type)
 		.map(p => p.name)
@@ -21,42 +21,42 @@ restorePackageList = () => {
 	themes = atom.config.get('backup.themes')
 		.filter(t => !installedThemes.includes(t))
 
-	installPackage = (pack, callback) => {
-		name = pack.name
-		theme = pack.theme || false
-		activateOnSuccess = !theme && !atom.packages.isPackageDisabled(name)
+	installPackage = (name, theme = false) => {
+		enabled = !theme && !atom.packages.isPackageDisabled(name)
 
 		command = atom.packages.getApmPath()
 		args = ['install', name, '--json']
-
-		outputLines = []
-		stdout = (lines) => outputLines.push(lines)
-		errorLines = []
-		stderr = (lines) => errorLines.push(lines)
-		exit = (code) => callback(code, outputLines.join('\n'), errorLines.join('\n'))
-
 		args.push('--no-color')
-		return new ref.BufferedProcess({command, args, stdout, stderr, exit})
+		return new Promise((resolve, reject) => new ref.BufferedProcess({
+			command, args,
+			exit: (code) => code && reject() || resolve(),
+		})).then(() => {
+			if (!enabled) {
+				atom.packages.disablePackage(name)
+			}
+		})
 	}
 
-	packages.forEach(p => {
-		installPackage({ name: p }, (code, out, err) => {
-			console.log(code)
-		})
-	})
+	console.log(installedPackages, packages)
+	console.log(installedThemes, themes)
 
-	themes.forEach(t => {
-		installPackage({ name: t, theme: true }, (code, out, err) => {
-			console.log(code)
-		})
-	})
-
-	console.log(packages, themes)
+	return Promise.all([
+		...packages.map(p => {
+			return installPackage({ name: p })
+		}),
+		...themes.map(t => {
+			return installPackage({ name: t, theme: true })
+		}),
+	])
 }
 
-restorePackageList()
+atom.packages.onDidActivateInitialPackages(() => {
+	const register = () => {
+		atom.packages.onDidActivatePackage(savePackageList)
+		atom.packages.onDidDeactivatePackage(savePackageList)
+		atom.packages.onDidLoadPackage(savePackageList)
+		atom.packages.onDidUnloadPackage(savePackageList)
+	}
 
-atom.packages.onDidActivatePackage(savePackageList)
-atom.packages.onDidDeactivatePackage(savePackageList)
-atom.packages.onDidLoadPackage(savePackageList)
-atom.packages.onDidUnloadPackage(savePackageList)
+	restorePackageList().then(register, register)
+})
