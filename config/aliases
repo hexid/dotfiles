@@ -25,7 +25,7 @@ bashisms() {
 	checkbashisms -f -p $(grep -IrlE '^#! ?(/usr)?/bin/(env )?sh' "$@")
 }
 cd() {
-	command cd "$@" && ls
+	builtin cd "$@" && ls
 }
 pacaur() {
 	command pacaur "$@"
