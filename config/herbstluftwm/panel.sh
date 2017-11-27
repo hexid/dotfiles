@@ -147,7 +147,7 @@ status=""
 		esac
 	done
 
-} 2>/dev/null | lemonbar -g "${pan_w}x${pan_h}+${off_x}+${off_y}" -o "${pan_off}" \
+} 2>/dev/null | lemonbar -g "${pan_w}x${pan_h}+${off_x}+0" -o "${pan_off}" \
 	-B "${backgd_color}" -F "${backgd_color}" -f "${textfont}" -f "${iconfont}" -a 50 | \
 while read line; do
 	IFS=$'\t' read -ra cmd <<< "${line}"
