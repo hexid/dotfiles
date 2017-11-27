@@ -1,4 +1,4 @@
-. $HOME/.config/aliases
+. "$XDG_CONFIG_HOME"/shell/aliases.sh
 . /usr/share/doc/pkgfile/command-not-found.zsh
 
 unsetopt beep
