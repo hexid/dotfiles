@@ -24,7 +24,6 @@ Configuration files (managed with [dotbot](https://github.com/anishathalye/dotbo
 ### Desktop
 
 * arc-icon-theme
-* arc-solid-gtk-theme
 * chromium
 * dmenu
 * dunst
@@ -36,6 +35,7 @@ Configuration files (managed with [dotbot](https://github.com/anishathalye/dotbo
 * sxhkd
 * ttf-dejavu
 * xorg-xinit
+* equilux-theme (aur)
 * herbstluftwm-git (aur)
 * lemonbar-xft-git (aur)
 * ttf-font-awesome (aur)
