@@ -18,8 +18,11 @@ XF86TouchpadToggle
 XF86Audio{Play,Prev,Next}
 	media-ctl.sh {play,prev,next}
 
-XF86Audio{LowerVolume,RaiseVolume,Mute}
-	volume-adjust.sh {down,up,mute}
+XF86Audio{LowerVolume,RaiseVolume,Mute,MicMute}
+	volume-adjust.sh {down,up,mute,micmute}
+
+XF86MonBrightness{Down,Up}
+	xbacklight -{dec,inc} 5
 
 super + XF86AudioMute
 	pavucontrol

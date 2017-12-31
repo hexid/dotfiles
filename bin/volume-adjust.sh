@@ -27,5 +27,8 @@ case "$1" in
 		sink="$(pactl list sinks | grep -A 1 -F "Name: ${nextSink}" | grep 'Description: ' | cut -d' ' -f2-)"
 		herbstclient emit_hook status "PulseAudio Sink: ${sink}"
 		;;
+	micmute)
+		amixer -q -D pulse set Capture Capture Switch toggle
+		;;
 esac
 herbstclient emit_hook volume
