@@ -5,6 +5,7 @@ alias grep='grep --color=auto'
 alias ls='ls -F --color=auto'
 alias ll='ls -lAh'
 alias rm='echo | xargs -p rm'
+alias tree='tree -F'
 
 alias lsblk='lsblk -o NAME,SIZE,TYPE,RM,RO,UUID,MOUNTPOINT'
 
