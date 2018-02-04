@@ -17,3 +17,4 @@
 	ammend = commit --amend
 	diffc = diff --cached
 	st = status
+	graph = log --all --decorate --oneline --graph
