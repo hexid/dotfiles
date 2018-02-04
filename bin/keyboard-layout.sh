@@ -3,7 +3,7 @@
 layout=$(setxkbmap -query | awk 'END{print $2}')
 
 if [[ "$1" = "-q" ]]; then
-	printf "keyboard\t%s\n" "$layout"
+	printf "%s\n" "$layout"
 else
 	IFS=' ' read -r -a cycle <<< "${XKB_LAYOUTS:-us}"
 	if [[ -n "$1" ]]; then
@@ -22,5 +22,5 @@ else
 		new_layout="${cycle[0]}"
 	fi
 	setxkbmap "$new_layout"
-	herbstclient emit_hook keyboard "$new_layout"
+	printf "%s\n" "$new_layout"
 fi
