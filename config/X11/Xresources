@@ -8,7 +8,7 @@
 #include "Xresources.d/base16-256"
 
 *.font: DejaVu Sans Mono:size=12
-*.iconfont: Font Awesome 5 Free Solid:size=12
+*.iconfont: Font Awesome 5 Free:style=Solid:size=12
 
 Xcursor.size: 16
 
