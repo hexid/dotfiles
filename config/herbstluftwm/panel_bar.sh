@@ -63,10 +63,8 @@ draw_tags() {
 	done
 }
 
-rm /tmp/panel.dat
 while true; do
 	IFS=$'\t' read -ra cmd || break # wait for next command
-	printf "%s\n" "${cmd[@]}" >> /tmp/panel.dat
 	case "${cmd[0]}" in # find out event origin
 		tag*)
 			IFS=$'\t' read -ra tags <<<"$("$hc" tag_status "$monitor")"
