@@ -63,6 +63,7 @@ printf_fifo 'keyboard\t%s\n' "$(keyboard-layout.sh -q)" &
 printf_fifo 'tag_init\n' &
 printf_fifo 'network\n' &
 printf_fifo 'volume\n' &
+printf_fifo 'updates\n' &
 
 "$dir"/panel_bar.sh "$monitor" <"$panel_fifo" | lemonbar -g "${pan_w}x${pan_h}+${off_x}+0" -o "${pan_off}" \
 	-B "${backgd_color}" -F "${backgd_color}" -f "${textfont}" -f "${iconfont}" -a 50 | \

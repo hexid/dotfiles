@@ -28,8 +28,8 @@ bashisms() {
 cd() {
 	builtin cd "$@" && ls
 }
-pacaur() {
-	command pacaur "$@"
+trizen() {
+	command trizen "$@"
 	if systemctl --user is-enabled checkupdates.timer >/dev/null; then
 		systemctl --user start --no-block checkupdates.service
 	fi

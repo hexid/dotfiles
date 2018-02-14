@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 repo=$(checkupdates | wc -l)
-aur=$(pacaur -k --devel --needed | wc -l)
+aur=$(trizen -Qua 2>/dev/null | wc -l)
 
 if [ $aur -ne 0 ]; then
 	auru=" (+$aur)"
