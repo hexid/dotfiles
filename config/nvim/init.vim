@@ -1,12 +1,13 @@
 " Plugins (junegunn/vim-plug)
 call plug#begin()
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
 Plug 'airblade/vim-gitgutter'
 Plug 'chrisbra/Recover.vim'
 Plug 'chriskempson/base16-vim'
 Plug 'edkolev/tmuxline.vim'
-Plug 'rust-lang/rust.vim'
+Plug 'felixjung/vim-base16-lightline'
+Plug 'itchyny/lightline.vim'
+Plug 'leafgarland/typescript-vim', { 'for': 'typescript' }
+Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'tpope/vim-fugitive'
 call plug#end()
 
@@ -15,18 +16,14 @@ set background=dark
 set t_Co=256
 let base16colorspace=256
 colorscheme base16-default-dark
-let g:airline_theme='base16'
 
-" airline
+" lightline
 set laststatus=2 " always show the status line (shows blank line)
 set ttimeoutlen=50
 set noshowmode " hide default mode indicator
-let g:airline_left_sep=''
-let g:airline_left_alt_sep=''
-let g:airline_right_sep=''
-let g:airline_right_alt_sep=''
-let g:airline_branch_prefix=''
-let g:airline_linecolumn_prefix=''
+let g:lightline={
+\ 'colorscheme': 'base16_default',
+\}
 
 " tmuxline
 let g:tmuxline_preset={
@@ -37,12 +34,15 @@ let g:tmuxline_preset={
 	\'options' : {'status-justify' : 'left'}
 	\}
 let g:tmuxline_powerline_separators=0
+let g:tmuxline_theme='lightline'
 
 cnoremap w! w !sudo tee % >/dev/null
 
 vmap <C-c> "+yi
 vmap <C-x> "+c
 set pastetoggle=<F2>
+
+set mouse=a
 
 set listchars=tab:▸\ ,space:·,trail:+,extends:▸,precedes:◂,nbsp:+
 set list
