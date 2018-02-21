@@ -70,8 +70,8 @@ printf_fifo 'updates\n' &
 while read line; do
 	IFS=$'\t' read -ra cmd <<<"${line}"
 	case "${cmd[0]}" in
-		keyboard) printf_fifo "keyboard\t%s\n" "$(keyboard-layout.sh)" & ;;
-		status) printf_fifo "status\t%s\n" "${cmd[@]:1}" & ;;
+		keyboard) "$hc" emit_hook "keyboard" "$(keyboard-layout.sh)" ;;
+		status) "$hc" emit_hook "status\t${cmd[@]:1}" ;;
 		tag_focus) "$hc" chain . focus_monitor "$monitor" . use "${cmd[@]:1}" ;;
 		tag_move) "$hc" chain . lock . move "${cmd[@]:1}" . focus_monitor "$monitor" . use "${cmd[@]:1}" . unlock ;;
 		tag_swap) hlwm-swaptag.sh use "${cmd[@]:1}" ;;
