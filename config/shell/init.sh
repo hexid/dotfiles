@@ -1,11 +1,9 @@
 #!/bin/sh
 
 if [ "$TERM" = "linux" ]; then # fix colors on TTYs
-	_SEDCMD='s/.*\*color\([0-9]\{1,\}\).*#\([0-9a-fA-F]\{6\}\).*/\1 \2/p'
-	for i in $(sed -n "$_SEDCMD" "$XDG_CONFIG_HOME"/X11/Xresources | \
-				awk '$1 < 16 {printf "\\e]P%X%s", $1, $2}'); do
-		printf "$i"
-	done
+	cpp "$XDG_CONFIG_HOME"/X11/Xresources | sed '/\s*!/d' | \
+		awk 'match($0, /\.color([0-9]+)\s*:\s*#(.*?)\s*/, a) && a[1] < 16 {printf "\\\\033]P%X%s", a[1], a[2]}' | \
+		xargs printf '%b'
 	clear
 elif [[ "$(systemd-detect-virt)" = 'systemd-nspawn' ]]; then
 	export TERM='screen-256color'
