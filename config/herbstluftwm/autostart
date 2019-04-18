@@ -78,9 +78,4 @@ hc detect_monitors # automatic detection
 # load random background
 feh --no-fehbg --randomize --recursive --bg-scale "$XDG_DATA_HOME/backgrounds"
 
-# find the panel
-panel="$XDG_CONFIG_HOME/herbstluftwm/panel.sh"
-[ -x "$panel" ] || panel=/etc/xdg/herbstluftwm/panel.sh
-for monitor in $(hc list_monitors | cut -d: -f1); do
-	"$panel" $monitor & # start panel on each monitor
-done
+"$XDG_CONFIG_HOME"/polybar/launch.sh

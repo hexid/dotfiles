@@ -25,6 +25,7 @@
       create: true
       path: config/nvim/init.vim
     $XDG_CONFIG_HOME/pacman: config/pacman
+    $XDG_CONFIG_HOME/polybar: config/polybar
     $XDG_CONFIG_HOME/shell: config/shell
     $XDG_CONFIG_HOME/sxhkd: config/sxhkd
     $XDG_CONFIG_HOME/systemd: config/systemd
