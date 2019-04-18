@@ -29,11 +29,14 @@ super + ctrl + shift + {comma,period}
 super + {_,shift + }{_,ctrl + }apostrophe
 	herbstclient {cycle_monitor,shift_to_monitor} {+,-}1
 
-super + {_,ctrl + }Tab
+super + {_,shift + }Tab
 	herbstclient cycle_all {+,-}1
 
 super + {f,p,g}
 	herbstclient {fullscreen,pseudotile,floating} toggle
+
+super + shift + f
+	herbstclient chain . set_attr clients.focus.ewmhnotify toggle . fullscreen toggle . set_attr clients.focus.ewmhnotify toggle
 
 super + space
 	herbstclient cycle_layout 1
@@ -43,3 +46,6 @@ super + ctrl + space
 
 super + i
 	herbstclient jumpto urgent
+
+super + m
+	hlwm-maximize.sh
