@@ -32,7 +32,6 @@
     $XDG_CONFIG_HOME/tmux/tmux.conf:
       create: true
       path: config/tmux/tmux.conf
-    $XDG_CONFIG_HOME/trizen: config/trizen
     $XDG_CONFIG_HOME/user-dirs.dirs: config/user-dirs.dirs
     $XDG_CONFIG_HOME/weechat: config/weechat
     $XDG_CONFIG_HOME/X11: config/X11
