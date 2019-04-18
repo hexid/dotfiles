@@ -7,7 +7,7 @@ super + e
 super + o
 	dmenu_run -sb "$_xrdb_color4" -sf "$_xrdb_background" -fn "$_xrdb_font"
 super + shift + {_, ctrl + }{o,t}
-	wardedmenu { ,-w work }{ ,-T 'TOTP: ' }-- -sb "$_xrdb_color4" -sf "$_xrdb_background" -fn "$_xrdb_font"
+	wardedmenu { ,-w work }{ ,-O 'OTP: ' }-- -sb "$_xrdb_color4" -sf "$_xrdb_background" -fn "$_xrdb_font"
 
 super + Escape
 	slock
@@ -25,10 +25,9 @@ XF86MonBrightness{Down,Up}
 	xbacklight -{dec,inc} 5
 
 Print
-	maim "$HOME/$(date -u +'%Y-%m-%-d-%H%M%S').png"
-
+	maim -u --nodecorations=1 "$HOME/documents/screenshots/$(date -u +'%Y-%m-%d-%H%M%S').png"
 ctrl + Print
-	maim -s "$HOME/$(date -u +'%Y-%m-%-d-%H%M%S').png"
+	maim -s -u --nodecorations=1 "$HOME/documents/screenshots/$(date -u +'%Y-%m-%d-%H%M%S').png"
 
 super + XF86AudioMute
 	pavucontrol
