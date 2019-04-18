@@ -28,11 +28,11 @@ bashisms() {
 cd() {
 	builtin cd "$@" && ls
 }
-trizen() {
-	command trizen "$@"
-	if systemctl --user is-enabled checkupdates.timer >/dev/null; then
-		systemctl --user start --no-block checkupdates.service
-	fi
+mirrorlist() {
+	curl -s "https://www.archlinux.org/mirrorlist/?country=US&protocol=https&use_mirror_status=on" \
+		| sed -e 's/^#Server/Server/' -e '/^#/d' \
+		| rankmirrors -n 5 - \
+		| sudo tee /etc/pacman.d/mirrorlist
 }
 wcf() {
 	if [ -z "$1" ]; then
