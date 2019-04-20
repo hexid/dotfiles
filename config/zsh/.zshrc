@@ -1,5 +1,7 @@
 . "$XDG_CONFIG_HOME"/shell/aliases.sh
-. /usr/share/doc/pkgfile/command-not-found.zsh
+if [ -f /usr/share/doc/pkgfile/command-not-found.zsh ]; then
+	. /usr/share/doc/pkgfile/command-not-found.zsh
+fi
 
 unsetopt beep
 
@@ -15,5 +17,9 @@ done
 zstyle :compinstall filename "$XDG_CONFIG_HOME"/zsh/.zshrc
 autoload -Uz compinit
 compinit -d "$XDG_CACHE_HOME"/zcompdump
+
+if [ command -v direnv &>/dev/null ]; then
+	eval "$(direnv hook zsh)"
+fi
 
 . "$XDG_CONFIG_HOME"/shell/init.sh
