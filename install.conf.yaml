@@ -8,6 +8,7 @@
 
     $XDG_CONFIG_HOME/atom-editor: config/atom-editor
     $XDG_CONFIG_HOME/chromium-flags.conf: config/chromium-flags.conf
+    $XDG_CONFIG_HOME/dircolors: config/dircolors
     $XDG_CONFIG_HOME/dunst: config/dunst
     $XDG_CONFIG_HOME/git: config/git
     $XDG_CONFIG_HOME/gtk-2.0: config/gtk-2.0
