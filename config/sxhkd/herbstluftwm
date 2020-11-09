@@ -32,8 +32,11 @@ super + {_,shift + }{_,ctrl + }apostrophe
 super + {_,shift + }Tab
 	herbstclient cycle_all {+,-}1
 
-super + {f,p,g}
-	herbstclient {fullscreen,pseudotile,floating} toggle
+super + {f,p}
+	herbstclient {fullscreen,pseudotile} toggle
+
+super + g
+	herbstclient attr clients.focus.floating toggle
 
 super + shift + f
 	herbstclient chain . set_attr clients.focus.ewmhnotify toggle . fullscreen toggle . set_attr clients.focus.ewmhnotify toggle
