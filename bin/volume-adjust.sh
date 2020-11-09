@@ -31,4 +31,3 @@ case "$1" in
 		amixer -q -D pulse set Capture Capture Switch toggle
 		;;
 esac
-herbstclient emit_hook volume

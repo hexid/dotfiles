@@ -21,8 +21,11 @@ XF86Audio{Play,Prev,Next}
 XF86Audio{LowerVolume,RaiseVolume,Mute,MicMute}
 	volume-adjust.sh {down,up,mute,micmute}
 
+XF86Calculator
+	volume-adjust.sh micmute
+
 XF86MonBrightness{Down,Up}
-	xbacklight -{dec,inc} 5
+	brightnessctl set {5%-,+5%}
 
 Print
 	maim -u --nodecorations=1 "$HOME/documents/screenshots/$(date -u +'%Y-%m-%d-%H%M%S').png"
@@ -37,6 +40,9 @@ super + F1
 
 #super + F2
 #	network-restart.sh
+
+super + F4
+	windowunmap.sh
 
 # make sxhkd reload its configuration files:
 super + shift + Escape
