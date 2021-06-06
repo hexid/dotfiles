@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+
+if [[ "$1" == "toggle" ]]; then
+	dunstctl set-paused toggle
+fi
+
+if [[ "$(dunstctl is-paused)" == "false" ]]; then
+	printf ''
+else
+	printf ''
+fi
