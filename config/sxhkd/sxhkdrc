@@ -4,6 +4,9 @@ super + Return
 super + e
 	pcmanfm
 
+super + w
+	rofi -show window
+
 super + o
 	dmenu_run -sb "$_xrdb_color4" -sf "$_xrdb_background" -fn "$_xrdb_font"
 super + shift + {_, ctrl + }{o,t}
@@ -27,10 +30,10 @@ XF86Calculator
 XF86MonBrightness{Down,Up}
 	brightnessctl set {5%-,+5%}
 
-Print
-	maim -u --nodecorations=1 "$HOME/documents/screenshots/$(date -u +'%Y-%m-%d-%H%M%S').png"
+{_, super} + Print
+	flameshot {screen,full} -p "$HOME/documents/screenshots"
 ctrl + Print
-	maim -s -u --nodecorations=1 "$HOME/documents/screenshots/$(date -u +'%Y-%m-%d-%H%M%S').png"
+	flameshot gui
 
 super + XF86AudioMute
 	pavucontrol
