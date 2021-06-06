@@ -9,6 +9,8 @@ setopt COMPLETE_ALIASES
 setopt correct
 setopt globdots
 
+setopt ignore_eof # disable ^D (10 presses still closes shell)
+
 for f in $ZDOTDIR/rc/*; do
 	. $f
 done
@@ -18,8 +20,6 @@ zstyle :compinstall filename "$XDG_CONFIG_HOME"/zsh/.zshrc
 autoload -Uz compinit
 compinit -d "$XDG_CACHE_HOME"/zcompdump
 
-if [ command -v direnv &>/dev/null ]; then
-	eval "$(direnv hook zsh)"
-fi
+command -v direnv &>/dev/null && eval "$(direnv hook zsh)"
 
 . "$XDG_CONFIG_HOME"/shell/init.sh
