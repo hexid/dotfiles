@@ -3,7 +3,7 @@
 !#include "Xresources.d/urxvt"
 
 ! Load colors
-#include "Xresources.d/base16.d/default"
+#include "Xresources.d/base16.d/onedark"
 !#include "Xresources.d/base16"
 #include "Xresources.d/base16-256"
 
