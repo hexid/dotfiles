@@ -28,6 +28,11 @@ EOF
 	((key_index=key_index+1))
 done
 
+# mouse
+hc mousebind Mod4-Button1 move
+hc mousebind Mod4-Button2 zoom
+hc mousebind Mod4-Button3 resize
+
 # theme
 hc attr theme.tiling.reset 1
 hc attr theme.floating.reset 1
@@ -61,11 +66,14 @@ hc attr settings.tree_style '╾│ ├└╼─┐'
 hc attr settings.wmname LG3D # fix Java issues
 hc attr settings.auto_detect_monitors 1
 
+hc attr settings.focus_stealing_prevention 0
+
 # rules
 hc rule focus=on
+hc rule floatplacement=smart
 hc rule class~'(Pinentry)' focus=on
 hc rule class~'(Steam)' focus=off
-hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' pseudotile=on
+hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' floating=on
 hc rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK|DESKTOP)' manage=off
 
