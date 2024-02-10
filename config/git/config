@@ -13,6 +13,8 @@
 	tool = vimdiff
 [mergetool "vimdiff"]
 	path = nvim
+[stash]
+	showIncludeUntracked = true
 [push]
 	default = simple
 [pull]
@@ -26,6 +28,7 @@
 	diffc = diff --cached
 	find = "!git ls-files | grep --color -i"
 	graph = log --all --decorate --oneline --graph
+	pushf = push --force-with-lease
 	mr = push -o merge_request.create -o merge_request.remove_source_branch
 	publish = "!git push -u origin $(git branch-name)"
 	mr-publish = "!git mr -u origin $(git branch-name)"

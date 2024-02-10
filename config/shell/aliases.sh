@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-alias dmesg='dmesg -H'
+alias dmesg='journalctl -ko short-monotonic --no-hostname'
 alias grep='grep --color=auto'
 alias ls='ls -F --color=auto'
 alias ll='ls -lAh'
@@ -10,7 +10,7 @@ alias tree='tree -F'
 alias lsblk='lsblk -o NAME,SIZE,TYPE,RM,RO,UUID,MOUNTPOINT'
 
 alias sudodiff='SUDO_EDITOR="nvim -d" sudoedit'
-alias pacdiff='SUDO_EDITOR="nvim -d" DIFFPROG="sudoedit" pacdiff'
+alias pacdiff='DIFFPROG="nvim -d" pacdiff --sudo'
 alias vim='nvim'
 alias vimdiff='nvim -d'
 
@@ -19,8 +19,6 @@ alias pyserv='python3 -m http.server 7777'
 
 alias clip-copy='xsel --clipboard --input <'
 alias clip-paste='xsel --clipboard --output >'
-
-alias scrot='scrot -e "mv \$f ~/documents/screenshots/"'
 
 bashisms() {
 	checkbashisms -f -p $(grep -IrlE '^#! ?(/usr)?/bin/(env )?sh' "$@")
@@ -40,4 +38,13 @@ wcf() {
 	else
 		find . -name "*.${1}" | xargs wc -l
 	fi
+}
+
+stopwatch() {
+	dateStart=`date +%s`
+
+	while true; do
+		printf "\r$(date -u --date @$((`date +%s` - $dateStart)) +%H:%M:%S)";
+		sleep 1
+	done
 }

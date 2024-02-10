@@ -1,8 +1,8 @@
 #!/usr/bin/env sh
 
-DIR=`dirname "$(readlink -f "$0")"`
+set -- ~/.config/shell/profile.d/*
 
-for f in "$DIR"/profile.d/*; do
+for f in "$@"; do
 	. "$f"
 done
 

@@ -16,5 +16,3 @@ export DXVK_HUD='compiler'
 # fix issues with shader cache being reset on game launch
 export __GL_SHADER_DISK_CACHE_SKIP_CLEANUP=1
 
-# enable VAAPI in Firefox
-export MOZ_X11_EGL=1
