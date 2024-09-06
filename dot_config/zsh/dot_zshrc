@@ -1,0 +1,26 @@
+. "$XDG_CONFIG_HOME"/shell/aliases.sh
+if [ -f /usr/share/doc/pkgfile/command-not-found.zsh ]; then
+	. /usr/share/doc/pkgfile/command-not-found.zsh
+fi
+
+unsetopt beep
+
+setopt COMPLETE_ALIASES
+setopt correct
+setopt globdots
+
+setopt ignore_eof # disable ^D (10 presses still closes shell)
+
+for f in $ZDOTDIR/rc/*; do
+	. $f
+done
+
+# enable completion
+zstyle :compinstall filename "$XDG_CONFIG_HOME"/zsh/.zshrc
+autoload -Uz compinit
+compinit -d "$XDG_CACHE_HOME"/zcompdump
+zstyle ':completion:*' menu select
+
+command -v direnv &>/dev/null && eval "$(direnv hook zsh)"
+
+. "$XDG_CONFIG_HOME"/shell/init.sh
