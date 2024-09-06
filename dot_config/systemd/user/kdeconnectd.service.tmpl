@@ -1,0 +1,18 @@
+[Unit]
+Description=Connect your computer to your smartphone or tablet
+StartLimitIntervalSec=6
+StartLimitBurst=5
+
+[Service]
+{{ if lookPath "kdeconnectd" -}}
+ExecStart={{ lookPath "kdeconnectd" }}
+{{ end -}}
+{{ if lookPath "kquitapp6" -}}
+ExecStop={{ lookPath "kquitapp6" }} kdeconnectd
+{{ end -}}
+Restart=on-failure
+RestartSec=5s
+BusName=org.kde.kdeconnect
+
+[Install]
+WantedBy=default.target

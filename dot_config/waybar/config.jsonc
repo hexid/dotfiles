@@ -1,0 +1,180 @@
+{
+	//"layer": "top",
+	"position": "top",
+	"height": 30,
+	"spacing": 4,
+
+	"modules-left": [
+		"sway/workspaces",
+		//"custom/swaytree",
+		"sway/mode",
+		"sway/scratchpad",
+	],
+	"modules-center": [
+		"sway/window",
+	],
+	"modules-right": [
+		"systemd-failed-units",
+		"mpris",
+		"privacy",
+		"custom/mako",
+		"idle_inhibitor",
+		"pulseaudio#sink",
+		"pulseaudio#source",
+		"network",
+		"cpu",
+		"memory",
+		"temperature",
+		"battery",
+		"clock",
+		"tray",
+	],
+	"sway/workspaces": {
+		"disable-scroll": true,
+		"all-outputs": false,
+		"format": "{name}",
+	},
+	"keyboard-state": {
+		"numlock": true,
+		"capslock": true,
+		"format": "{name} {icon}",
+		"format-icons": {
+			"locked": "",
+			"unlocked": "",
+		},
+	},
+	"sway/mode": {
+		"format": "{}",
+		"max-length": 50,
+	},
+	"sway/scratchpad": {
+		"format": "{icon} {count}",
+		"show-empty": false,
+		"format-icons": ["", ""],
+		"tooltip": true,
+		"tooltip-format": "{app}: {title}",
+	},
+	"idle_inhibitor": {
+		"format": "{icon}",
+		"format-icons": {
+			"activated": "",
+			"deactivated": "",
+		}
+	},
+	"tray": {
+		// "icon-size": 21,
+		"spacing": 10,
+	},
+	"clock": {
+		// "timezone": "America/New_York",
+		"tooltip-format": "<tt><big>{calendar}</big></tt>",
+		"format-alt": "{:%Y-%m-%d}",
+	},
+	"cpu": {
+		"format": "{usage}% ",
+	},
+	"memory": {
+		"format": "{}% ",
+	},
+	"temperature": {
+		// "thermal-zone": 2,
+		// "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+		"critical-threshold": 80,
+		// "format-critical": "{temperatureC}°C {icon}",
+		"format": "{temperatureC}°C {icon}",
+		"format-icons": ["", "", ""],
+	},
+	"backlight": {
+		// "device": "acpi_video1",
+		"format": "{percent}% {icon}",
+		"format-icons": ["", "", "", "", "", "", "", "", ""],
+	},
+	"battery": {
+		"states": {
+			// "good": 95,
+			"warning": 30,
+			"critical": 15,
+		},
+		"format": "{capacity}% {icon}",
+		"format-charging": "{capacity}% ",
+		"format-plugged": "{capacity}% ",
+		"format-alt": "{time} {icon}",
+		// "format-good": "", // An empty format will hide the module
+		// "format-full": "",
+		"format-icons": ["", "", "", "", ""],
+	},
+	"network": {
+		// "interface": "wlp2*", // (Optional) To force the use of this interface
+		"format-wifi": "{essid} ({signalStrength}%) ",
+		"format-ethernet": "{ipaddr}/{cidr} ",
+		"tooltip-format": "{ifname} via {gwaddr} ",
+		"format-linked": "{ifname} (No IP) ",
+		"format-disconnected": "Disconnected ⚠",
+		"format-alt": "{ifname}: {ipaddr}/{cidr}",
+	},
+	"pulseaudio#sink": {
+		"format": "{volume}% {icon}",
+		"format-bluetooth": "{volume}% {icon}",
+		"format-bluetooth-muted": " {icon}",
+		"format-muted": "",
+		"format-icons": {
+			"headphone": "",
+			"hands-free": "",
+			"headset": "",
+			"phone": "",
+			"portable": "",
+			"car": "",
+			"default": ["", "", ""],
+		},
+		"on-click": "pulseaudio.sh --mute",
+		"on-click-middle": "pavucontrol",
+		"on-click-right": "pulseaudio.sh --output",
+	},
+	"pulseaudio#source": {
+		"format": "{format_source}",
+		"format-source": "{volume}% ",
+		"format-source-muted": "",
+		"on-click": "pulseaudio.sh --mute-source",
+		"on-click-middle": "pavucontrol",
+		"on-click-right": "pulseaudio.sh --input",
+		"on-scroll-up": "pulseaudio.sh --volume-source-up",
+		"on-scroll-down": "pulseaudio.sh --volume-source-down",
+	},
+	"privacy": {
+		"icon-spacing": 4,
+		"icon-size": 13,
+		"modules": [
+			{ "type": "screenshare" },
+			//{ "type": "audio-out" },
+			{ "type": "audio-in" },
+		],
+	},
+	"mpris": {
+		"dynamic-order": ["title", "artist"],
+		"format": "{player_icon} {dynamic}",
+		"format-paused": "{player_icon} {status_icon}",
+		"player-icons": {
+			"default": "▶",
+			"mpv": "🎵",
+			"spotify": "🎵",
+		},
+		"status-icons": {
+			"paused": "⏸"
+		},
+		"ignored-players": ["firefox"],
+	},
+	"systemd-failed-units": {
+		"format": "✗ S-{nr_failed_system} U-{nr_failed_user}",
+		"user": true,
+		"system": true,
+		"hide-on-ok": true,
+	},
+	"custom/mako": {
+		"exec": "$XDG_BIN_HOME/waybar-mako.sh --show",
+		"interval": "once",
+		"signal": 1,
+		"on-click": "$XDG_BIN_HOME/waybar-mako.sh --toggle",
+		"on-click-right": "$XDG_BIN_HOME/waybar-mako.sh --clear",
+		"return-type": "json",
+	},
+}

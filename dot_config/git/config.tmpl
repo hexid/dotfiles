@@ -1,0 +1,67 @@
+[user]
+	name = {{ .handle }}
+	email = {{ .email }}
+[branch]
+	sort = -committerdate
+[credential]
+	helper = cache --timeout=3600
+[diff]
+	algorithm = histogram
+	submodule = log
+	tool = difftastic
+[difftool]
+	prompt = false
+[difftool "vimdiff"]
+	path = nvim
+[difftool "difftastic"]
+	cmd = difft "$LOCAL" "$REMOTE"
+[init]
+	defaultBranch = main
+[log]
+	diffMerges = separate
+[merge]
+	conflictstyle = zdiff3
+	tool = vimdiff
+[mergetool "vimdiff"]
+	path = nvim
+[push]
+	default = simple
+[pull]
+	ff = only
+[pager]
+	difftool = true
+	status = true
+[stash]
+	showIncludeUntracked = true
+[status]
+	submoduleSummary = true
+[submodule]
+	recurse = true
+[tag]
+	sort = -taggerdate
+
+[alias]
+	aliases = "!git config -l | grep alias | cut -c 7-"
+	amend = commit --amend
+	branch-name = rev-parse --abbrev-ref HEAD
+	diffc = diff --cached
+	find = "!git ls-files | grep --color -i"
+	graph = log --all --decorate --oneline --graph
+	pushf = push --force-with-lease
+	mr = push -o merge_request.create -o merge_request.remove_source_branch
+	publish = "!git push -u origin $(git branch-name)"
+	mr-publish = "!git mr -u origin $(git branch-name)"
+	st = status
+	unstash = "!git stash show -p | git apply -3 && git stash drop"
+
+	assume = update-index --assume-unchanged
+	unassume = update-index --no-assume-unchanged
+	assumed = "!git ls-files -v | grep ^h | cut -c 3-"
+
+[url "git@gitlab.com:"]
+	insteadOf = https://gitlab.com/
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
