@@ -1,0 +1,8 @@
+{{- $themes := unmanaged "../themes" -}}
+
+{{- $email := promptStringOnce "email" -}}
+{{- $handle := promptStringOnce "handle" -}}
+
+[data]
+email = {{ $email | quote }}
+handle = {{ $handle | quote }}

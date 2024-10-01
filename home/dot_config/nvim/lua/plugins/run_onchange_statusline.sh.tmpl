@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+
+# statusline.lua hash: {{ include "dot_config/nvim/lua/plugins/statusline.lua" | sha256sum }}
+
+#nvim --headless "+Lazy! sync" +qa
+nvim -c "Tmuxline | TmuxlineSnapshot! ${XDG_CONFIG_HOME:-$HOME/.config}/tmux/tmuxline.vim.conf | qa"

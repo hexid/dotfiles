@@ -3,8 +3,8 @@ set $mod Mod4
 
 set $term kitty
 
-set $menu wofi -S run | xargs swaymsg exec --
-set $drun wofi -S drun | xargs swaymsg exec --
+set $menu wofi -i -S run | xargs swaymsg exec --
+set $drun wofi -i -S drun | xargs swaymsg exec --
 set $pass rofi-rbw --action copy --selector wofi --selector-args='-i' --target password
 set $totp rofi-rbw --action copy --selector wofi --selector-args='-i' --target totp
 set $calc rofi -show calc -modi calc -no-show-match -no-sort
@@ -15,14 +15,17 @@ set $previous_or_new swaymsg -r -t get_workspaces | jq -r --arg OUTPUT $(swaymsg
 ### Output configuration
 output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 
-output eDP-1 mode 3840x2160
-output eDP-1 scale 1.5
-
-output HDMI-A-1 mode 3840x1080
-output HDMI-A-1 scale 1
-
+output eDP-1 mode 1920x1080
+output eDP-1 scale 1
 output eDP-1 pos 3840,0
-output HDMI-A-1 pos 0,0
+
+output HDMI-A-1 mode 2560x1080
+output HDMI-A-1 scale 1
+output HDMI-A-1 pos 1280,0
+
+output DP-1 mode 1280x1080
+output DP-1 scale 1
+output DP-1 pos 0,0
 
 ### Input configuration
 input * {
@@ -87,6 +90,10 @@ input type:touch {
     bindsym XF86AudioMicMute exec pulseaudio.sh --mute-source
     bindsym $mod+XF86AudioMicMute exec pulseaudio.sh --mute-source
 
+    bindsym XF86AudioPlay exec playerctl play-pause
+    bindsym XF86AudioNext exec playerctl next
+    bindsym XF86AudioPrev exec playerctl previous
+
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
     # Despite the name, also works for non-floating windows.
@@ -114,7 +121,9 @@ input type:touch {
     bindsym $mod+Shift+Right move right
 
     bindsym $mod+apostrophe focus output right
+    bindsym $mod+Alt+apostrophe focus output left
     bindsym $mod+Shift+apostrophe move output right
+    bindsym $mod+Shift+Alt+apostrophe move output left
 
 # Workspaces:
     # Switch to workspace

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 outputs() {
-	OUTPUT=$(pactl list short sinks | cut  -f 2 | rofi -dmenu -p 'Output' -mesg 'Select prefered output source')
+	OUTPUT=$(pactl list short sinks | cut  -f 2 | wofi -dmenu -p 'Output' -mesg 'Select prefered output source')
 	pactl set-default-sink "$OUTPUT" >/dev/null 2>&1
 
 	for playing in $(pactl list short sink-inputs | cut -f 1); do
@@ -10,7 +10,7 @@ outputs() {
 }
 
 inputs() {
-	INPUT=$(pactl list short sources | cut  -f 2 | grep input | rofi -dmenu -p 'Input' -mesg 'Select prefered input source')
+	INPUT=$(pactl list short sources | cut  -f 2 | grep input | wofi -dmenu -p 'Input' -mesg 'Select prefered input source')
 	pactl set-default-source "$INPUT" >/dev/null 2>&1
 
 	for recording in $(pactl list short source-outputs | cut -f 1); do
