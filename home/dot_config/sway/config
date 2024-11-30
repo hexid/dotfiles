@@ -122,8 +122,16 @@ input type:touch {
 
     bindsym $mod+apostrophe focus output right
     bindsym $mod+Alt+apostrophe focus output left
-    bindsym $mod+Shift+apostrophe move output right
-    bindsym $mod+Shift+Alt+apostrophe move output left
+    bindsym $mod+Shift+apostrophe move container to output right
+    bindsym $mod+Shift+Alt+apostrophe move container to output left
+
+    bindsym $mod+Ctrl+Shift+apostrophe move workspace to output right
+    bindsym $mod+Ctrl+Shift+Alt+apostrophe move workspace to output left
+
+    bindsym $mod+Ctrl+Shift+comma move container to output left
+    bindsym $mod+Ctrl+Shift+period move container to output right
+    bindsym $mod+Ctrl+Shift+Alt+comma move workspace to output left
+    bindsym $mod+Ctrl+Shift+Alt+period move workspace to output right
 
 # Workspaces:
     # Switch to workspace
@@ -221,10 +229,10 @@ for_window {
     [shell="xwayland"] title_format "%title :: %shell"
     #[shell="xwayland"] client.focused
 }
-
 for_window [app_id="flameshot"] border pixel 0, floating enable, fullscreen disable, move absolute position 0 0
 
 exec swayidle -w timeout 300 'swaylock' before-sleep 'swaylock'
 exec mako
+exec "/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
 
 include /etc/sway/config.d/*
